@@ -4,6 +4,10 @@ A free, open-source study guide to Python for data analysts: the tools around Py
 
 It is a static web page (`index.html`) that loads its content from `content/*.json`, so it can be hosted on GitHub Pages and updated by editing data files.
 
+## Open the page
+
+**https://angel-iana.github.io/python-analyst-companion/**
+
 ## What is inside
 
 | Section | What it holds |
