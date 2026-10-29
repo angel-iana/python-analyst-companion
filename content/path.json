@@ -1,0 +1,261 @@
+{
+  "modules": [
+    {
+      "id": "m1",
+      "title": "Workspace: tools and environments",
+      "level": 1,
+      "goal": "Know what Python, Anaconda, pip, conda, Jupyter and VS Code are, and how they fit together.",
+      "status": "ready",
+      "steps": [
+        "distribution-vs-interpreter",
+        "packages-vs-libraries",
+        "library-roles",
+        "pip-vs-conda",
+        "virtual-environment",
+        "jupyter-kernel",
+        "jupyter-vs-environment",
+        "vscode-interpreter",
+        "python-needs-java"
+      ]
+    },
+    {
+      "id": "m2",
+      "title": "Python basics",
+      "level": 1,
+      "goal": "Read and write simple Python: how code runs, the basic types, loops, functions and errors.",
+      "status": "ready",
+      "steps": [
+        "interpreter-bytecode",
+        "indentation",
+        "syntax-error",
+        "comments-and-docstrings",
+        "types-and-division",
+        "collections",
+        "loops-and-comprehensions",
+        "functions",
+        "try-except"
+      ]
+    },
+    {
+      "id": "m3",
+      "title": "pandas: your first tables",
+      "level": 1,
+      "goal": "Create a table, read a file, pick columns and filter rows.",
+      "status": "ready",
+      "steps": [
+        "dataframe-and-series",
+        "read-csv-basics",
+        "select-and-filter",
+        "loc-vs-iloc"
+      ]
+    },
+    {
+      "id": "m4",
+      "title": "pandas: cleaning data",
+      "level": 2,
+      "goal": "Find and fix missing values, duplicates, wrong types and messy text.",
+      "status": "ready",
+      "steps": [
+        "missing-values",
+        "duplicates",
+        "convert-types",
+        "text-columns"
+      ]
+    },
+    {
+      "id": "m5",
+      "title": "pandas: transforming and summarizing",
+      "level": 2,
+      "goal": "Add columns, sort, group and summarize, build pivot tables and monthly totals.",
+      "status": "ready",
+      "steps": [
+        "new-columns",
+        "sort-and-limit",
+        "dates-by-month",
+        "groupby-basics",
+        "groupby-multiple",
+        "pivot-table"
+      ]
+    },
+    {
+      "id": "m6",
+      "title": "pandas: combining tables",
+      "level": 2,
+      "goal": "Join tables with merge and stack them with concat.",
+      "status": "ready",
+      "steps": [
+        "merge-tables",
+        "concat-rows"
+      ]
+    },
+    {
+      "id": "m7",
+      "title": "Charts: first plots",
+      "level": 1,
+      "goal": "Draw and read the most common charts with matplotlib.",
+      "status": "ready",
+      "steps": [
+        "matplotlib-plt",
+        "chart-type-choice",
+        "line-chart",
+        "bar-chart-groupby",
+        "histogram",
+        "readable-charts"
+      ]
+    },
+    {
+      "id": "m8",
+      "title": "Charts: seaborn and finishing",
+      "level": 2,
+      "goal": "Compare distributions and relationships with seaborn, lay out several charts, save the result.",
+      "status": "ready",
+      "steps": [
+        "scatter-relationship",
+        "seaborn-boxplot",
+        "correlation-heatmap",
+        "subplots-grid",
+        "save-figure",
+        "matplotlib-backend"
+      ]
+    },
+    {
+      "id": "m9",
+      "title": "NumPy: arrays and calculation",
+      "level": 2,
+      "goal": "Understand arrays, vectorized calculation, broadcasting and missing numbers: the engine under pandas.",
+      "status": "ready",
+      "steps": [
+        "numpy-array-basics",
+        "numpy-dtypes",
+        "numpy-vectorization",
+        "numpy-boolean-mask",
+        "numpy-axis",
+        "numpy-broadcasting",
+        "numpy-nan",
+        "numpy-random-seed",
+        "numpy-and-pandas"
+      ]
+    },
+    {
+      "id": "m10",
+      "title": "Statistics and scipy",
+      "level": 2,
+      "goal": "Summarize data, spot outliers, measure relationships and run a first hypothesis test.",
+      "status": "ready",
+      "steps": [
+        "stats-describe",
+        "stats-mean-median",
+        "stats-std-ddof",
+        "stats-quantiles-outliers",
+        "stats-zscore",
+        "stats-correlation",
+        "stats-p-value",
+        "stats-t-test"
+      ]
+    },
+    {
+      "id": "m11",
+      "title": "Pitfalls after version changes",
+      "level": 3,
+      "goal": "Recognize errors and silent changes that come from recent pandas and seaborn versions.",
+      "status": "ready",
+      "steps": [
+        "copy-semantics",
+        "read-csv-squeeze",
+        "fillna-method",
+        "inplace-on-column",
+        "chained-assignment",
+        "text-into-numeric-column",
+        "string-dtype-not-object",
+        "concat-keys-ignore-index",
+        "merge-ignore-index",
+        "datetime-integer-resolution",
+        "seaborn-positional-arguments"
+      ]
+    },
+    {
+      "id": "m12",
+      "title": "Challenges: data quality",
+      "level": 2,
+      "goal": "Questions about trusting, reconciling and cleaning data.",
+      "status": "ready",
+      "steps": [
+        "ch-trust-data",
+        "ch-totals-mismatch",
+        "ch-missing-bias",
+        "ch-outlier-or-error",
+        "ch-dates-wrong"
+      ]
+    },
+    {
+      "id": "m13",
+      "title": "Challenges: combining data",
+      "level": 2,
+      "goal": "Questions about joins, keys and alignment.",
+      "status": "ready",
+      "steps": [
+        "ch-merge-rowcount",
+        "ch-key-formats",
+        "ch-nan-after-align"
+      ]
+    },
+    {
+      "id": "m14",
+      "title": "Challenges: trust in results",
+      "level": 3,
+      "goal": "Questions about checking, reproducing and validating results.",
+      "status": "ready",
+      "steps": [
+        "ch-check-ai-code",
+        "ch-reproducible",
+        "ch-validate-data"
+      ]
+    },
+    {
+      "id": "m15",
+      "title": "Challenges: interpretation and communication",
+      "level": 2,
+      "goal": "Questions about definitions and reading relationships correctly.",
+      "status": "ready",
+      "steps": [
+        "ch-metric-definition",
+        "ch-correlation-causation"
+      ]
+    },
+    {
+      "id": "m16",
+      "title": "Challenges: size and speed",
+      "level": 2,
+      "goal": "Questions about large files and slow code.",
+      "status": "ready",
+      "steps": [
+        "ch-large-files",
+        "ch-slow-code"
+      ]
+    },
+    {
+      "id": "m17",
+      "title": "scikit-learn",
+      "level": 3,
+      "goal": "A first model: split, fit, evaluate.",
+      "status": "planned",
+      "topics": [
+        "Train and test split",
+        "A simple regression",
+        "Metrics"
+      ]
+    },
+    {
+      "id": "m18",
+      "title": "A complete small project",
+      "level": 3,
+      "goal": "Load, clean, analyze and chart a dataset in one reproducible notebook.",
+      "status": "planned",
+      "topics": [
+        "Project structure",
+        "Reproducible environment",
+        "Reporting results"
+      ]
+    }
+  ]
+}

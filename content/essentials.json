@@ -1,0 +1,1553 @@
+{
+  "section": "essentials",
+  "entries": [
+    {
+      "id": "distribution-vs-interpreter",
+      "tool": "Environment & tools",
+      "group": "Python and its tools",
+      "level": 1,
+      "order": 1,
+      "category": "Environment",
+      "title": "What is the difference between Python, a distribution such as Anaconda, and an IDE?",
+      "body": "**Python** (the interpreter plus the standard library) is the language runtime. A **distribution** bundles Python with a package manager and a set of ready-installed libraries. Anaconda Distribution is one example: it ships Python, many data libraries, and the `conda` tool.\n\n**Anaconda Navigator** is the desktop graphical interface included in the distribution. It launches applications such as Spyder or Jupyter Notebook and manages packages and environments without the command line. `conda` is the command-line tool behind package and environment management.\n\nAn **editor or IDE** (VS Code, Spyder) is where you write code. It does not contain the interpreter; it is pointed at one.\n\n\"Vanilla\" Python means the interpreter installed on its own from python.org, with `pip` and no extra libraries.",
+      "code": "",
+      "output": "",
+      "tested_with": {},
+      "sources": [
+        {
+          "title": "Anaconda Navigator overview",
+          "url": "https://www.anaconda.com/docs/tools/anaconda-navigator/main"
+        },
+        {
+          "title": "Python environments in VS Code",
+          "url": "https://code.visualstudio.com/docs/python/environments"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "pip-vs-conda",
+      "tool": "Environment & tools",
+      "group": "Installing packages",
+      "level": 1,
+      "order": 4,
+      "category": "Environment",
+      "title": "pip or conda: which one installs packages?",
+      "body": "Both are package managers.\n\n`pip` installs Python packages from PyPI into the environment of the interpreter that runs it. Calling it as `python -m pip install pandas` guarantees the package goes to that exact interpreter.\n\n`conda` creates environments and installs packages from conda channels. It is the manager that comes with Anaconda Distribution.\n\nPick one tool per environment and keep a list of versions (`requirements.txt` for pip) so the same code can be run again later.",
+      "code": "",
+      "output": "",
+      "tested_with": {},
+      "sources": [
+        {
+          "title": "Python Packaging User Guide: installing packages",
+          "url": "https://packaging.python.org/en/latest/tutorials/installing-packages/"
+        },
+        {
+          "title": "Anaconda Navigator overview",
+          "url": "https://www.anaconda.com/docs/tools/anaconda-navigator/main"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "virtual-environment",
+      "tool": "Environment & tools",
+      "group": "Environments and notebooks",
+      "level": 1,
+      "order": 5,
+      "category": "Environment",
+      "title": "What is a virtual environment and when do I need one?",
+      "body": "A virtual environment is an isolated folder with its own interpreter link and its own installed packages. Two projects can then use different versions of pandas without breaking each other.\n\nCreate and activate one with the standard `venv` module:\n\n- create: `python -m venv .venv`\n- activate on Windows (PowerShell): `.venv\\Scripts\\Activate.ps1`\n- activate on macOS and Linux: `source .venv/bin/activate`\n- install: `python -m pip install -r requirements.txt`\n\nActivation is a convenience: it puts the environment's interpreter first on the path. You can also run `.venv/bin/python script.py` (or `.venv\\Scripts\\python.exe script.py` on Windows) directly, without activating.\n\nAn environment is a project folder, not something you copy between computers: recreate it from `requirements.txt`.",
+      "code": "",
+      "output": "",
+      "tested_with": {},
+      "sources": [
+        {
+          "title": "Python tutorial: virtual environments and packages",
+          "url": "https://docs.python.org/3/tutorial/venv.html"
+        },
+        {
+          "title": "venv module documentation",
+          "url": "https://docs.python.org/3/library/venv.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "jupyter-kernel",
+      "tool": "Environment & tools",
+      "group": "Environments and notebooks",
+      "level": 1,
+      "order": 6,
+      "category": "Environment",
+      "title": "What is a Jupyter kernel?",
+      "body": "A notebook is a document made of code cells, text and results. The **kernel** is the separate process that runs the code of those cells and sends the results back. The notebook interface (JupyterLab or the classic Notebook in a browser) only displays the document.\n\nTwo consequences matter in practice. Variables live in the kernel's memory, so restarting the kernel clears them. And the kernel runs on a specific Python interpreter, so the packages you can import are the packages installed for that interpreter.\n\nKernels exist for other languages too, for example R.\n\nRun all cells from a fresh kernel before sharing a notebook, to confirm the order of the cells really works.",
+      "code": "",
+      "output": "",
+      "tested_with": {},
+      "sources": [
+        {
+          "title": "Jupyter architecture: content and kernels",
+          "url": "https://docs.jupyter.org/en/latest/projects/architecture/content-architecture.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "jupyter-vs-environment",
+      "tool": "Environment & tools",
+      "group": "Environments and notebooks",
+      "level": 1,
+      "order": 7,
+      "category": "Environment",
+      "title": "Is Jupyter a virtual environment?",
+      "body": "No. Jupyter is an interface for notebooks together with a kernel. A virtual environment (venv or conda) is the isolated set of packages the kernel can use. They are separate things, and a notebook is only useful with a kernel pointing at the environment that has the right libraries.\n\nWhen `import pandas` fails in a notebook but works in a terminal, the usual cause is that the kernel runs on a different interpreter than the terminal.",
+      "code": "",
+      "output": "",
+      "tested_with": {},
+      "sources": [
+        {
+          "title": "Jupyter architecture: content and kernels",
+          "url": "https://docs.jupyter.org/en/latest/projects/architecture/content-architecture.html"
+        },
+        {
+          "title": "Python tutorial: virtual environments and packages",
+          "url": "https://docs.python.org/3/tutorial/venv.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "vscode-interpreter",
+      "tool": "Environment & tools",
+      "group": "Environments and notebooks",
+      "level": 1,
+      "order": 8,
+      "category": "Environment",
+      "title": "Is VS Code an interpreter?",
+      "body": "No. VS Code is a code editor. With the Python extension it can run and debug your code, but it does not ship a Python interpreter. You choose one: a virtual environment, a conda environment, or the system Python, using the interpreter selector in the editor.\n\nSpyder is another editor aimed at scientific work, and Anaconda Navigator can launch it. The same rule applies to every editor: the interpreter and the editor are separate.",
+      "code": "",
+      "output": "",
+      "tested_with": {},
+      "sources": [
+        {
+          "title": "Python environments in VS Code",
+          "url": "https://code.visualstudio.com/docs/python/environments"
+        },
+        {
+          "title": "Anaconda Navigator overview",
+          "url": "https://www.anaconda.com/docs/tools/anaconda-navigator/main"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "python-needs-java",
+      "tool": "Environment & tools",
+      "group": "Data pipelines",
+      "level": 2,
+      "order": 9,
+      "category": "Environment",
+      "title": "Does Python for ETL need Java?",
+      "body": "Not by itself. A pipeline written with Python and pandas needs only Python and the libraries you install. The Java requirement belongs to PySpark: Spark runs on the Java Virtual Machine, so a PySpark job needs a Java runtime installed. The PySpark installation page (documentation 4.2.0) lists Java 17 or later with `JAVA_HOME` set. Its separate `pyspark-client` package, which only connects to a remote Spark server, does not need a local Java runtime.\n\nThe example below is a complete small ETL step with pandas and no Java: extract from CSV text, transform, load to CSV text.",
+      "code": "import io\nimport pandas as pd\n\nraw = \"order_id,amount,country\\n1,10.5,RO\\n2,,RO\\n3,7.0,DE\\n\"\n\ndf = pd.read_csv(io.StringIO(raw))                 # extract\ndf[\"amount\"] = df[\"amount\"].fillna(0)              # transform\ntotals = df.groupby(\"country\", as_index=False)[\"amount\"].sum()\n\nout = io.StringIO()\ntotals.to_csv(out, index=False)                    # load\nprint(out.getvalue())\n",
+      "output": "country,amount\nDE,7.0\nRO,10.5\n\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "PySpark installation",
+          "url": "https://spark.apache.org/docs/latest/api/python/getting_started/install.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "packages-vs-libraries",
+      "tool": "Environment & tools",
+      "group": "Python and its tools",
+      "level": 1,
+      "order": 2,
+      "category": "Environment",
+      "title": "Package, module, library: what is the difference, and what is the standard library?",
+      "body": "A **module** is one Python file you can import. A **package** is a folder of modules. **Library** is an informal word for a collection of reusable code, so in everyday speech \"library\" and \"package\" often mean the same thing. pandas is a package that people call a library.\n\nThe **standard library** comes with Python itself (`math`, `json`, `csv`, `pathlib`). **Third-party** libraries (pandas, numpy, matplotlib, seaborn, scikit-learn, scipy) must be installed with pip or conda before they can be imported.",
+      "code": "import sys\n\nprint(\"math\" in sys.stdlib_module_names)\nprint(\"pandas\" in sys.stdlib_module_names)\n",
+      "output": "True\nFalse\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "sys.stdlib_module_names",
+          "url": "https://docs.python.org/3/library/sys.html#sys.stdlib_module_names"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "library-roles",
+      "tool": "Environment & tools",
+      "group": "Python and its tools",
+      "level": 1,
+      "order": 3,
+      "category": "Environment",
+      "title": "Which library does what in a data analysis workflow?",
+      "body": "- **numpy**: arrays and fast numeric operations.\n- **pandas**: tables (`DataFrame`), reading files, cleaning, `groupby`, joins.\n- **matplotlib**: base plotting library. `plt` is the usual alias of `matplotlib.pyplot`.\n- **seaborn**: statistical charts built on matplotlib, working directly with DataFrames.\n- **scipy**: scientific and statistical functions.\n- **scikit-learn**: machine learning models and preprocessing.\n\nThe import aliases below are conventions used in the official documentation of these libraries.",
+      "code": "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nprint(np.__name__, pd.__name__, plt.__name__, sns.__name__)\n",
+      "output": "numpy pandas matplotlib.pyplot seaborn\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "numpy": "2.5.4",
+        "pandas": "3.1.0",
+        "matplotlib": "3.11.2",
+        "seaborn": "0.13.2"
+      },
+      "sources": [],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "indentation",
+      "tool": "Python",
+      "group": "How code runs",
+      "level": 1,
+      "order": 11,
+      "category": "Language basics",
+      "title": "Why does Python complain about indentation?",
+      "body": "Python uses indentation to mark blocks: the lines under `if`, `for`, `def` or `while` must be indented, by the same amount, and the line ending with a colon opens the block. Without it, Python raises `IndentationError`. Use four spaces per level and do not mix tabs and spaces.",
+      "code": "bad = \"if True:\\nprint(1)\\n\"\n\ntry:\n    compile(bad, \"<example>\", \"exec\")\nexcept IndentationError as e:\n    print(type(e).__name__, \"-\", e.msg)\n\ngood = \"if True:\\n    print(1)\\n\"\nexec(compile(good, \"<example>\", \"exec\"))\n",
+      "output": "IndentationError - expected an indented block after 'if' statement on line 1\n1\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python language reference: lexical analysis",
+          "url": "https://docs.python.org/3/reference/lexical_analysis.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "syntax-error",
+      "tool": "Python",
+      "group": "How code runs",
+      "level": 1,
+      "order": 12,
+      "category": "Language basics",
+      "title": "What does SyntaxError mean?",
+      "body": "Python reads the whole file and checks the grammar before it runs anything. A `SyntaxError` means the text is not valid Python, for example a missing closing bracket or quote. The error reports the line where Python noticed the problem, which can be a line after the real mistake.\n\nNothing in the file runs when a syntax error exists, unlike a runtime error, which stops the program at the failing line.",
+      "code": "code = 'print(\"hello\"'\n\ntry:\n    compile(code, \"<example>\", \"exec\")\nexcept SyntaxError as e:\n    print(type(e).__name__, \"-\", e.msg)\n",
+      "output": "SyntaxError - '(' was never closed\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python language reference: lexical analysis",
+          "url": "https://docs.python.org/3/reference/lexical_analysis.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "comments-and-docstrings",
+      "tool": "Python",
+      "group": "How code runs",
+      "level": 1,
+      "order": 13,
+      "category": "Language basics",
+      "title": "Comments: is a triple-quoted text a comment?",
+      "body": "A comment starts with `#` and is ignored by Python. Triple quotes create a **string**, not a comment. When the string is the first statement of a function, class or module, it becomes its docstring and is stored in `__doc__`. Elsewhere it is just a string expression that does nothing.\n\nUse `#` for notes to readers of the code and docstrings to describe what a function does.",
+      "code": "def area(width, height):\n    \"\"\"Return the area of a rectangle.\"\"\"\n    # a comment is ignored by Python\n    return width * height\n\nprint(area.__doc__)\nprint(area(3, 4))\n",
+      "output": "Return the area of a rectangle.\n12\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python language reference: lexical analysis",
+          "url": "https://docs.python.org/3/reference/lexical_analysis.html"
+        },
+        {
+          "title": "Python tutorial",
+          "url": "https://docs.python.org/3/tutorial/index.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "interpreter-bytecode",
+      "tool": "Python",
+      "group": "How code runs",
+      "level": 1,
+      "order": 10,
+      "category": "Language basics",
+      "title": "Does the interpreter run code line by line?",
+      "body": "Roughly, but it is more precise to say that CPython first compiles the source into bytecode and then executes that bytecode. A syntax error is found at compile time, before the first line runs. In a notebook each cell is compiled and executed on its own, which is why the order in which you run cells matters.\n\nThe example compiles a small statement and shows that the result is a code object, not output.",
+      "code": "code = compile(\"total = 1 + 2\", \"<example>\", \"exec\")\nprint(type(code).__name__)\n\nnamespace = {}\nexec(code, namespace)\nprint(namespace[\"total\"])\n",
+      "output": "code\n3\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python language reference: lexical analysis",
+          "url": "https://docs.python.org/3/reference/lexical_analysis.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "types-and-division",
+      "tool": "Python",
+      "group": "Data types",
+      "level": 1,
+      "order": 14,
+      "category": "Language basics",
+      "title": "Which basic types do I use, and how does division behave?",
+      "body": "The types you meet first are `int`, `float`, `str`, `bool` and `None`. A variable has no fixed type; the value it points to does. `type()` shows it.\n\n`/` always returns a float, `//` is floor division and `%` is the remainder. Floats store binary approximations, so compare them with `math.isclose` instead of `==`.",
+      "code": "import math\n\nprint(type(3), type(3.0), type(\"3\"), type(True), type(None))\nprint(7 / 2, 7 // 2, 7 % 2)\nprint(0.1 + 0.2 == 0.3)\nprint(math.isclose(0.1 + 0.2, 0.3))\n",
+      "output": "<class 'int'> <class 'float'> <class 'str'> <class 'bool'> <class 'NoneType'>\n3.5 3 1\nFalse\nTrue\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python tutorial: built-in types",
+          "url": "https://docs.python.org/3/builtins/stdtypes.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "collections",
+      "tool": "Python",
+      "group": "Data types",
+      "level": 1,
+      "order": 15,
+      "category": "Language basics",
+      "title": "List, tuple, dict, set: which one do I use?",
+      "body": "- **list**: ordered, changeable, allows duplicates. Like a column of values in Excel.\n- **tuple**: ordered, not changeable. Good for fixed records such as a coordinate pair.\n- **dict**: key to value lookup. Like a two-column lookup table (a `VLOOKUP` source) or the pairs of a SQL row.\n- **set**: unique values, unordered. Like `SELECT DISTINCT`.\n\nEach element is reached by position (list, tuple) or by key (dict).",
+      "code": "values = [3, 1, 3, 2]\npoint = (10, 20)\nprices = {\"apple\": 2.5, \"pear\": 3.0}\n\nprint(values[0], point[1], prices[\"pear\"])\nprint(sorted(set(values)))\n\nvalues.append(9)\nprint(values)\n\ntry:\n    point[0] = 99\nexcept TypeError as e:\n    print(\"TypeError:\", e)\n",
+      "output": "3 20 3.0\n[1, 2, 3]\n[3, 1, 3, 2, 9]\nTypeError: 'tuple' object does not support item assignment\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python tutorial: data structures",
+          "url": "https://docs.python.org/3/tutorial/datastructures.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "loops-and-comprehensions",
+      "tool": "Python",
+      "group": "Control flow and functions",
+      "level": 1,
+      "order": 16,
+      "category": "Language basics",
+      "title": "How do I loop over values and build a new list?",
+      "body": "`for` repeats a block for each item. A list comprehension builds a new list in one line, and the optional `if` at the end works like a `WHERE` filter.\n\nOn tables, prefer pandas operations over Python loops: they are shorter and much faster on large data.",
+      "code": "prices = [10, 25, 40, 5]\n\nfor p in prices:\n    if p > 20:\n        print(\"expensive:\", p)\n\nwith_tax = [round(p * 1.19, 2) for p in prices if p > 5]\nprint(with_tax)\n",
+      "output": "expensive: 25\nexpensive: 40\n[11.9, 29.75, 47.6]\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python tutorial: data structures",
+          "url": "https://docs.python.org/3/tutorial/datastructures.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "functions",
+      "tool": "Python",
+      "group": "Control flow and functions",
+      "level": 1,
+      "order": 17,
+      "category": "Language basics",
+      "title": "How do I write a function, and why should I avoid a list as a default argument?",
+      "body": "A function is defined with `def`, takes parameters and returns a value with `return`. Without `return` it returns `None`.\n\nA default value is created once, when the function is defined. A list or dict used as a default is therefore shared between calls and keeps growing. Use `None` as the default and create the list inside.",
+      "code": "def add_item(item, bucket=[]):\n    bucket.append(item)\n    return bucket\n\nprint(add_item(\"a\"))\nprint(add_item(\"b\"))\n\ndef add_item_safe(item, bucket=None):\n    if bucket is None:\n        bucket = []\n    bucket.append(item)\n    return bucket\n\nprint(add_item_safe(\"a\"))\nprint(add_item_safe(\"b\"))\n",
+      "output": "['a']\n['a', 'b']\n['a']\n['b']\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python tutorial: defining functions",
+          "url": "https://docs.python.org/3/tutorial/controlflow.html#defining-functions"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "try-except",
+      "tool": "Python",
+      "group": "Control flow and functions",
+      "level": 1,
+      "order": 18,
+      "category": "Language basics",
+      "title": "How do I handle an error without stopping the program?",
+      "body": "Put the risky line in `try` and name the error you expect in `except`. Catch the specific error (`ValueError`, `KeyError`), not every error, so real bugs are not hidden.\n\n`finally` runs either way, which is useful for cleanup. Read the last line of a traceback first: it names the error and the reason.",
+      "code": "def to_number(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n\nprint(to_number(\"12.5\"))\nprint(to_number(\"n/a\"))\n",
+      "output": "12.5\nNone\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python tutorial: errors and exceptions",
+          "url": "https://docs.python.org/3/tutorial/errors.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "dataframe-and-series",
+      "tool": "pandas",
+      "group": "Tables",
+      "level": 1,
+      "order": 19,
+      "category": "pandas",
+      "title": "What are a DataFrame and a Series?",
+      "body": "A **DataFrame** is a table: rows and named columns, each column with its own type. A **Series** is one column. In SQL terms a DataFrame is a table or a query result, and a Series is one column of it. In Excel terms it is a sheet with a header row and one data type per column.\n\n`shape` gives (rows, columns), `dtypes` the type of each column and `head()` the first rows.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"order_id\": [1, 2, 3],\n    \"country\": [\"RO\", \"DE\", \"RO\"],\n    \"amount\": [10.5, 7.0, 3.25],\n})\n\nprint(df)\nprint(df.shape)\nprint(df.dtypes)\nprint(type(df[\"amount\"]).__name__)\n",
+      "output": "   order_id country  amount\n0         1      RO   10.50\n1         2      DE    7.00\n2         3      RO    3.25\n(3, 3)\norder_id      int64\ncountry         str\namount      float64\ndtype: object\nSeries\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "10 minutes to pandas",
+          "url": "https://pandas.pydata.org/docs/user_guide/10min.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "read-csv-basics",
+      "tool": "pandas",
+      "group": "Tables",
+      "level": 1,
+      "order": 20,
+      "category": "pandas",
+      "title": "How do I read a CSV file and control the column types?",
+      "body": "`pd.read_csv` loads a file (or any file-like object) into a DataFrame. Useful arguments: `usecols` to keep only some columns, `dtype` to fix a type, `parse_dates` to read dates as dates, `na_values` to mark extra text as missing.\n\nThe example reads from a string so it runs anywhere; with a file you pass its path instead.",
+      "code": "import io\nimport pandas as pd\n\ntext = \"order_id,order_date,amount\\n1,2026-01-05,10.5\\n2,2026-01-06,n/a\\n\"\n\ndf = pd.read_csv(\n    io.StringIO(text),\n    parse_dates=[\"order_date\"],\n    na_values=[\"n/a\"],\n)\n\nprint(df)\nprint(df.dtypes)\n",
+      "output": "   order_id order_date  amount\n0         1 2026-01-05    10.5\n1         2 2026-01-06     NaN\norder_id               int64\norder_date    datetime64[us]\namount               float64\ndtype: object\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "10 minutes to pandas",
+          "url": "https://pandas.pydata.org/docs/user_guide/10min.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "select-and-filter",
+      "tool": "pandas",
+      "group": "Selecting",
+      "level": 1,
+      "order": 21,
+      "category": "pandas",
+      "title": "How do I select columns and filter rows (SELECT and WHERE)?",
+      "body": "- `df[\"a\"]` returns one column as a Series; `df[[\"a\", \"b\"]]` returns a DataFrame with those columns (`SELECT a, b`).\n- `df[condition]` keeps the rows where the condition is True (`WHERE`).\n- Combine conditions with `&` (and), `|` (or), `~` (not), and put **each condition in parentheses**. Python's `and` / `or` do not work on columns and raise `ValueError`.\n- `isin([...])` is `IN (...)`.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"country\": [\"RO\", \"DE\", \"RO\", \"FR\"],\n    \"amount\": [10.5, 7.0, 3.25, 20.0],\n})\n\nprint(df[[\"country\", \"amount\"]].head(2))\nprint(df[(df[\"country\"] == \"RO\") & (df[\"amount\"] > 5)])\nprint(df[df[\"country\"].isin([\"DE\", \"FR\"])])\n\ntry:\n    df[df[\"country\"] == \"RO\" and df[\"amount\"] > 5]\nexcept ValueError as e:\n    print(\"ValueError:\", e)\n",
+      "output": "  country  amount\n0      RO    10.5\n1      DE     7.0\n  country  amount\n0      RO    10.5\n  country  amount\n1      DE     7.0\n3      FR    20.0\nValueError: The truth value of a Series is ambiguous. Use a.empty, a.item(), a.any() or a.all().\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas: comparison with SQL",
+          "url": "https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html"
+        },
+        {
+          "title": "pandas user guide: boolean indexing",
+          "url": "https://pandas.pydata.org/docs/user_guide/indexing.html#indexing-boolean"
+        },
+        {
+          "title": "pandas tutorial: subset data",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "loc-vs-iloc",
+      "tool": "pandas",
+      "group": "Selecting",
+      "level": 1,
+      "order": 22,
+      "category": "pandas",
+      "title": "What is the difference between loc and iloc?",
+      "body": "`loc` selects by **label** (row index labels and column names) and includes the end of a slice. `iloc` selects by **position** (0, 1, 2, ...) and excludes the end, like normal Python slices.\n\nThe best habit for conditions is a single `loc` call with a row condition and a column name: `df.loc[df[\"b\"] > 15, \"a\"]`.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\"a\": [1, 2, 3], \"b\": [10, 20, 30]}, index=[\"x\", \"y\", \"z\"])\n\nprint(df.loc[\"x\":\"y\"])        # labels: the end label is included\nprint(df.iloc[0:1])           # positions: the end position is excluded\nprint(df.loc[df[\"b\"] > 15, \"a\"])\n",
+      "output": "   a   b\nx  1  10\ny  2  20\n   a   b\nx  1  10\ny    2\nz    3\nName: a, dtype: int64\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: subset data",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html"
+        },
+        {
+          "title": "pandas user guide: boolean indexing",
+          "url": "https://pandas.pydata.org/docs/user_guide/indexing.html#indexing-boolean"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "missing-values",
+      "tool": "pandas",
+      "group": "Cleaning",
+      "level": 2,
+      "order": 23,
+      "category": "pandas",
+      "title": "How do I find and handle missing values?",
+      "body": "Missing values appear as `NaN` (or `<NA>` / `NaT` for other types). `isna()` marks them (`IS NULL`), `notna()` is the opposite (`IS NOT NULL`). `dropna()` removes rows with missing values and `fillna(value)` replaces them. `ffill()` carries the last valid value forward.\n\nMost summary functions (`sum`, `mean`) skip missing values by default, so a mean is computed over the rows that have a value. Decide on purpose whether a missing value should become 0, be filled from a neighbour, or stay missing.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\"amount\": [10.0, None, 30.0]})\n\nprint(df[\"amount\"].isna().sum())\nprint(df[\"amount\"].mean())\nprint(df[\"amount\"].fillna(0).mean())\nprint(df.dropna())\n",
+      "output": "1\n20.0\n13.333333333333334\n   amount\n0    10.0\n2    30.0\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas: comparison with SQL",
+          "url": "https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "duplicates",
+      "tool": "pandas",
+      "group": "Cleaning",
+      "level": 2,
+      "order": 24,
+      "category": "pandas",
+      "title": "How do I find and remove duplicate rows?",
+      "body": "`duplicated()` marks repeated rows and `drop_duplicates()` removes them, like `SELECT DISTINCT`. By default two rows are duplicates only if every column matches. Use `subset=[...]` to compare chosen columns and `keep=\"first\"` or `keep=\"last\"` to choose which row survives.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"customer\": [\"A\", \"A\", \"B\"],\n    \"city\": [\"Cluj\", \"Cluj\", \"Iasi\"],\n    \"amount\": [10, 12, 7],\n})\n\nprint(df.duplicated(subset=[\"customer\", \"city\"]))\nprint(df.drop_duplicates(subset=[\"customer\", \"city\"], keep=\"last\"))\n",
+      "output": "0    False\n1     True\n2    False\ndtype: bool\n  customer  city  amount\n1        A  Cluj      12\n2        B  Iasi       7\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "DataFrame.drop_duplicates",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html"
+        },
+        {
+          "title": "pandas: comparison with SQL",
+          "url": "https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "new-columns",
+      "tool": "pandas",
+      "group": "Transforming",
+      "level": 2,
+      "order": 27,
+      "category": "pandas",
+      "title": "How do I create a new column, including a CASE WHEN?",
+      "body": "Assign to a new column name and calculate with whole columns at once (no loop needed). `assign` does the same and returns a new DataFrame, so steps can be chained.\n\nFor `CASE WHEN`, use `numpy.where(condition, value_if_true, value_if_false)`; for several branches use `numpy.select`.",
+      "code": "import numpy as np\nimport pandas as pd\n\ndf = pd.DataFrame({\"price\": [10.0, 25.0, 40.0], \"qty\": [2, 1, 3]})\n\ndf[\"total\"] = df[\"price\"] * df[\"qty\"]\ndf[\"size\"] = np.where(df[\"total\"] >= 100, \"large\", \"small\")\n\nprint(df)\nprint(df.assign(total_with_tax=lambda d: (d[\"total\"] * 1.19).round(2)))\n",
+      "output": "   price  qty  total   size\n0   10.0    2   20.0  small\n1   25.0    1   25.0  small\n2   40.0    3  120.0  large\n   price  qty  total   size  total_with_tax\n0   10.0    2   20.0  small           23.80\n1   25.0    1   25.0  small           29.75\n2   40.0    3  120.0  large          142.80\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0",
+        "numpy": "2.5.4"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: add columns",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
+        },
+        {
+          "title": "pandas: comparison with SQL",
+          "url": "https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "convert-types",
+      "tool": "pandas",
+      "group": "Cleaning",
+      "level": 2,
+      "order": 25,
+      "category": "pandas",
+      "title": "How do I convert a column to numbers or dates?",
+      "body": "`pd.to_numeric(col, errors=\"coerce\")` turns text into numbers and replaces values it cannot read with `NaN`, so you can count and inspect the bad rows. `pd.to_datetime` does the same for dates. `astype(...)` converts when the values are already clean.\n\nAfter conversion, the `.dt` accessor gives parts of a date (`year`, `month`, `day_name()`).",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"amount\": [\"10\", \"12.5\", \"n/a\"],\n    \"day\": [\"2026-01-05\", \"2026-02-10\", \"2026-02-11\"],\n})\n\ndf[\"amount\"] = pd.to_numeric(df[\"amount\"], errors=\"coerce\")\ndf[\"day\"] = pd.to_datetime(df[\"day\"])\n\nprint(df.dtypes)\nprint(df[\"amount\"].isna().sum(), \"value(s) could not be read\")\nprint(df[\"day\"].dt.month.tolist())\n",
+      "output": "amount           float64\nday       datetime64[us]\ndtype: object\n1 value(s) could not be read\n[1, 2, 2]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: time series",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/09_timeseries.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "text-columns",
+      "tool": "pandas",
+      "group": "Cleaning",
+      "level": 2,
+      "order": 26,
+      "category": "pandas",
+      "title": "How do I clean text columns?",
+      "body": "The `.str` accessor applies string operations to a whole column: `strip()`, `lower()`, `replace()`, `contains()`, `split()`. Cleaning spaces and letter case before grouping or merging avoids \"Cluj\" and \"cluj \" being treated as different values.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\" Cluj\", \"cluj \", \"IASI\"]})\n\ndf[\"city_clean\"] = df[\"city\"].str.strip().str.lower()\nprint(df)\nprint(df[\"city_clean\"].value_counts())\nprint(df[\"city_clean\"].str.contains(\"ia\").tolist())\n",
+      "output": "    city city_clean\n0   Cluj       cluj\n1  cluj        cluj\n2   IASI       iasi\ncity_clean\ncluj    2\niasi    1\nName: count, dtype: int64\n[False, False, True]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: textual data",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/10_text_data.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "sort-and-limit",
+      "tool": "pandas",
+      "group": "Transforming",
+      "level": 2,
+      "order": 28,
+      "category": "pandas",
+      "title": "How do I sort and take the top rows (ORDER BY and LIMIT)?",
+      "body": "`sort_values(by, ascending=...)` is `ORDER BY`; `head(n)` is `LIMIT n`. `nlargest(n, column)` does both for a numeric column. `value_counts()` counts how often each value appears.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\"product\": [\"a\", \"b\", \"c\", \"d\"], \"sales\": [30, 90, 10, 60]})\n\nprint(df.sort_values(\"sales\", ascending=False).head(2))\nprint(df.nlargest(2, \"sales\"))\n",
+      "output": "  product  sales\n1       b     90\n3       d     60\n  product  sales\n1       b     90\n3       d     60\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas: comparison with SQL",
+          "url": "https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "groupby-basics",
+      "tool": "pandas",
+      "group": "Summarizing",
+      "level": 2,
+      "order": 30,
+      "category": "pandas",
+      "title": "How does groupby work (GROUP BY)?",
+      "body": "`df.groupby(\"column\")` splits the table into one group per value; an aggregation then collapses each group to one row. It is the same idea as `GROUP BY` with `SUM`, `COUNT`, `AVG`, and as a pivot table in Excel.\n\nNamed aggregation, `agg(new_name=(\"column\", \"function\"))`, gives readable column names. The group column becomes the index; `as_index=False` (or `reset_index()`) turns it back into a normal column. `size()` counts rows, `count()` counts non-missing values.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"country\": [\"RO\", \"RO\", \"DE\", \"DE\", \"DE\"],\n    \"amount\": [10.0, 20.0, 5.0, None, 15.0],\n})\n\nsummary = df.groupby(\"country\", as_index=False).agg(\n    orders=(\"amount\", \"size\"),\n    with_amount=(\"amount\", \"count\"),\n    total=(\"amount\", \"sum\"),\n    average=(\"amount\", \"mean\"),\n)\nprint(summary)\n",
+      "output": "  country  orders  with_amount  total  average\n0      DE       3            2   20.0     10.0\n1      RO       2            2   30.0     15.0\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "DataFrame.groupby",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
+        },
+        {
+          "title": "pandas: comparison with SQL",
+          "url": "https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html"
+        },
+        {
+          "title": "pandas tutorial: calculate statistics",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "groupby-multiple",
+      "tool": "pandas",
+      "group": "Summarizing",
+      "level": 2,
+      "order": 31,
+      "category": "pandas",
+      "title": "How do I group by two columns or compute a share of the total?",
+      "body": "Pass a list to `groupby` to group by several columns (`GROUP BY a, b`). `transform` returns a value for every original row, which is what you need to add a group total next to each row, like a window function (`SUM(...) OVER (PARTITION BY ...)`).",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"country\": [\"RO\", \"RO\", \"DE\", \"DE\"],\n    \"channel\": [\"web\", \"shop\", \"web\", \"web\"],\n    \"amount\": [10, 30, 5, 15],\n})\n\nprint(df.groupby([\"country\", \"channel\"], as_index=False)[\"amount\"].sum())\n\ndf[\"country_total\"] = df.groupby(\"country\")[\"amount\"].transform(\"sum\")\ndf[\"share\"] = (df[\"amount\"] / df[\"country_total\"]).round(2)\nprint(df)\n",
+      "output": "  country channel  amount\n0      DE     web      20\n1      RO    shop      30\n2      RO     web      10\n  country channel  amount  country_total  share\n0      RO     web      10             40   0.25\n1      RO    shop      30             40   0.75\n2      DE     web       5             20   0.25\n3      DE     web      15             20   0.75\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "DataFrame.groupby",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
+        },
+        {
+          "title": "pandas: comparison with SQL",
+          "url": "https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "merge-tables",
+      "tool": "pandas",
+      "group": "Combining tables",
+      "level": 2,
+      "order": 33,
+      "category": "pandas",
+      "title": "How do I join two tables (JOIN)?",
+      "body": "`left.merge(right, on=\"key\", how=...)` is a SQL `JOIN`. `how=\"inner\"` keeps matching keys only, `\"left\"` keeps every row of the left table (`LEFT JOIN`), `\"outer\"` keeps all rows of both.\n\nTwo arguments guard against silent mistakes: `validate=\"many_to_one\"` raises an error if the key is not unique in the right table, and `indicator=True` adds a column showing where each row came from. When key columns have different names, use `left_on` and `right_on`.",
+      "code": "import pandas as pd\n\norders = pd.DataFrame({\"order_id\": [1, 2, 3], \"customer_id\": [10, 20, 99]})\ncustomers = pd.DataFrame({\"customer_id\": [10, 20], \"name\": [\"Ana\", \"Bob\"]})\n\njoined = orders.merge(customers, on=\"customer_id\", how=\"left\",\n                      validate=\"many_to_one\", indicator=True)\nprint(joined)\nprint(joined[\"_merge\"].value_counts())\n",
+      "output": "   order_id  customer_id name     _merge\n0         1           10  Ana       both\n1         2           20  Bob       both\n2         3           99  NaN  left_only\n_merge\nboth          2\nleft_only     1\nright_only    0\nName: count, dtype: int64\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas user guide: merge, join, concatenate and compare",
+          "url": "https://pandas.pydata.org/docs/user_guide/merging.html"
+        },
+        {
+          "title": "pandas: comparison with SQL",
+          "url": "https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html"
+        },
+        {
+          "title": "pandas tutorial: combine data from multiple tables",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/08_combine_dataframes.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "concat-rows",
+      "tool": "pandas",
+      "group": "Combining tables",
+      "level": 2,
+      "order": 34,
+      "category": "pandas",
+      "title": "How do I stack tables with the same columns (UNION ALL)?",
+      "body": "`pd.concat([a, b], ignore_index=True)` places the rows of one table under the other, like `UNION ALL`. Columns are matched by name. Add `.drop_duplicates()` for the behaviour of `UNION`. With `axis=1` it places tables side by side instead.",
+      "code": "import pandas as pd\n\njan = pd.DataFrame({\"month\": [\"2026-01\"], \"sales\": [100]})\nfeb = pd.DataFrame({\"month\": [\"2026-02\"], \"sales\": [120]})\n\nprint(pd.concat([jan, feb], ignore_index=True))\n",
+      "output": "     month  sales\n0  2026-01    100\n1  2026-02    120\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas user guide: merge, join, concatenate and compare",
+          "url": "https://pandas.pydata.org/docs/user_guide/merging.html"
+        },
+        {
+          "title": "pandas: comparison with SQL",
+          "url": "https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "pivot-table",
+      "tool": "pandas",
+      "group": "Summarizing",
+      "level": 2,
+      "order": 32,
+      "category": "pandas",
+      "title": "How do I build a pivot table?",
+      "body": "`pivot_table` reshapes grouped values into a grid, as an Excel PivotTable does: `index` gives the rows, `columns` the columns, `values` the numbers and `aggfunc` how to combine them. Use `fill_value=0` for empty cells and `margins=True` for totals.\n\n`melt` does the opposite: it turns columns back into rows.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"country\": [\"RO\", \"RO\", \"DE\", \"DE\"],\n    \"channel\": [\"web\", \"shop\", \"web\", \"web\"],\n    \"amount\": [10, 30, 5, 15],\n})\n\npt = df.pivot_table(index=\"country\", columns=\"channel\", values=\"amount\",\n                    aggfunc=\"sum\", fill_value=0)\nprint(pt)\n",
+      "output": "channel  shop  web\ncountry           \nDE          0   20\nRO         30   10\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: reshape the layout of tables",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/07_reshape_table_layout.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "dates-by-month",
+      "tool": "pandas",
+      "group": "Transforming",
+      "level": 2,
+      "order": 29,
+      "category": "pandas",
+      "title": "How do I total values by month?",
+      "body": "Convert the column with `pd.to_datetime`, take the month with `dt.to_period(\"M\")`, then group by it. For a continuous time axis with an index of dates, `resample(\"MS\")` does the same grouping.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"day\": pd.to_datetime([\"2026-01-05\", \"2026-01-20\", \"2026-02-03\"]),\n    \"amount\": [10, 5, 7],\n})\n\ndf[\"month\"] = df[\"day\"].dt.to_period(\"M\")\nprint(df.groupby(\"month\", as_index=False)[\"amount\"].sum())\n",
+      "output": "     month  amount\n0  2026-01      15\n1  2026-02       7\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: time series",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/09_timeseries.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "copy-semantics",
+      "tool": "pandas",
+      "group": "pandas 3 behaviour",
+      "level": 3,
+      "order": 64,
+      "category": "pandas",
+      "title": "Does changing a DataFrame derived from another change the original?",
+      "body": "In pandas 3 (Copy-on-Write), a DataFrame or Series derived from another one (a column selection, a filtered subset, a result of a method) behaves as an independent copy: changing it does not change the original, even without calling `copy()`. This is why chained assignment such as `df[\"a\"][mask] = 0` no longer updates `df` (see the Common errors section).\n\nA plain assignment `other = df` is different: it only gives the same object a second name, so a change through either name is visible through both. Use `df.copy()` when you want a separate table.\n\nTo change a DataFrame, write to that DataFrame with `loc` or by assigning the column.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\"a\": [1, 2, 3], \"b\": [10, 20, 30]})\n\nalias = df\nalias.loc[0, \"a\"] = 99\nprint(df[\"a\"].tolist())\n\nsubset = df[df[\"b\"] > 10]\nsubset.loc[subset.index[0], \"a\"] = -1\nprint(df[\"a\"].tolist())\nprint(subset[\"a\"].tolist())\n",
+      "output": "[99, 2, 3]\n[99, 2, 3]\n[-1, 3]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas 3.0.0 release notes",
+          "url": "https://pandas.pydata.org/docs/whatsnew/v3.0.0.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "matplotlib-plt",
+      "tool": "matplotlib & seaborn",
+      "group": "Foundations",
+      "level": 1,
+      "order": 35,
+      "category": "Visualization",
+      "title": "What is plt, and what are Figure and Axes?",
+      "body": "`plt` is the usual alias of `matplotlib.pyplot`, the module you import to draw charts: `import matplotlib.pyplot as plt`.\n\nA **Figure** is the whole picture (the canvas). An **Axes** is one chart inside it, with its own x axis, y axis, title and data. The recommended way to work is explicit: `fig, ax = plt.subplots()` creates both, then you call methods on `ax` (`ax.plot`, `ax.set_title`, `ax.set_xlabel`). The shorter `plt.plot(...)` style also works, because pyplot keeps track of a current Axes, but with several charts the explicit style is clearer.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
+      "code": "import matplotlib\nmatplotlib.use(\"Agg\")  # only needed on a machine without a screen\nimport matplotlib.pyplot as plt\n\nfig, ax = plt.subplots()\nax.plot([1, 2, 3], [10, 20, 15])\nax.set_title(\"Sales\")\nax.set_xlabel(\"Week\")\nax.set_ylabel(\"Units\")\n\nprint(type(fig).__name__, type(ax).__name__)\nprint(ax.get_title(), \"|\", ax.get_xlabel(), \"|\", ax.get_ylabel())\nplt.close(fig)\n",
+      "output": "Figure Axes\nSales | Week | Units\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "matplotlib": "3.11.2"
+      },
+      "sources": [
+        {
+          "title": "Matplotlib quick start guide",
+          "url": "https://matplotlib.org/stable/users/explain/quick_start.html"
+        },
+        {
+          "title": "Matplotlib: introduction to figures",
+          "url": "https://matplotlib.org/stable/users/explain/figure/figure_intro.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "line-chart",
+      "tool": "matplotlib & seaborn",
+      "group": "Chart types",
+      "level": 1,
+      "order": 37,
+      "category": "Visualization",
+      "title": "How do I draw a line chart of a value over time?",
+      "body": "Put the dates on the x axis and the values on the y axis. A DataFrame column can be drawn directly with `df.plot(x=..., y=...)`, which returns the Axes so you can set the labels afterwards. Sort by date first, otherwise the line jumps back and forth.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
+      "code": "import matplotlib\nmatplotlib.use(\"Agg\")\nimport matplotlib.pyplot as plt\nimport pandas as pd\n\ndf = pd.DataFrame({\n    \"day\": pd.to_datetime([\"2026-01-01\", \"2026-01-02\", \"2026-01-03\"]),\n    \"visits\": [120, 150, 135],\n}).sort_values(\"day\")\n\nax = df.plot(x=\"day\", y=\"visits\", legend=False)\nax.set_ylabel(\"Visits\")\n\nline = ax.get_lines()[0]\nprint(len(ax.get_lines()), \"line,\", len(line.get_ydata()), \"points\")\nprint(line.get_ydata().tolist())\nplt.close(ax.figure)\n",
+      "output": "1 line, 3 points\n[120, 150, 135]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0",
+        "numpy": "2.5.4",
+        "matplotlib": "3.11.2",
+        "seaborn": "0.13.2"
+      },
+      "sources": [
+        {
+          "title": "Matplotlib quick start guide",
+          "url": "https://matplotlib.org/stable/users/explain/quick_start.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "bar-chart-groupby",
+      "tool": "matplotlib & seaborn",
+      "group": "Chart types",
+      "level": 1,
+      "order": 38,
+      "category": "Visualization",
+      "title": "How do I draw a bar chart of a total per category?",
+      "body": "Aggregate first, then plot: `df.groupby(\"category\")[\"value\"].sum()` gives one number per category, and `.plot.bar()` (or `.plot.barh()` for long names) draws one bar each. Sort the totals so the bars are ordered; an unsorted bar chart is harder to read. The y axis of a bar chart should start at zero.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
+      "code": "import matplotlib\nmatplotlib.use(\"Agg\")\nimport matplotlib.pyplot as plt\nimport pandas as pd\n\ndf = pd.DataFrame({\n    \"country\": [\"RO\", \"DE\", \"RO\", \"FR\", \"DE\", \"RO\"],\n    \"amount\": [10, 40, 25, 5, 20, 15],\n})\n\ntotals = df.groupby(\"country\")[\"amount\"].sum().sort_values(ascending=False)\nax = totals.plot.bar()\nax.set_ylabel(\"Total amount\")\n\nprint(totals.to_dict())\nprint([t.get_text() for t in ax.get_xticklabels()])\nprint(len(ax.patches), \"bars\")\nplt.close(ax.figure)\n",
+      "output": "{'DE': 60, 'RO': 50, 'FR': 5}\n['DE', 'RO', 'FR']\n3 bars\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0",
+        "numpy": "2.5.4",
+        "matplotlib": "3.11.2",
+        "seaborn": "0.13.2"
+      },
+      "sources": [
+        {
+          "title": "Matplotlib quick start guide",
+          "url": "https://matplotlib.org/stable/users/explain/quick_start.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "histogram",
+      "tool": "matplotlib & seaborn",
+      "group": "Chart types",
+      "level": 1,
+      "order": 39,
+      "category": "Visualization",
+      "title": "How do I see the distribution of a numeric column?",
+      "body": "A histogram counts how many values fall into each interval (bin). `ax.hist(values, bins=n)` draws it and also returns the counts, so you can read the result without looking at the picture. The number of bins changes the shape: try a few. A box plot (`sns.boxplot`) shows the same column as median, quartiles and outliers.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
+      "code": "import matplotlib\nmatplotlib.use(\"Agg\")\nimport matplotlib.pyplot as plt\n\nvalues = [1, 2, 2, 3, 3, 3, 4, 4, 5, 9]\n\nfig, ax = plt.subplots()\ncounts, edges, _ = ax.hist(values, bins=4)\nax.set_xlabel(\"Value\")\nax.set_ylabel(\"Count\")\n\nprint(counts.tolist())\nprint(edges.tolist())\nplt.close(fig)\n",
+      "output": "[3.0, 5.0, 1.0, 1.0]\n[1.0, 3.0, 5.0, 7.0, 9.0]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "matplotlib": "3.11.2"
+      },
+      "sources": [
+        {
+          "title": "Matplotlib quick start guide",
+          "url": "https://matplotlib.org/stable/users/explain/quick_start.html"
+        },
+        {
+          "title": "Visualizing distributions of data (seaborn)",
+          "url": "https://seaborn.pydata.org/tutorial/distributions.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "scatter-relationship",
+      "tool": "matplotlib & seaborn",
+      "group": "Chart types",
+      "level": 2,
+      "order": 41,
+      "category": "Visualization",
+      "title": "How do I check the relationship between two numeric columns?",
+      "body": "A scatter plot puts one column on x and another on y; each row is a point. With seaborn, pass the DataFrame as `data` and name the columns as strings: `sns.scatterplot(data=df, x=\"price\", y=\"units\", hue=\"channel\")`. `hue` colours the points by a third column. Remember that the arguments after `data` must be passed by keyword (see the Common errors section).\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
+      "code": "import matplotlib\nmatplotlib.use(\"Agg\")\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\n\ndf = pd.DataFrame({\n    \"price\": [5, 7, 9, 11, 13, 15],\n    \"units\": [100, 90, 70, 60, 40, 35],\n    \"channel\": [\"web\", \"shop\", \"web\", \"shop\", \"web\", \"shop\"],\n})\n\nax = sns.scatterplot(data=df, x=\"price\", y=\"units\", hue=\"channel\")\n\nprint(ax.get_xlabel(), \"|\", ax.get_ylabel())\nprint(df[\"price\"].corr(df[\"units\"]).round(3))\nplt.close(ax.figure)\n",
+      "output": "price | units\n-0.991\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0",
+        "numpy": "2.5.4",
+        "matplotlib": "3.11.2",
+        "seaborn": "0.13.2"
+      },
+      "sources": [
+        {
+          "title": "Overview of seaborn plotting functions",
+          "url": "https://seaborn.pydata.org/tutorial/function_overview.html"
+        },
+        {
+          "title": "An introduction to seaborn",
+          "url": "https://seaborn.pydata.org/tutorial/introduction.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "seaborn-boxplot",
+      "tool": "matplotlib & seaborn",
+      "group": "Chart types",
+      "level": 2,
+      "order": 42,
+      "category": "Visualization",
+      "title": "How do I compare a distribution across categories?",
+      "body": "A box plot shows, for each category, the median (the line in the box), the middle half of the values (the box) and the points far from the rest (outliers). `sns.boxplot(data=df, x=\"category\", y=\"value\")` draws one box per category from the raw rows, with no prior `groupby`. The numbers behind the boxes can be read with `groupby(...).describe()`.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
+      "code": "import matplotlib\nmatplotlib.use(\"Agg\")\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\n\ndf = pd.DataFrame({\n    \"channel\": [\"web\"] * 5 + [\"shop\"] * 5,\n    \"order_value\": [10, 12, 11, 13, 40, 20, 22, 21, 19, 23],\n})\n\nax = sns.boxplot(data=df, x=\"channel\", y=\"order_value\")\n\nprint([t.get_text() for t in ax.get_xticklabels()])\nprint(df.groupby(\"channel\")[\"order_value\"].median().to_dict())\nplt.close(ax.figure)\n",
+      "output": "['web', 'shop']\n{'shop': 21.0, 'web': 12.0}\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0",
+        "numpy": "2.5.4",
+        "matplotlib": "3.11.2",
+        "seaborn": "0.13.2"
+      },
+      "sources": [
+        {
+          "title": "Visualizing categorical data (seaborn)",
+          "url": "https://seaborn.pydata.org/tutorial/categorical.html"
+        },
+        {
+          "title": "Visualizing distributions of data (seaborn)",
+          "url": "https://seaborn.pydata.org/tutorial/distributions.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "correlation-heatmap",
+      "tool": "matplotlib & seaborn",
+      "group": "Chart types",
+      "level": 2,
+      "order": 43,
+      "category": "Visualization",
+      "title": "How do I draw a correlation heatmap?",
+      "body": "`df.corr(numeric_only=True)` computes the correlation between every pair of numeric columns (from -1 to 1). `sns.heatmap(corr, annot=True)` colours the matrix and writes the values in the cells. Correlation measures how two columns move together; it does not show that one causes the other.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
+      "code": "import matplotlib\nmatplotlib.use(\"Agg\")\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport seaborn as sns\n\ndf = pd.DataFrame({\n    \"price\": [5, 7, 9, 11, 13],\n    \"units\": [100, 90, 70, 60, 40],\n    \"visits\": [10, 14, 11, 19, 25],\n})\n\ncorr = df.corr(numeric_only=True).round(2)\nprint(corr)\n\nax = sns.heatmap(corr, annot=True, vmin=-1, vmax=1)\nprint(type(ax).__name__)\nplt.close(ax.figure)\n",
+      "output": "        price  units  visits\nprice    1.00  -0.99    0.89\nunits   -0.99   1.00   -0.87\nvisits   0.89  -0.87    1.00\nAxes\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0",
+        "numpy": "2.5.4",
+        "matplotlib": "3.11.2",
+        "seaborn": "0.13.2"
+      },
+      "sources": [
+        {
+          "title": "Overview of seaborn plotting functions",
+          "url": "https://seaborn.pydata.org/tutorial/function_overview.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "subplots-grid",
+      "tool": "matplotlib & seaborn",
+      "group": "Foundations",
+      "level": 2,
+      "order": 44,
+      "category": "Visualization",
+      "title": "How do I draw several charts side by side?",
+      "body": "`fig, axes = plt.subplots(nrows, ncols)` creates a grid of Axes. With more than one cell, `axes` is an array: pick a chart by position (`axes[0]`, or `axes[row, col]`) and draw into it. Pass `ax=axes[0]` to pandas and seaborn functions to draw there. `sharey=True` gives the charts the same y scale so they can be compared.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
+      "code": "import matplotlib\nmatplotlib.use(\"Agg\")\nimport matplotlib.pyplot as plt\n\nfig, axes = plt.subplots(1, 2, sharey=True)\naxes[0].bar([\"a\", \"b\"], [3, 5])\naxes[0].set_title(\"Left\")\naxes[1].plot([1, 2, 3], [2, 4, 3])\naxes[1].set_title(\"Right\")\n\nprint(axes.shape)\nprint([ax.get_title() for ax in axes])\nplt.close(fig)\n",
+      "output": "(2,)\n['Left', 'Right']\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "matplotlib": "3.11.2"
+      },
+      "sources": [
+        {
+          "title": "Matplotlib quick start guide",
+          "url": "https://matplotlib.org/stable/users/explain/quick_start.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "readable-charts",
+      "tool": "matplotlib & seaborn",
+      "group": "Choosing a chart",
+      "level": 1,
+      "order": 40,
+      "category": "Visualization",
+      "title": "What makes a chart readable?",
+      "body": "- Give the chart a title that states what it shows, and label both axes with the unit.\n- Rotate long category labels (`ax.tick_params(axis=\"x\", rotation=45)`) or switch to horizontal bars.\n- Sort categories by value unless they have a natural order (months, ages).\n- Start the y axis of bar charts at zero.\n- Use one colour unless colour carries meaning, and keep the same colour for the same category across charts.\n- Prefer a bar chart to a pie chart when there are more than a few categories.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
+      "code": "import matplotlib\nmatplotlib.use(\"Agg\")\nimport matplotlib.pyplot as plt\n\nfig, ax = plt.subplots()\nax.bar([\"Bucharest\", \"Cluj-Napoca\", \"Timisoara\"], [30, 22, 15])\nax.set_title(\"Orders by city\")\nax.set_ylabel(\"Orders\")\nax.tick_params(axis=\"x\", rotation=45)\n\nprint(ax.get_xticklabels()[0].get_rotation())\nprint(ax.get_ylim()[0])\nplt.close(fig)\n",
+      "output": "45.0\n0.0\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "matplotlib": "3.11.2"
+      },
+      "sources": [
+        {
+          "title": "Matplotlib quick start guide",
+          "url": "https://matplotlib.org/stable/users/explain/quick_start.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "chart-type-choice",
+      "tool": "matplotlib & seaborn",
+      "group": "Choosing a chart",
+      "level": 1,
+      "order": 36,
+      "category": "Visualization",
+      "title": "Which chart type fits which question?",
+      "body": "- Compare values between categories: **bar chart**.\n- Change over time: **line chart**.\n- Distribution of one numeric column: **histogram** or **box plot**.\n- Relationship between two numeric columns: **scatter plot**.\n- Correlation across many columns: **heatmap**.\n- Parts of a whole with few categories: a bar chart of shares, or a pie chart only when there are very few slices.\n\nStart from the question the chart must answer, then choose the type.",
+      "code": "",
+      "output": "",
+      "tested_with": {},
+      "sources": [
+        {
+          "title": "Overview of seaborn plotting functions",
+          "url": "https://seaborn.pydata.org/tutorial/function_overview.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "save-figure",
+      "tool": "matplotlib & seaborn",
+      "group": "Foundations",
+      "level": 2,
+      "order": 45,
+      "category": "Visualization",
+      "title": "How do I save a chart to a file?",
+      "body": "`fig.savefig(\"chart.png\", dpi=150, bbox_inches=\"tight\")` writes the figure; the format follows the file extension (`.png`, `.svg`, `.pdf`). `bbox_inches=\"tight\"` removes extra white space and keeps long labels from being cut off. Call `plt.close(fig)` afterwards in scripts that draw many charts, to free the memory.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
+      "code": "import io\nimport matplotlib\nmatplotlib.use(\"Agg\")\nimport matplotlib.pyplot as plt\n\nfig, ax = plt.subplots()\nax.plot([1, 2, 3], [1, 4, 9])\n\nbuffer = io.BytesIO()          # a file on disk would use a path instead\nfig.savefig(buffer, format=\"png\", dpi=100, bbox_inches=\"tight\")\nplt.close(fig)\n\nprint(buffer.getvalue()[:8])\n",
+      "output": "b'\\x89PNG\\r\\n\\x1a\\n'\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "matplotlib": "3.11.2"
+      },
+      "sources": [
+        {
+          "title": "Matplotlib: introduction to figures",
+          "url": "https://matplotlib.org/stable/users/explain/figure/figure_intro.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "matplotlib-backend",
+      "tool": "matplotlib & seaborn",
+      "group": "Foundations",
+      "level": 2,
+      "order": 46,
+      "category": "Visualization",
+      "title": "Why does plt.show() do nothing, or why is there no window?",
+      "body": "A **backend** is the part of matplotlib that draws and displays the figure. In a notebook, charts appear below the cell automatically. In a script on a computer with a screen, `plt.show()` opens a window and waits until it is closed. On a server or in an automated test there is no screen, so the non-interactive `Agg` backend is used: it draws into memory and can save files, but cannot show a window.",
+      "code": "import matplotlib\nmatplotlib.use(\"Agg\")\n\nprint(matplotlib.get_backend())\n",
+      "output": "Agg\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "matplotlib": "3.11.2"
+      },
+      "sources": [
+        {
+          "title": "Matplotlib quick start guide",
+          "url": "https://matplotlib.org/stable/users/explain/quick_start.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "numpy-array-basics",
+      "tool": "NumPy",
+      "group": "Arrays",
+      "level": 1,
+      "order": 47,
+      "category": "NumPy",
+      "title": "What is a NumPy array and how is it different from a list?",
+      "body": "A NumPy array holds values of **one type** in a regular grid. It is the structure under pandas columns and most numeric libraries. An array has a `shape` (size along each dimension), `ndim` (number of dimensions) and a `dtype` (the type of every element).\n\nA list can mix types and has no shape. An array is faster for numeric work because the operations run on the whole array at once.",
+      "code": "import numpy as np\n\na = np.array([[1, 2, 3], [4, 5, 6]])\n\nprint(a)\nprint(a.shape, a.ndim, a.dtype)\nprint(a[1, 2], a[:, 0])\n",
+      "output": "[[1 2 3]\n [4 5 6]]\n(2, 3) 2 int64\n6 [1 4]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "numpy": "2.5.4"
+      },
+      "sources": [
+        {
+          "title": "NumPy: the absolute basics for beginners",
+          "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "numpy-dtypes",
+      "tool": "NumPy",
+      "group": "Arrays",
+      "level": 1,
+      "order": 48,
+      "category": "NumPy",
+      "title": "Why did my integers become floats or text?",
+      "body": "All elements of an array share one dtype, so NumPy picks a type that fits every value. One float turns integers into floats; one text value turns everything into text. Check `dtype` after building an array, and convert on purpose with `astype`.",
+      "code": "import numpy as np\n\nprint(np.array([1, 2, 3]).dtype)\nprint(np.array([1, 2, 3.5]).dtype)\nprint(np.array([1, 2, \"x\"]).dtype)\n\nb = np.array([1.9, 2.1, 3.5])\nprint(b.astype(int))\nprint(b.astype(\"float32\").dtype)\n",
+      "output": "int64\nfloat64\n<U21\n[1 2 3]\nfloat32\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "numpy": "2.5.4"
+      },
+      "sources": [
+        {
+          "title": "NumPy: the absolute basics for beginners",
+          "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "numpy-vectorization",
+      "tool": "NumPy",
+      "group": "Calculation",
+      "level": 1,
+      "order": 49,
+      "category": "NumPy",
+      "title": "What does vectorized calculation mean?",
+      "body": "Vectorized means one expression applied to every element, without writing a loop. `array * 2` doubles each element, while `list * 2` repeats the list. The same idea makes pandas columns work: `df[\"price\"] * df[\"qty\"]` multiplies row by row.\n\nPrefer vectorized expressions to Python loops on numeric data: they are shorter and much faster on large inputs.",
+      "code": "import numpy as np\n\nvalues = [1, 2, 3]\narray = np.array(values)\n\nprint(values * 2)\nprint(array * 2)\nprint(array + np.array([10, 20, 30]))\nprint(np.sqrt(array).round(2))\n",
+      "output": "[1, 2, 3, 1, 2, 3]\n[2 4 6]\n[11 22 33]\n[1.   1.41 1.73]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "numpy": "2.5.4"
+      },
+      "sources": [
+        {
+          "title": "NumPy: the absolute basics for beginners",
+          "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "numpy-boolean-mask",
+      "tool": "NumPy",
+      "group": "Calculation",
+      "level": 1,
+      "order": 50,
+      "category": "NumPy",
+      "title": "How do I select values with a condition?",
+      "body": "A comparison on an array returns an array of True/False, a **mask**. Using the mask as an index keeps the elements where it is True. Because True counts as 1, `mask.sum()` counts the matches and `mask.mean()` gives their share. pandas filtering with `df[df[\"a\"] > 5]` works the same way.",
+      "code": "import numpy as np\n\nprices = np.array([5, 12, 8, 30, 21])\n\nmask = prices > 10\nprint(mask)\nprint(prices[mask])\nprint(mask.sum(), mask.mean())\n",
+      "output": "[False  True False  True  True]\n[12 30 21]\n3 0.6\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "numpy": "2.5.4"
+      },
+      "sources": [
+        {
+          "title": "NumPy: the absolute basics for beginners",
+          "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "numpy-axis",
+      "tool": "NumPy",
+      "group": "Calculation",
+      "level": 2,
+      "order": 51,
+      "category": "NumPy",
+      "title": "What does axis mean in sum or mean?",
+      "body": "`axis` is the direction along which the values are combined. In a 2D array, `axis=0` goes down the rows and gives **one result per column**; `axis=1` goes across the columns and gives **one result per row**. pandas uses the same numbering (`df.sum(axis=0)` totals each column).",
+      "code": "import numpy as np\n\na = np.array([[1, 2, 3],\n              [4, 5, 6]])\n\nprint(a.sum())\nprint(a.sum(axis=0))\nprint(a.sum(axis=1))\nprint(a.mean(axis=0))\n",
+      "output": "21\n[5 7 9]\n[ 6 15]\n[2.5 3.5 4.5]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "numpy": "2.5.4"
+      },
+      "sources": [
+        {
+          "title": "NumPy quickstart",
+          "url": "https://numpy.org/doc/stable/user/quickstart.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "numpy-broadcasting",
+      "tool": "NumPy",
+      "group": "Calculation",
+      "level": 2,
+      "order": 52,
+      "category": "NumPy",
+      "title": "What is broadcasting?",
+      "body": "Broadcasting lets NumPy combine arrays of different shapes. A scalar is applied to every element. Two arrays are compatible when, comparing their shapes from the last dimension backwards, each pair of sizes is equal or one of them is 1; the size-1 dimension is stretched to match.\n\nIncompatible shapes raise `ValueError`. The error message shows both shapes, which is the first thing to read.",
+      "code": "import numpy as np\n\ntable = np.array([[1, 2, 3],\n                  [4, 5, 6]])\nper_column = np.array([10, 20, 30])\nper_row = np.array([[100], [200]])\n\nprint(table + per_column)\nprint(table + per_row)\n\ntry:\n    table + np.array([1, 2])\nexcept ValueError as e:\n    print(\"ValueError:\", e)\n",
+      "output": "[[11 22 33]\n [14 25 36]]\n[[101 102 103]\n [204 205 206]]\nValueError: operands could not be broadcast together with shapes (2,3) (2,) \n",
+      "tested_with": {
+        "python": "3.15.2",
+        "numpy": "2.5.4"
+      },
+      "sources": [
+        {
+          "title": "NumPy: broadcasting",
+          "url": "https://numpy.org/doc/stable/user/basics.broadcasting.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "numpy-nan",
+      "tool": "NumPy",
+      "group": "Missing numbers and randomness",
+      "level": 2,
+      "order": 53,
+      "category": "NumPy",
+      "title": "How does NumPy handle missing numbers (NaN)?",
+      "body": "`np.nan` is a floating-point value that means \"not a number\". Any calculation that includes it returns `nan`, and `nan == nan` is `False`, so test with `np.isnan`. The functions with an `nan` prefix (`nansum`, `nanmean`) skip missing values. pandas skips them by default, NumPy does not.",
+      "code": "import numpy as np\n\nx = np.array([1.0, np.nan, 3.0])\n\nprint(x.sum(), np.nansum(x))\nprint(x.mean(), np.nanmean(x))\nprint(np.nan == np.nan, np.isnan(x))\n",
+      "output": "nan 4.0\nnan 2.0\nFalse [False  True False]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "numpy": "2.5.4"
+      },
+      "sources": [
+        {
+          "title": "NumPy: the absolute basics for beginners",
+          "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "numpy-random-seed",
+      "tool": "NumPy",
+      "group": "Missing numbers and randomness",
+      "level": 2,
+      "order": 54,
+      "category": "NumPy",
+      "title": "How do I generate random numbers that I can reproduce?",
+      "body": "Create a generator with a seed: `rng = np.random.default_rng(42)`. The same seed gives the same sequence, so an analysis with random samples can be repeated. Keep the generator in a variable and call its methods (`integers`, `random`, `choice`, `normal`) instead of the older `np.random.seed` functions.\n\nThe sequence is guaranteed for a given NumPy version; the numbers shown come from the version on this page.",
+      "code": "import numpy as np\n\nrng = np.random.default_rng(42)\nprint(rng.integers(0, 100, size=5))\n\nagain = np.random.default_rng(42)\nprint(again.integers(0, 100, size=5))\n",
+      "output": "[ 8 77 65 43 43]\n[ 8 77 65 43 43]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "numpy": "2.5.4"
+      },
+      "sources": [
+        {
+          "title": "NumPy quickstart",
+          "url": "https://numpy.org/doc/stable/user/quickstart.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "numpy-and-pandas",
+      "tool": "NumPy",
+      "group": "Connection to pandas",
+      "level": 2,
+      "order": 55,
+      "category": "NumPy",
+      "title": "How are NumPy and pandas connected?",
+      "body": "A pandas column is built on a NumPy array. `df[\"a\"].to_numpy()` gives the array, and `pd.Series(array)` or `pd.DataFrame(array, columns=[...])` goes the other way. NumPy functions accept pandas columns, and pandas methods give results that are often NumPy-compatible. A DataFrame can hold different types per column; a plain array cannot.",
+      "code": "import numpy as np\nimport pandas as pd\n\ndf = pd.DataFrame({\"price\": [10.0, 20.0, 30.0], \"qty\": [1, 2, 3]})\n\narr = df[\"price\"].to_numpy()\nprint(type(arr).__name__, arr.dtype)\nprint(np.log(df[\"price\"]).round(3).tolist())\n\nback = pd.DataFrame(np.array([[1, 2], [3, 4]]), columns=[\"a\", \"b\"])\nprint(back)\n",
+      "output": "ndarray float64\n[2.303, 2.996, 3.401]\n   a  b\n0  1  2\n1  3  4\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "numpy": "2.5.4",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "NumPy: the absolute basics for beginners",
+          "url": "https://numpy.org/doc/stable/user/absolute_beginners.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "stats-describe",
+      "tool": "Statistics & scipy",
+      "group": "Describing data",
+      "level": 1,
+      "order": 56,
+      "category": "Statistics & scipy",
+      "title": "How do I get a quick statistical summary of a table?",
+      "body": "`df.describe()` reports, for each numeric column, the count of non-missing values, the mean, the standard deviation, the minimum, the quartiles (25%, 50%, 75%) and the maximum. The 50% row is the median. Read `count` first: if it is smaller than the number of rows, the column has missing values.\n\nFor text columns, `value_counts()` counts each value, and `value_counts(normalize=True)` gives the shares.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"amount\": [10, 12, 11, 13, 40, None],\n    \"channel\": [\"web\", \"shop\", \"web\", \"web\", \"shop\", \"web\"],\n})\n\nprint(df[\"amount\"].describe())\nprint(df[\"channel\"].value_counts(normalize=True).round(2))\n",
+      "output": "count     5.00000\nmean     17.20000\nstd      12.79453\nmin      10.00000\n25%      11.00000\n50%      12.00000\n75%      13.00000\nmax      40.00000\nName: amount, dtype: float64\nchannel\nweb     0.67\nshop    0.33\nName: proportion, dtype: float64\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: calculate statistics",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "stats-mean-median",
+      "tool": "Statistics & scipy",
+      "group": "Describing data",
+      "level": 1,
+      "order": 57,
+      "category": "Statistics & scipy",
+      "title": "Mean or median: which one describes my data?",
+      "body": "The **mean** is the sum divided by the count. The **median** is the middle value after sorting. A few extreme values pull the mean toward them but barely move the median, so for data with outliers (salaries, order values) the median is usually the better description of a typical value. When the two differ a lot, look at the distribution.",
+      "code": "import pandas as pd\n\norders = pd.Series([20, 22, 21, 19, 23, 400])\n\nprint(orders.mean().round(1))\nprint(orders.median())\n",
+      "output": "84.2\n21.5\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: calculate statistics",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "stats-std-ddof",
+      "tool": "Statistics & scipy",
+      "group": "Describing data",
+      "level": 2,
+      "order": 58,
+      "category": "Statistics & scipy",
+      "title": "Why do pandas and NumPy give different standard deviations?",
+      "body": "The standard deviation measures how far values typically are from the mean. pandas divides by n-1 (`ddof=1`, the **sample** standard deviation), while NumPy divides by n (`ddof=0`, the **population** value) by default. For the same numbers the results differ, most visibly on small samples.\n\nChoose on purpose: use `ddof=1` when the data is a sample of a larger group, and state which one you used.",
+      "code": "import numpy as np\nimport pandas as pd\n\nvalues = [2, 4, 4, 4, 5, 5, 7, 9]\n\nprint(pd.Series(values).std())\nprint(np.std(values))\nprint(np.std(values, ddof=1))\nprint(pd.Series(values).std(ddof=0))\n",
+      "output": "2.138089935299395\n2.0\n2.138089935299395\n2.0\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "numpy": "2.5.4",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "SciPy: statistical functions (scipy.stats)",
+          "url": "https://docs.scipy.org/doc/scipy/reference/stats.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "stats-quantiles-outliers",
+      "tool": "Statistics & scipy",
+      "group": "Describing data",
+      "level": 2,
+      "order": 59,
+      "category": "Statistics & scipy",
+      "title": "How do I find outliers?",
+      "body": "Quartiles split sorted data into four parts. `quantile(0.25)` and `quantile(0.75)` give Q1 and Q3, and the **interquartile range** is IQR = Q3 - Q1. A common rule flags values below Q1 - 1.5 x IQR or above Q3 + 1.5 x IQR; box plots draw the same limits.\n\nA flagged value is a question, not a verdict: check whether it is an error, a different kind of case, or a real extreme before removing it.",
+      "code": "import pandas as pd\n\ns = pd.Series([20, 22, 21, 19, 23, 24, 18, 400])\n\nq1, q3 = s.quantile(0.25), s.quantile(0.75)\niqr = q3 - q1\nlow, high = q1 - 1.5 * iqr, q3 + 1.5 * iqr\n\nprint(q1, q3, iqr)\nprint(low, high)\nprint(s[(s < low) | (s > high)].tolist())\n",
+      "output": "19.75 23.25 3.5\n14.5 28.5\n[400]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: calculate statistics",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "stats-zscore",
+      "tool": "Statistics & scipy",
+      "group": "Describing data",
+      "level": 2,
+      "order": 60,
+      "category": "Statistics & scipy",
+      "title": "What is a z-score and how do I compute it?",
+      "body": "A z-score says how many standard deviations a value is from the mean: `(x - mean) / std`. It puts columns with different units on one scale and is sometimes used to flag extreme values.\n\n`scipy.stats.zscore` uses `ddof=0` by default, while the pandas `std()` used by hand uses `ddof=1`, so the two results differ slightly unless you set `ddof` the same way.",
+      "code": "import pandas as pd\nfrom scipy import stats\n\ns = pd.Series([10, 12, 14, 16, 18])\n\nby_hand = (s - s.mean()) / s.std()\nby_scipy = stats.zscore(s)\nmatched = stats.zscore(s, ddof=1)\n\nprint(by_hand.round(3).tolist())\nprint(by_scipy.round(3).tolist())\nprint(matched.round(3).tolist())\n",
+      "output": "[-1.265, -0.632, 0.0, 0.632, 1.265]\n[-1.414, -0.707, 0.0, 0.707, 1.414]\n[-1.265, -0.632, 0.0, 0.632, 1.265]\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0",
+        "numpy": "2.5.4",
+        "scipy": "1.18.1"
+      },
+      "sources": [
+        {
+          "title": "SciPy: statistical functions (scipy.stats)",
+          "url": "https://docs.scipy.org/doc/scipy/reference/stats.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "stats-correlation",
+      "tool": "Statistics & scipy",
+      "group": "Relationships and tests",
+      "level": 2,
+      "order": 61,
+      "category": "Statistics & scipy",
+      "title": "How strongly are two columns related (correlation)?",
+      "body": "The Pearson correlation coefficient runs from -1 (one rises as the other falls) to +1 (they rise together); 0 means no straight-line relationship. In pandas, `df.corr(numeric_only=True)` gives a matrix and `a.corr(b)` one pair. `scipy.stats.pearsonr(a, b)` also returns a p-value.\n\nCorrelation shows that two columns move together, not that one causes the other. It also misses curved relationships, so look at a scatter plot as well.\n\nThe samples in the example are tiny so the numbers can be followed by hand; real conclusions need real sample sizes.",
+      "code": "import pandas as pd\nfrom scipy import stats\n\nprice = pd.Series([5, 7, 9, 11, 13, 15])\nunits = pd.Series([100, 90, 70, 60, 40, 35])\n\nprint(price.corr(units).round(4))\n\nresult = stats.pearsonr(price, units)\nprint(round(result.statistic, 4), result.pvalue < 0.05)\n",
+      "output": "-0.9911\n-0.9911 True\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0",
+        "numpy": "2.5.4",
+        "scipy": "1.18.1"
+      },
+      "sources": [
+        {
+          "title": "scipy.stats.pearsonr",
+          "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pearsonr.html"
+        },
+        {
+          "title": "SciPy tutorial: Pearson's correlation",
+          "url": "https://docs.scipy.org/doc/scipy/tutorial/stats/hypothesis_pearsonr.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "stats-p-value",
+      "tool": "Statistics & scipy",
+      "group": "Relationships and tests",
+      "level": 2,
+      "order": 62,
+      "category": "Statistics & scipy",
+      "title": "What does a p-value mean?",
+      "body": "A hypothesis test starts from a **null hypothesis** (for example \"the two groups have the same mean\"). The **p-value** is the probability of seeing a result at least as extreme as the observed one if the null hypothesis were true. A small p-value (below a limit chosen in advance, often 0.05) means the data would be unusual under the null hypothesis.\n\nIt is not the probability that the null hypothesis is true, and it says nothing about how large or how important the difference is. Report the size of the difference next to it.",
+      "code": "",
+      "output": "",
+      "tested_with": {},
+      "sources": [
+        {
+          "title": "SciPy: statistical functions (scipy.stats)",
+          "url": "https://docs.scipy.org/doc/scipy/reference/stats.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "stats-t-test",
+      "tool": "Statistics & scipy",
+      "group": "Relationships and tests",
+      "level": 3,
+      "order": 63,
+      "category": "Statistics & scipy",
+      "title": "How do I test whether two groups have different means?",
+      "body": "`scipy.stats.ttest_ind(a, b, equal_var=False)` compares the means of two independent groups (Welch's version, which does not assume equal variances) and returns a test statistic and a p-value. Check the group sizes and the means first; the test answers only whether the observed difference is unusual if the true means were equal.\n\nThe samples in the example are tiny so the numbers can be followed by hand; real conclusions need real sample sizes.",
+      "code": "import pandas as pd\nfrom scipy import stats\n\na = pd.Series([12, 14, 11, 13, 15, 12, 14])\nb = pd.Series([16, 18, 15, 17, 19, 16, 18])\n\nprint(a.mean().round(2), b.mean().round(2))\n\nresult = stats.ttest_ind(a, b, equal_var=False)\nprint(round(result.statistic, 3))\nprint(result.pvalue < 0.05)\n",
+      "output": "13.0 17.0\n-5.292\nTrue\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0",
+        "numpy": "2.5.4",
+        "scipy": "1.18.1"
+      },
+      "sources": [
+        {
+          "title": "scipy.stats.ttest_ind",
+          "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html"
+        }
+      ],
+      "added": "2026-10-29"
+    }
+  ]
+}

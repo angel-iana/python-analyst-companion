@@ -1,0 +1,222 @@
+{
+  "section": "errors",
+  "entries": [
+    {
+      "id": "read-csv-squeeze",
+      "tool": "pandas",
+      "group": "Reading data",
+      "level": 2,
+      "order": 65,
+      "category": "Reading data",
+      "title": "read_csv(squeeze=True) raises TypeError",
+      "body": "`read_csv` no longer accepts the `squeeze` argument. Code that passed `squeeze=True` to get a Series from a one-column file now raises `TypeError`.\n\nRead the file normally and call `.squeeze(\"columns\")` on the result.\n\nThe pandas 2.0.0 release notes list `squeeze` among the arguments removed from `read_csv`.",
+      "code": "import io\nimport pandas as pd\n\ncsv = \"name,score\\nAna,10\\nBob,12\\n\"\n\ntry:\n    pd.read_csv(io.StringIO(csv), index_col=0, squeeze=True)\nexcept TypeError as e:\n    print(\"TypeError:\", e)\n\nscores = pd.read_csv(io.StringIO(csv), index_col=0).squeeze(\"columns\")\nprint(scores)\n",
+      "output": "TypeError: read_csv() got an unexpected keyword argument 'squeeze'\nname\nAna    10\nBob    12\nName: score, dtype: int64\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas 2.0.0 release notes",
+          "url": "https://pandas.pydata.org/docs/whatsnew/v2.0.0.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "fillna-method",
+      "tool": "pandas",
+      "group": "Missing values",
+      "level": 2,
+      "order": 66,
+      "category": "Missing values",
+      "title": "fillna(method=...) raises TypeError",
+      "body": "`fillna` no longer takes a `method` argument in the version used for this page. Passing `method=\"ffill\"` raises `TypeError`.\n\nUse `ffill()` to carry the last valid value forward, and `bfill()` to carry the next valid value backward.",
+      "code": "import pandas as pd\n\ns = pd.Series([1.0, None, 3.0])\n\ntry:\n    s.fillna(method=\"ffill\")\nexcept TypeError as e:\n    print(\"TypeError:\", e)\n\nprint(s.ffill())\n",
+      "output": "TypeError: NDFrame.fillna() got an unexpected keyword argument 'method'\n0    1.0\n1    1.0\n2    3.0\ndtype: float64\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "inplace-on-column",
+      "tool": "pandas",
+      "group": "Assignment",
+      "level": 3,
+      "order": 67,
+      "category": "Assignment",
+      "title": "fillna(inplace=True) on a selected column changes nothing",
+      "body": "`df[\"a\"].fillna(0, inplace=True)` fills a temporary object, not the DataFrame. In pandas 3 the DataFrame stays unchanged and pandas emits a `ChainedAssignmentError` warning.\n\nAssign the result back to the column instead: `df[\"a\"] = df[\"a\"].fillna(0)`.\n\nThe pandas 3.0.0 release notes describe the Copy-on-Write change behind this behaviour.",
+      "code": "import warnings\nimport pandas as pd\n\ndf = pd.DataFrame({\"a\": [1.0, None, 3.0]})\n\nwith warnings.catch_warnings(record=True) as caught:\n    warnings.simplefilter(\"always\")\n    df[\"a\"].fillna(0, inplace=True)\nprint(\"warning:\", caught[0].category.__name__)\nprint(df[\"a\"].isna().sum(), \"missing value(s) left\")\n\ndf[\"a\"] = df[\"a\"].fillna(0)\nprint(df[\"a\"].isna().sum(), \"missing value(s) left after assigning back\")\n",
+      "output": "warning: ChainedAssignmentError\n1 missing value(s) left\n0 missing value(s) left after assigning back\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas 3.0.0 release notes",
+          "url": "https://pandas.pydata.org/docs/whatsnew/v3.0.0.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "chained-assignment",
+      "tool": "pandas",
+      "group": "Assignment",
+      "level": 3,
+      "order": 68,
+      "category": "Assignment",
+      "title": "Chained assignment with a boolean mask no longer updates the DataFrame",
+      "body": "`df[\"a\"][df[\"b\"] > 15] = 0` selects a column and then assigns into the result. In pandas 3 the original DataFrame is not modified, and pandas warns with `ChainedAssignmentError`.\n\nUse a single `.loc[row_condition, \"column\"]` call. It reads like the SQL `UPDATE ... SET a = 0 WHERE b > 15`.\n\nThe pandas 3.0.0 release notes cover chained assignment under Copy-on-Write.",
+      "code": "import warnings\nimport pandas as pd\n\ndf = pd.DataFrame({\"a\": [1, 2, 3], \"b\": [10, 20, 30]})\n\nwith warnings.catch_warnings(record=True) as caught:\n    warnings.simplefilter(\"always\")\n    df[\"a\"][df[\"b\"] > 15] = 0\nprint(\"warning:\", caught[0].category.__name__)\nprint(df)\n\ndf.loc[df[\"b\"] > 15, \"a\"] = 0\nprint(df)\n",
+      "output": "warning: ChainedAssignmentError\n   a   b\n0  1  10\n1  2  20\n2  3  30\n   a   b\n0  1  10\n1  0  20\n2  0  30\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas 3.0.0 release notes",
+          "url": "https://pandas.pydata.org/docs/whatsnew/v3.0.0.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "text-into-numeric-column",
+      "tool": "pandas",
+      "group": "Assignment",
+      "level": 2,
+      "order": 69,
+      "category": "Assignment",
+      "title": "Setting text into a numeric column raises TypeError",
+      "body": "A column has one dtype. Assigning a string into an `int64` column raises `TypeError` instead of converting the whole column to text.\n\nDecide how a missing or unknown value is stored. A float column with `NaN` keeps the numbers usable in calculations. Free-text labels belong in a separate column.",
+      "code": "import numpy as np\nimport pandas as pd\n\ndf = pd.DataFrame({\"n\": [1, 2, 3]})\n\ntry:\n    df.loc[1, \"n\"] = \"unknown\"\nexcept TypeError as e:\n    print(\"TypeError:\", e)\n\ndf[\"n\"] = df[\"n\"].astype(\"float64\")\ndf.loc[1, \"n\"] = np.nan\nprint(df)\n",
+      "output": "TypeError: Invalid value 'unknown' for dtype 'int64'\n     n\n0  1.0\n1  NaN\n2  3.0\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "string-dtype-not-object",
+      "tool": "pandas",
+      "group": "Types",
+      "level": 3,
+      "order": 70,
+      "category": "Types",
+      "title": "String columns are no longer dtype object",
+      "body": "In pandas 3, text columns get the `str` dtype by default instead of `object`. A test such as `df[\"city\"].dtype == object` now returns `False`, so a check written for `object` silently skips those columns.\n\n`select_dtypes(include=\"object\")` still returns them for backward compatibility, but pandas 3.1.0 warns (`Pandas4Warning`) that this will be removed. Select with `include=\"str\"` and test with `pd.api.types.is_string_dtype()`.\n\nThe pandas 3.0.0 release notes describe the new default string dtype.",
+      "code": "import warnings\nimport pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Cluj\", \"Iasi\"], \"n\": [1, 2]})\n\nprint(df[\"city\"].dtype)\nprint(df[\"city\"].dtype == object)\nprint(pd.api.types.is_string_dtype(df[\"city\"]))\n\nwith warnings.catch_warnings(record=True) as caught:\n    warnings.simplefilter(\"always\")\n    print(list(df.select_dtypes(include=\"object\").columns))\nprint(\"warning:\", caught[0].category.__name__)\n\nprint(list(df.select_dtypes(include=\"str\").columns))\n",
+      "output": "str\nFalse\nTrue\n['city']\nwarning: Pandas4Warning\n['city']\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas 3.0.0 release notes",
+          "url": "https://pandas.pydata.org/docs/whatsnew/v3.0.0.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "concat-keys-ignore-index",
+      "tool": "pandas",
+      "group": "Combining tables",
+      "level": 3,
+      "order": 71,
+      "category": "Combining tables",
+      "title": "concat with keys and ignore_index=True raises ValueError",
+      "body": "`keys` labels each piece in the result index, and `ignore_index=True` throws the index away, so the two cannot be combined. pandas 3 raises `ValueError`.\n\nPick one. To keep the origin of each row as a column, concatenate with `keys`, then move that index level into a column with `reset_index`.\n\nThe pandas 3.0.0 release notes list this change.",
+      "code": "import pandas as pd\n\na = pd.DataFrame({\"x\": [1]})\nb = pd.DataFrame({\"x\": [2]})\n\ntry:\n    pd.concat([a, b], keys=[\"a\", \"b\"], ignore_index=True)\nexcept ValueError as e:\n    print(\"ValueError:\", e)\n\nout = pd.concat([a, b], keys=[\"a\", \"b\"]).reset_index(level=0, names=\"source\").reset_index(drop=True)\nprint(out)\n",
+      "output": "ValueError: Cannot set ignore_index=True and specify keys. Either should be used.\n  source  x\n0      a  1\n1      b  2\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas 3.0.0 release notes",
+          "url": "https://pandas.pydata.org/docs/whatsnew/v3.0.0.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "merge-ignore-index",
+      "tool": "pandas",
+      "group": "Combining tables",
+      "level": 2,
+      "order": 72,
+      "category": "Combining tables",
+      "title": "merge has no ignore_index argument",
+      "body": "`ignore_index` belongs to functions such as `concat`. `DataFrame.merge` does not accept it and raises `TypeError`.\n\nWhen rows are joined on columns, the result already has a fresh index numbered from 0. Call `reset_index(drop=True)` only if the join was done on the index.",
+      "code": "import pandas as pd\n\nleft = pd.DataFrame({\"id\": [1, 2], \"v\": [\"x\", \"y\"]})\nright = pd.DataFrame({\"id\": [2, 1], \"w\": [20, 10]})\n\ntry:\n    left.merge(right, on=\"id\", ignore_index=True)\nexcept TypeError as e:\n    print(\"TypeError:\", e)\n\nprint(left.merge(right, on=\"id\"))\n",
+      "output": "TypeError: DataFrame.merge() got an unexpected keyword argument 'ignore_index'\n   id  v   w\n0   1  x  10\n1   2  y  20\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "datetime-integer-resolution",
+      "tool": "pandas",
+      "group": "Types",
+      "level": 3,
+      "order": 73,
+      "category": "Types",
+      "title": "Datetimes cast to integers are 1000 times smaller in pandas 3",
+      "body": "Parsed date strings now default to microsecond resolution (`datetime64[us]`) instead of nanosecond. Casting to an integer therefore returns microseconds since 1970-01-01, 1000 times smaller than the nanosecond value older code expects. Nothing raises an error, so the wrong numbers can pass unnoticed.\n\nConvert explicitly with `as_unit(\"ns\")` before casting, or avoid integer casts.\n\nThe pandas 3.0.0 release notes describe the new resolution inference.",
+      "code": "import pandas as pd\n\ndt = pd.to_datetime([\"2024-03-22 11:36\"])\n\nprint(dt.dtype)\nprint(dt.astype(\"int64\")[0])\nprint(dt.as_unit(\"ns\").astype(\"int64\")[0])\n",
+      "output": "datetime64[us]\n1711107360000000\n1711107360000000000\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas 3.0.0 release notes",
+          "url": "https://pandas.pydata.org/docs/whatsnew/v3.0.0.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "seaborn-positional-arguments",
+      "tool": "matplotlib & seaborn",
+      "group": "Visualization",
+      "level": 2,
+      "order": 74,
+      "category": "Visualization",
+      "title": "seaborn: x and y must be passed by keyword",
+      "body": "Since seaborn 0.12, `data` is the only positional argument of most plotting functions. `sns.scatterplot(\"x\", \"y\", data=df)` raises `TypeError`.\n\nPass `data=`, `x=` and `y=` by name.\n\nThe seaborn 0.12.0 release notes describe this under keyword-only arguments.",
+      "code": "import matplotlib\nmatplotlib.use(\"Agg\")\nimport pandas as pd\nimport seaborn as sns\n\ndf = pd.DataFrame({\"x\": [1, 2, 3], \"y\": [3, 1, 2]})\n\ntry:\n    sns.scatterplot(\"x\", \"y\", data=df)\nexcept TypeError as e:\n    print(\"TypeError:\", e)\n\nax = sns.scatterplot(data=df, x=\"x\", y=\"y\")\nprint(type(ax).__name__)\n",
+      "output": "TypeError: scatterplot() got multiple values for argument 'data'\nAxes\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0",
+        "matplotlib": "3.11.2",
+        "seaborn": "0.13.2"
+      },
+      "sources": [
+        {
+          "title": "seaborn v0.12.0 release notes",
+          "url": "https://seaborn.pydata.org/whatsnew/v0.12.0.html"
+        }
+      ],
+      "added": "2026-10-29"
+    }
+  ]
+}

@@ -1,0 +1,901 @@
+{
+  "section": "flashcards",
+  "cards": [
+    {
+      "id": "distribution-vs-interpreter",
+      "tool": "Environment & tools",
+      "level": 1,
+      "category": "Environment & tools",
+      "front": "What is the difference between Python, a distribution such as Anaconda, and an IDE?",
+      "back": "Python is the language runtime. A distribution (for example Anaconda) bundles Python with a package manager and ready-installed libraries. An IDE or editor is where you write code; it is pointed at an interpreter and does not contain one."
+    },
+    {
+      "id": "packages-vs-libraries",
+      "tool": "Environment & tools",
+      "level": 1,
+      "category": "Environment & tools",
+      "front": "Package, module, library: what is the difference, and what is the standard library?",
+      "back": "A module is one Python file, a package is a folder of modules, and \"library\" is an informal word for a collection of reusable code. The standard library ships with Python; third-party libraries (pandas, numpy) must be installed."
+    },
+    {
+      "id": "library-roles",
+      "tool": "Environment & tools",
+      "level": 1,
+      "category": "Environment & tools",
+      "front": "Which library does what in a data analysis workflow?",
+      "back": "numpy: arrays. pandas: tables. matplotlib: base plots (plt). seaborn: statistical charts on top of matplotlib. scipy: scientific and statistical functions. scikit-learn: machine learning."
+    },
+    {
+      "id": "pip-vs-conda",
+      "tool": "Environment & tools",
+      "level": 1,
+      "category": "Environment & tools",
+      "front": "pip or conda: which one installs packages?",
+      "back": "Both are package managers. pip installs Python packages from PyPI into the environment of the interpreter that runs it. conda creates environments and installs packages from conda channels; it comes with Anaconda."
+    },
+    {
+      "id": "pip-vs-conda-q1",
+      "tool": "Environment & tools",
+      "level": 1,
+      "category": "Environment & tools",
+      "front": "What is the safest way to call pip?",
+      "back": "python -m pip install name, so the package goes to that exact interpreter."
+    },
+    {
+      "id": "virtual-environment",
+      "tool": "Environment & tools",
+      "level": 1,
+      "category": "Environment & tools",
+      "front": "What is a virtual environment and when do I need one?",
+      "back": "An isolated folder with its own installed packages, so projects can use different versions. Create it with python -m venv .venv and activate it. Activation is a convenience, not a requirement."
+    },
+    {
+      "id": "virtual-environment-q1",
+      "tool": "Environment & tools",
+      "level": 1,
+      "category": "Environment & tools",
+      "front": "Which command creates a virtual environment?",
+      "back": "python -m venv .venv"
+    },
+    {
+      "id": "jupyter-kernel",
+      "tool": "Environment & tools",
+      "level": 1,
+      "category": "Environment & tools",
+      "front": "What is a Jupyter kernel?",
+      "back": "The separate process that runs the code of the notebook cells. Variables live in it, and restarting it clears them. It runs on one specific interpreter."
+    },
+    {
+      "id": "jupyter-vs-environment",
+      "tool": "Environment & tools",
+      "level": 1,
+      "category": "Environment & tools",
+      "front": "Is Jupyter a virtual environment?",
+      "back": "No. Jupyter is a notebook interface plus a kernel. A virtual environment is the set of packages the kernel can use. They are separate things."
+    },
+    {
+      "id": "vscode-interpreter",
+      "tool": "Environment & tools",
+      "level": 1,
+      "category": "Environment & tools",
+      "front": "Is VS Code an interpreter?",
+      "back": "No. VS Code is an editor. You select the interpreter for it: a virtual environment, a conda environment or the system Python."
+    },
+    {
+      "id": "python-needs-java",
+      "tool": "Environment & tools",
+      "level": 2,
+      "category": "Environment & tools",
+      "front": "Does Python for ETL need Java?",
+      "back": "Not for pandas. Only PySpark needs a Java runtime (the PySpark installation page lists Java 17 or later)."
+    },
+    {
+      "id": "interpreter-bytecode",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "Does the interpreter run code line by line?",
+      "back": "Not exactly. CPython compiles the source into bytecode and then runs the bytecode. Syntax errors are found before anything runs. A notebook compiles and runs each cell on its own."
+    },
+    {
+      "id": "indentation",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "Why does Python complain about indentation?",
+      "back": "Indentation marks blocks. The lines under if, for or def must be indented by the same amount (four spaces); otherwise Python raises IndentationError."
+    },
+    {
+      "id": "syntax-error",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What does SyntaxError mean?",
+      "back": "The text is not valid Python, for example a bracket that is never closed. Python checks the whole file before running it, so nothing runs. The reported line can come after the real mistake."
+    },
+    {
+      "id": "comments-and-docstrings",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "Comments: is a triple-quoted text a comment?",
+      "back": "No. A comment starts with #. Triple quotes create a string; as the first statement of a function, class or module it becomes the docstring, stored in __doc__."
+    },
+    {
+      "id": "comments-and-docstrings-q1",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What does # do in Python?",
+      "back": "It starts a comment, which Python ignores."
+    },
+    {
+      "id": "types-and-division",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "Which basic types do I use, and how does division behave?",
+      "back": "int, float, str, bool and None. / always returns a float, // is floor division and % is the remainder. Compare floats with math.isclose, not ==."
+    },
+    {
+      "id": "types-and-division-q1",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What are 7 // 2 and 7 % 2?",
+      "back": "3 and 1."
+    },
+    {
+      "id": "types-and-division-q2",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "Why compare floats with math.isclose?",
+      "back": "Floats store binary approximations: 0.1 + 0.2 == 0.3 is False."
+    },
+    {
+      "id": "collections",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "List, tuple, dict, set: which one do I use?",
+      "back": "list: ordered and changeable. tuple: ordered and fixed. dict: key to value lookup. set: unique values."
+    },
+    {
+      "id": "loops-and-comprehensions",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "How do I loop over values and build a new list?",
+      "back": "for repeats a block for each item. A list comprehension builds a new list in one line, and a trailing if filters like WHERE. On tables, prefer pandas operations to loops."
+    },
+    {
+      "id": "functions",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "How do I write a function, and why should I avoid a list as a default argument?",
+      "back": "def name(params): ... return value. A default value is created once, so a list used as default is shared between calls. Use None as the default and create the list inside."
+    },
+    {
+      "id": "functions-q1",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "Why not use a list as a default argument?",
+      "back": "It is created once, when the function is defined, and shared between calls."
+    },
+    {
+      "id": "try-except",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "How do I handle an error without stopping the program?",
+      "back": "Put the risky line in try and name the expected error in except (ValueError, KeyError). Catch the specific error, not everything. finally runs either way."
+    },
+    {
+      "id": "dataframe-and-series",
+      "tool": "pandas",
+      "level": 1,
+      "category": "pandas",
+      "front": "What are a DataFrame and a Series?",
+      "back": "A DataFrame is a table with rows and named columns, one type per column. A Series is one column. shape gives (rows, columns) and dtypes the column types."
+    },
+    {
+      "id": "read-csv-basics",
+      "tool": "pandas",
+      "level": 1,
+      "category": "pandas",
+      "front": "How do I read a CSV file and control the column types?",
+      "back": "pd.read_csv(path_or_buffer). Useful arguments: usecols, dtype, parse_dates and na_values."
+    },
+    {
+      "id": "select-and-filter",
+      "tool": "pandas",
+      "level": 1,
+      "category": "pandas",
+      "front": "How do I select columns and filter rows (SELECT and WHERE)?",
+      "back": "df[[\"a\", \"b\"]] selects columns; df[condition] filters rows. Combine conditions with & | ~, each in parentheses. Using and / or raises ValueError. isin is IN."
+    },
+    {
+      "id": "select-and-filter-q1",
+      "tool": "pandas",
+      "level": 1,
+      "category": "pandas",
+      "front": "Why must each condition be in parentheses?",
+      "back": "& and | bind tighter than comparisons, so without parentheses the expression fails or means something else."
+    },
+    {
+      "id": "loc-vs-iloc",
+      "tool": "pandas",
+      "level": 1,
+      "category": "pandas",
+      "front": "What is the difference between loc and iloc?",
+      "back": "loc selects by label and includes the end label of a slice. iloc selects by position and excludes the end. For conditions use df.loc[row_condition, \"column\"]."
+    },
+    {
+      "id": "loc-vs-iloc-q1",
+      "tool": "pandas",
+      "level": 1,
+      "category": "pandas",
+      "front": "Does a loc slice include its end label?",
+      "back": "Yes. An iloc slice excludes its end position."
+    },
+    {
+      "id": "missing-values",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How do I find and handle missing values?",
+      "back": "isna() marks missing values (IS NULL), notna() is the opposite, dropna() removes rows, fillna(value) replaces them and ffill() carries the last valid value forward. sum and mean skip missing values by default."
+    },
+    {
+      "id": "missing-values-q1",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "Does mean() count missing values?",
+      "back": "No. It skips them by default."
+    },
+    {
+      "id": "duplicates",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How do I find and remove duplicate rows?",
+      "back": "duplicated() marks repeats and drop_duplicates() removes them (SELECT DISTINCT). Use subset=[...] to compare chosen columns and keep to choose the surviving row."
+    },
+    {
+      "id": "convert-types",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How do I convert a column to numbers or dates?",
+      "back": "pd.to_numeric(col, errors=\"coerce\") and pd.to_datetime turn unreadable values into missing ones so you can count them. astype converts clean values. The .dt accessor gives date parts."
+    },
+    {
+      "id": "text-columns",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How do I clean text columns?",
+      "back": "The .str accessor: strip(), lower(), replace(), contains(), split(). Clean spaces and letter case before grouping or merging."
+    },
+    {
+      "id": "new-columns",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How do I create a new column, including a CASE WHEN?",
+      "back": "Assign to a new column name: df[\"total\"] = df[\"price\"] * df[\"qty\"]. assign returns a new DataFrame. CASE WHEN is numpy.where (numpy.select for several branches)."
+    },
+    {
+      "id": "sort-and-limit",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How do I sort and take the top rows (ORDER BY and LIMIT)?",
+      "back": "sort_values(by, ascending) is ORDER BY, head(n) is LIMIT, nlargest(n, column) does both, and value_counts() counts how often each value appears."
+    },
+    {
+      "id": "dates-by-month",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How do I total values by month?",
+      "back": "Convert with pd.to_datetime, take dt.to_period(\"M\"), then group by it."
+    },
+    {
+      "id": "groupby-basics",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How does groupby work (GROUP BY)?",
+      "back": "groupby(\"col\") splits the table into one group per value, and an aggregation collapses each group to one row (GROUP BY). Named aggregation: agg(new_name=(\"col\", \"sum\")). as_index=False keeps the group as a normal column."
+    },
+    {
+      "id": "groupby-basics-q1",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "size() or count()?",
+      "back": "size() counts rows; count() counts non-missing values."
+    },
+    {
+      "id": "groupby-multiple",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How do I group by two columns or compute a share of the total?",
+      "back": "groupby([\"a\", \"b\"]) groups by several columns. transform(\"sum\") returns a value for every original row, like SUM(...) OVER (PARTITION BY ...)."
+    },
+    {
+      "id": "pivot-table",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How do I build a pivot table?",
+      "back": "pivot_table(index=, columns=, values=, aggfunc=) reshapes grouped values into a grid, like an Excel PivotTable. melt does the opposite."
+    },
+    {
+      "id": "merge-tables",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How do I join two tables (JOIN)?",
+      "back": "left.merge(right, on=\"key\", how=...) is JOIN. how can be inner, left or outer. validate=\"many_to_one\" raises an error if the key is not unique on the right; indicator=True shows where each row came from."
+    },
+    {
+      "id": "merge-tables-q1",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "What does how=\"left\" keep?",
+      "back": "Every row of the left table, with NaN where there is no match on the right."
+    },
+    {
+      "id": "concat-rows",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "How do I stack tables with the same columns (UNION ALL)?",
+      "back": "pd.concat([a, b], ignore_index=True) places the rows of one table under the other (UNION ALL), matching columns by name. Add drop_duplicates() for UNION."
+    },
+    {
+      "id": "matplotlib-plt",
+      "tool": "matplotlib & seaborn",
+      "level": 1,
+      "category": "matplotlib & seaborn",
+      "front": "What is plt, and what are Figure and Axes?",
+      "back": "plt is matplotlib.pyplot. A Figure is the whole picture; an Axes is one chart inside it. Prefer fig, ax = plt.subplots() and call methods on ax."
+    },
+    {
+      "id": "matplotlib-plt-q1",
+      "tool": "matplotlib & seaborn",
+      "level": 1,
+      "category": "matplotlib & seaborn",
+      "front": "Figure or Axes?",
+      "back": "The Figure is the whole canvas; an Axes is one chart inside it."
+    },
+    {
+      "id": "chart-type-choice",
+      "tool": "matplotlib & seaborn",
+      "level": 1,
+      "category": "matplotlib & seaborn",
+      "front": "Which chart type fits which question?",
+      "back": "Compare categories: bar. Change over time: line. Distribution of one column: histogram or box plot. Two numeric columns: scatter. Many correlations: heatmap."
+    },
+    {
+      "id": "line-chart",
+      "tool": "matplotlib & seaborn",
+      "level": 1,
+      "category": "matplotlib & seaborn",
+      "front": "How do I draw a line chart of a value over time?",
+      "back": "Sort by date, then df.plot(x=..., y=...). It returns the Axes, so you can set the labels afterwards."
+    },
+    {
+      "id": "bar-chart-groupby",
+      "tool": "matplotlib & seaborn",
+      "level": 1,
+      "category": "matplotlib & seaborn",
+      "front": "How do I draw a bar chart of a total per category?",
+      "back": "Aggregate first (groupby(...).sum()), sort the totals, then .plot.bar() (or .plot.barh() for long names). Start the y axis at zero."
+    },
+    {
+      "id": "histogram",
+      "tool": "matplotlib & seaborn",
+      "level": 1,
+      "category": "matplotlib & seaborn",
+      "front": "How do I see the distribution of a numeric column?",
+      "back": "A histogram counts values per interval (bin): ax.hist(values, bins=n), which also returns the counts. The number of bins changes the shape."
+    },
+    {
+      "id": "readable-charts",
+      "tool": "matplotlib & seaborn",
+      "level": 1,
+      "category": "matplotlib & seaborn",
+      "front": "What makes a chart readable?",
+      "back": "A title that states what the chart shows, labelled axes with units, rotated or horizontal long labels, sorted categories, bar charts starting at zero, and one colour unless colour has meaning."
+    },
+    {
+      "id": "scatter-relationship",
+      "tool": "matplotlib & seaborn",
+      "level": 2,
+      "category": "matplotlib & seaborn",
+      "front": "How do I check the relationship between two numeric columns?",
+      "back": "sns.scatterplot(data=df, x=\"a\", y=\"b\", hue=\"c\"). hue colours the points by a third column. Arguments after data are passed by keyword."
+    },
+    {
+      "id": "seaborn-boxplot",
+      "tool": "matplotlib & seaborn",
+      "level": 2,
+      "category": "matplotlib & seaborn",
+      "front": "How do I compare a distribution across categories?",
+      "back": "sns.boxplot(data=df, x=category, y=value) draws one box per category: the median, the middle half of the values, and outliers."
+    },
+    {
+      "id": "correlation-heatmap",
+      "tool": "matplotlib & seaborn",
+      "level": 2,
+      "category": "matplotlib & seaborn",
+      "front": "How do I draw a correlation heatmap?",
+      "back": "corr = df.corr(numeric_only=True), then sns.heatmap(corr, annot=True). Values run from -1 to 1. Correlation is not causation."
+    },
+    {
+      "id": "subplots-grid",
+      "tool": "matplotlib & seaborn",
+      "level": 2,
+      "category": "matplotlib & seaborn",
+      "front": "How do I draw several charts side by side?",
+      "back": "fig, axes = plt.subplots(nrows, ncols). Pick a chart with axes[i] or axes[row, col] and pass ax=axes[i] to pandas and seaborn. sharey=True gives the charts one y scale."
+    },
+    {
+      "id": "save-figure",
+      "tool": "matplotlib & seaborn",
+      "level": 2,
+      "category": "matplotlib & seaborn",
+      "front": "How do I save a chart to a file?",
+      "back": "fig.savefig(\"chart.png\", dpi=150, bbox_inches=\"tight\"); the file extension sets the format. Call plt.close(fig) in scripts that draw many charts."
+    },
+    {
+      "id": "matplotlib-backend",
+      "tool": "matplotlib & seaborn",
+      "level": 2,
+      "category": "matplotlib & seaborn",
+      "front": "Why does plt.show() do nothing, or why is there no window?",
+      "back": "A backend draws and displays the figure. Notebooks show charts below the cell, scripts open a window with plt.show(), and servers use the non-interactive Agg backend, which can only save files."
+    },
+    {
+      "id": "numpy-array-basics",
+      "tool": "NumPy",
+      "level": 1,
+      "category": "NumPy",
+      "front": "What is a NumPy array and how is it different from a list?",
+      "back": "An array holds values of one type in a regular grid and has shape, ndim and dtype. Operations run on the whole array at once."
+    },
+    {
+      "id": "numpy-dtypes",
+      "tool": "NumPy",
+      "level": 1,
+      "category": "NumPy",
+      "front": "Why did my integers become floats or text?",
+      "back": "All elements share one dtype, so NumPy picks a type that fits every value: one float makes integers floats, one text value makes everything text. Convert on purpose with astype."
+    },
+    {
+      "id": "numpy-vectorization",
+      "tool": "NumPy",
+      "level": 1,
+      "category": "NumPy",
+      "front": "What does vectorized calculation mean?",
+      "back": "One expression applied to every element without writing a loop. array * 2 doubles each element, while list * 2 repeats the list."
+    },
+    {
+      "id": "numpy-boolean-mask",
+      "tool": "NumPy",
+      "level": 1,
+      "category": "NumPy",
+      "front": "How do I select values with a condition?",
+      "back": "A comparison returns an array of True/False (a mask). array[mask] keeps the elements where it is True. mask.sum() counts the matches and mask.mean() gives their share."
+    },
+    {
+      "id": "numpy-boolean-mask-q1",
+      "tool": "NumPy",
+      "level": 1,
+      "category": "NumPy",
+      "front": "What does mask.sum() return?",
+      "back": "The number of True values, because True counts as 1."
+    },
+    {
+      "id": "numpy-axis",
+      "tool": "NumPy",
+      "level": 2,
+      "category": "NumPy",
+      "front": "What does axis mean in sum or mean?",
+      "back": "axis=0 combines down the rows and gives one result per column. axis=1 combines across the columns and gives one result per row."
+    },
+    {
+      "id": "numpy-axis-q1",
+      "tool": "NumPy",
+      "level": 2,
+      "category": "NumPy",
+      "front": "In a 2D array, what does sum(axis=0) return?",
+      "back": "One total per column."
+    },
+    {
+      "id": "numpy-axis-q2",
+      "tool": "NumPy",
+      "level": 2,
+      "category": "NumPy",
+      "front": "In a 2D array, what does sum(axis=1) return?",
+      "back": "One total per row."
+    },
+    {
+      "id": "numpy-broadcasting",
+      "tool": "NumPy",
+      "level": 2,
+      "category": "NumPy",
+      "front": "What is broadcasting?",
+      "back": "Arrays of different shapes combine when, comparing the shapes from the last dimension backwards, each pair of sizes is equal or one of them is 1. Otherwise ValueError; its message shows both shapes."
+    },
+    {
+      "id": "numpy-nan",
+      "tool": "NumPy",
+      "level": 2,
+      "category": "NumPy",
+      "front": "How does NumPy handle missing numbers (NaN)?",
+      "back": "Any calculation that includes np.nan returns nan, and nan == nan is False, so test with np.isnan. nansum and nanmean skip it. pandas skips missing values by default; NumPy does not."
+    },
+    {
+      "id": "numpy-nan-q1",
+      "tool": "NumPy",
+      "level": 2,
+      "category": "NumPy",
+      "front": "Why use np.isnan instead of == np.nan?",
+      "back": "Because nan == nan is False."
+    },
+    {
+      "id": "numpy-random-seed",
+      "tool": "NumPy",
+      "level": 2,
+      "category": "NumPy",
+      "front": "How do I generate random numbers that I can reproduce?",
+      "back": "rng = np.random.default_rng(42). The same seed gives the same sequence for a given NumPy version. Call methods on rng (integers, random, choice, normal)."
+    },
+    {
+      "id": "numpy-and-pandas",
+      "tool": "NumPy",
+      "level": 2,
+      "category": "NumPy",
+      "front": "How are NumPy and pandas connected?",
+      "back": "A pandas column is built on a NumPy array. to_numpy() gives the array; pd.Series(array) and pd.DataFrame(array, columns=[...]) go back. A DataFrame can hold different types per column."
+    },
+    {
+      "id": "stats-describe",
+      "tool": "Statistics & scipy",
+      "level": 1,
+      "category": "Statistics & scipy",
+      "front": "How do I get a quick statistical summary of a table?",
+      "back": "df.describe() gives count, mean, std, min, the quartiles (50% is the median) and max for numeric columns. Read count first. value_counts(normalize=True) gives shares."
+    },
+    {
+      "id": "stats-mean-median",
+      "tool": "Statistics & scipy",
+      "level": 1,
+      "category": "Statistics & scipy",
+      "front": "Mean or median: which one describes my data?",
+      "back": "Extreme values pull the mean toward them but barely move the median (the middle value). With outliers the median is usually the better typical value."
+    },
+    {
+      "id": "stats-std-ddof",
+      "tool": "Statistics & scipy",
+      "level": 2,
+      "category": "Statistics & scipy",
+      "front": "Why do pandas and NumPy give different standard deviations?",
+      "back": "pandas divides by n-1 (ddof=1, sample); NumPy divides by n (ddof=0, population) by default. State which one you used."
+    },
+    {
+      "id": "stats-std-ddof-q1",
+      "tool": "Statistics & scipy",
+      "level": 2,
+      "category": "Statistics & scipy",
+      "front": "Which ddof does pandas std() use by default?",
+      "back": "ddof=1 (sample)."
+    },
+    {
+      "id": "stats-std-ddof-q2",
+      "tool": "Statistics & scipy",
+      "level": 2,
+      "category": "Statistics & scipy",
+      "front": "Which ddof does np.std use by default?",
+      "back": "ddof=0 (population)."
+    },
+    {
+      "id": "stats-quantiles-outliers",
+      "tool": "Statistics & scipy",
+      "level": 2,
+      "category": "Statistics & scipy",
+      "front": "How do I find outliers?",
+      "back": "IQR = Q3 - Q1, using quantile(0.25) and quantile(0.75). A common rule flags values below Q1 - 1.5 x IQR or above Q3 + 1.5 x IQR. A flag is a question, not a verdict."
+    },
+    {
+      "id": "stats-zscore",
+      "tool": "Statistics & scipy",
+      "level": 2,
+      "category": "Statistics & scipy",
+      "front": "What is a z-score and how do I compute it?",
+      "back": "(x - mean) / std: how many standard deviations a value is from the mean. scipy.stats.zscore uses ddof=0 by default; pandas std() uses ddof=1."
+    },
+    {
+      "id": "stats-correlation",
+      "tool": "Statistics & scipy",
+      "level": 2,
+      "category": "Statistics & scipy",
+      "front": "How strongly are two columns related (correlation)?",
+      "back": "Pearson correlation runs from -1 to +1; 0 means no straight-line relationship. Use df.corr(numeric_only=True), a.corr(b) or scipy.stats.pearsonr. It does not show cause and misses curved relationships."
+    },
+    {
+      "id": "stats-correlation-q1",
+      "tool": "Statistics & scipy",
+      "level": 2,
+      "category": "Statistics & scipy",
+      "front": "Does a high correlation show that one column causes the other?",
+      "back": "No. It shows that they move together."
+    },
+    {
+      "id": "stats-p-value",
+      "tool": "Statistics & scipy",
+      "level": 2,
+      "category": "Statistics & scipy",
+      "front": "What does a p-value mean?",
+      "back": "The probability of a result at least as extreme as the observed one if the null hypothesis were true. It is not the probability that the null hypothesis is true, and it does not measure the size of an effect."
+    },
+    {
+      "id": "stats-p-value-q1",
+      "tool": "Statistics & scipy",
+      "level": 2,
+      "category": "Statistics & scipy",
+      "front": "Does a small p-value mean the effect is large?",
+      "back": "No. It says the data would be unusual under the null hypothesis; it does not measure the size of the effect."
+    },
+    {
+      "id": "stats-t-test",
+      "tool": "Statistics & scipy",
+      "level": 3,
+      "category": "Statistics & scipy",
+      "front": "How do I test whether two groups have different means?",
+      "back": "scipy.stats.ttest_ind(a, b, equal_var=False) (Welch) compares the means of two independent groups and returns a statistic and a p-value. Check group sizes and means first."
+    },
+    {
+      "id": "copy-semantics",
+      "tool": "pandas",
+      "level": 3,
+      "category": "pandas",
+      "front": "Does changing a DataFrame derived from another change the original?",
+      "back": "In pandas 3 (Copy-on-Write), a DataFrame derived from another behaves as an independent copy. other = df only gives the same object a second name; use df.copy() for a separate table."
+    },
+    {
+      "id": "copy-semantics-q1",
+      "tool": "pandas",
+      "level": 3,
+      "category": "pandas",
+      "front": "What does other = df do?",
+      "back": "It gives the same object a second name; a change is visible through both names."
+    },
+    {
+      "id": "read-csv-squeeze",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "What replaces read_csv(squeeze=True)?",
+      "back": "The argument was removed (pandas 2.0.0). Read the file normally and call .squeeze(\"columns\") on the result."
+    },
+    {
+      "id": "fillna-method",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "What replaces fillna(method=\"ffill\")?",
+      "back": "The method argument raises TypeError in this version. Use ffill() to carry the last valid value forward and bfill() for the next valid value backward."
+    },
+    {
+      "id": "inplace-on-column",
+      "tool": "pandas",
+      "level": 3,
+      "category": "pandas",
+      "front": "Why does df[\"a\"].fillna(0, inplace=True) change nothing in pandas 3?",
+      "back": "It fills a temporary object, not the DataFrame (pandas warns with ChainedAssignmentError). Assign back: df[\"a\"] = df[\"a\"].fillna(0)."
+    },
+    {
+      "id": "chained-assignment",
+      "tool": "pandas",
+      "level": 3,
+      "category": "pandas",
+      "front": "Why does df[\"a\"][mask] = 0 no longer update df in pandas 3?",
+      "back": "It selects a column and assigns into the result, which is not the original. Use one .loc call: df.loc[mask, \"a\"] = 0."
+    },
+    {
+      "id": "text-into-numeric-column",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "What happens when you set a string into an int64 column?",
+      "back": "pandas 3 raises TypeError. Use a float column with NaN for missing values and keep free-text labels in a separate column."
+    },
+    {
+      "id": "string-dtype-not-object",
+      "tool": "pandas",
+      "level": 3,
+      "category": "pandas",
+      "front": "Does df[\"city\"].dtype == object still work for text columns?",
+      "back": "No. In pandas 3 text columns have the str dtype by default, so the test is False. Use pd.api.types.is_string_dtype() and select_dtypes(include=\"str\")."
+    },
+    {
+      "id": "string-dtype-not-object-q1",
+      "tool": "pandas",
+      "level": 3,
+      "category": "pandas",
+      "front": "What is the default dtype of text columns in pandas 3?",
+      "back": "str."
+    },
+    {
+      "id": "concat-keys-ignore-index",
+      "tool": "pandas",
+      "level": 3,
+      "category": "pandas",
+      "front": "Why does concat with keys and ignore_index=True fail?",
+      "back": "keys labels each piece in the index while ignore_index=True discards it, so pandas 3 raises ValueError. Pick one, or concatenate with keys and then reset_index."
+    },
+    {
+      "id": "merge-ignore-index",
+      "tool": "pandas",
+      "level": 2,
+      "category": "pandas",
+      "front": "Does merge accept ignore_index?",
+      "back": "No (TypeError). A merge on columns already returns a fresh index; use reset_index(drop=True) only after a merge on the index."
+    },
+    {
+      "id": "datetime-integer-resolution",
+      "tool": "pandas",
+      "level": 3,
+      "category": "pandas",
+      "front": "Why are datetimes cast to integers 1000 times smaller in pandas 3?",
+      "back": "Parsed dates default to microsecond resolution (datetime64[us]) instead of nanosecond. Convert with as_unit(\"ns\") before casting, or avoid integer casts."
+    },
+    {
+      "id": "datetime-integer-resolution-q1",
+      "tool": "pandas",
+      "level": 3,
+      "category": "pandas",
+      "front": "What is the default resolution of parsed datetimes in pandas 3?",
+      "back": "Microseconds (datetime64[us])."
+    },
+    {
+      "id": "seaborn-positional-arguments",
+      "tool": "matplotlib & seaborn",
+      "level": 2,
+      "category": "matplotlib & seaborn",
+      "front": "Why does sns.scatterplot(\"x\", \"y\", data=df) fail?",
+      "back": "Since seaborn 0.12, data is the only positional argument. Pass data=, x= and y= by name."
+    },
+    {
+      "id": "ch-trust-data",
+      "tool": "Data quality",
+      "level": 2,
+      "category": "Data quality",
+      "front": "How do I check that I can trust a dataset before analysing it?",
+      "back": "Check the shape, the column types, missing values per column, duplicated rows and numeric ranges before any calculation. Put the routine in a function and run it on every new dataset."
+    },
+    {
+      "id": "ch-totals-mismatch",
+      "tool": "Data quality",
+      "level": 2,
+      "category": "Data quality",
+      "front": "Why does my total not match the number in the source system?",
+      "back": "Reconcile step by step from the raw rows: duplicates, filters and date boundaries, cancelled or test records, missing values, joins that multiply rows. Agree on the definition first."
+    },
+    {
+      "id": "ch-missing-bias",
+      "tool": "Data quality",
+      "level": 2,
+      "category": "Data quality",
+      "front": "How do I handle missing values without distorting the result?",
+      "back": "Dropping rows changes the group you describe, filling with 0 lowers an average, filling with the mean hides variation. Ask why the value is missing, mark filled values and state the rule."
+    },
+    {
+      "id": "ch-outlier-or-error",
+      "tool": "Data quality",
+      "level": 2,
+      "category": "Data quality",
+      "front": "How do I tell an outlier from an error?",
+      "back": "An error breaks a rule that is always true (a negative age). An outlier is unusual but possible. Check the rules first, then statistical limits, and flag rows instead of deleting them."
+    },
+    {
+      "id": "ch-dates-wrong",
+      "tool": "Data quality",
+      "level": 2,
+      "category": "Data quality",
+      "front": "Why are my dates read as text, or with day and month swapped?",
+      "back": "03/04/2026 is ambiguous. Give the format (format=\"%d/%m/%Y\") and use errors=\"coerce\" to count invalid dates."
+    },
+    {
+      "id": "ch-merge-rowcount",
+      "tool": "Combining data",
+      "level": 2,
+      "category": "Combining data",
+      "front": "Why did the number of rows change after a merge?",
+      "back": "A repeated key in the right-hand table repeats left rows and inflates totals. Use validate=\"many_to_one\" and compare row counts before and after every merge."
+    },
+    {
+      "id": "ch-key-formats",
+      "tool": "Combining data",
+      "level": 2,
+      "category": "Combining data",
+      "front": "How do I match records whose keys have different formats?",
+      "back": "Normalise both keys the same way (strip, one letter case, zfill) before the join, then use indicator=True to count what still does not match."
+    },
+    {
+      "id": "ch-nan-after-align",
+      "tool": "Combining data",
+      "level": 2,
+      "category": "Combining data",
+      "front": "Why do I get NaN after combining or aligning data?",
+      "back": "pandas matches by index label, not by position, so different labels give NaN. Align on purpose (reset_index(drop=True)) or use add(..., fill_value=0)."
+    },
+    {
+      "id": "ch-check-ai-code",
+      "tool": "Trust in results",
+      "level": 2,
+      "category": "Trust in results",
+      "front": "How do I check a result produced by AI-generated code?",
+      "back": "Run it on a tiny table with a known answer, compare counts and totals at each step, compute the key number a second way, read for hidden filters and joins, and do not paste confidential data into tools you may not use."
+    },
+    {
+      "id": "ch-reproducible",
+      "tool": "Trust in results",
+      "level": 2,
+      "category": "Trust in results",
+      "front": "How do I make an analysis reproducible?",
+      "back": "Pin library versions (requirements.txt), set seeds, use relative paths, keep raw data unchanged, restart and run all cells, and record where and when the data came from."
+    },
+    {
+      "id": "ch-validate-data",
+      "tool": "Trust in results",
+      "level": 3,
+      "category": "Trust in results",
+      "front": "How do I validate data automatically?",
+      "back": "Write the rules as checks (unique ids, no missing key, allowed range, known categories), run them on every load, collect all failures, then decide whether to stop or only report."
+    },
+    {
+      "id": "ch-metric-definition",
+      "tool": "Interpretation and communication",
+      "level": 2,
+      "category": "Interpretation and communication",
+      "front": "How do I define a metric so everyone reads it the same way?",
+      "back": "State the grain (what is counted), the rows included, the time window and the owner, next to the number."
+    },
+    {
+      "id": "ch-correlation-causation",
+      "tool": "Interpretation and communication",
+      "level": 3,
+      "category": "Interpretation and communication",
+      "front": "How do I avoid confusing correlation with causation?",
+      "back": "A confounder or mixed groups can reverse a relationship (Simpson's paradox). Look within meaningful groups and ask what else could explain it."
+    },
+    {
+      "id": "ch-large-files",
+      "tool": "Size and speed",
+      "level": 2,
+      "category": "Size and speed",
+      "front": "What do I do when a file does not fit in memory?",
+      "back": "Read less or in pieces: usecols, smaller dtypes (category) and chunksize with partial results. If it still does not fit, the data belongs in a database."
+    },
+    {
+      "id": "ch-slow-code",
+      "tool": "Size and speed",
+      "level": 2,
+      "category": "Size and speed",
+      "front": "Why is my code slow?",
+      "back": "Row-by-row loops are the usual cause. Use vectorized expressions, measure before changing anything (time.perf_counter, %timeit) and check the result is the same."
+    }
+  ]
+}

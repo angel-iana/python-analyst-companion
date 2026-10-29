@@ -1,0 +1,341 @@
+{
+  "section": "challenges",
+  "entries": [
+    {
+      "id": "ch-trust-data",
+      "tool": "Data quality",
+      "level": 2,
+      "order": 75,
+      "category": "Data quality",
+      "title": "How do I check that I can trust a dataset before analysing it?",
+      "body": "Look at the data before calculating anything. A short routine catches most problems: how many rows and columns, the type of each column, how many values are missing, how many rows are duplicated, and the range of each numeric column. A negative age, a date in the future or a column of text where numbers belong is visible in this first look.\n\nWrite the routine once as a function and run it on every new dataset. Surveys of data teams name data quality as the most frequently reported obstacle.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"customer_id\": [1, 2, 2, 4],\n    \"age\": [34, -1, -1, 51],\n    \"city\": [\"Cluj\", \"Iasi\", \"Iasi\", None],\n})\n\ndef first_look(d):\n    print(\"rows, columns:\", d.shape)\n    print(\"missing per column:\", d.isna().sum().to_dict())\n    print(\"duplicated rows:\", int(d.duplicated().sum()))\n    print(\"numeric ranges:\")\n    print(d.describe().loc[[\"min\", \"max\"]])\n\nfirst_look(df)\n",
+      "output": "rows, columns: (4, 3)\nmissing per column: {'customer_id': 0, 'age': 0, 'city': 1}\nduplicated rows: 1\nnumeric ranges:\n     customer_id   age\nmin          1.0  -1.0\nmax          4.0  51.0\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "dbt Labs: 2026 State of Analytics Engineering",
+          "url": "https://www.getdbt.com/resources/state-of-analytics-engineering-2026"
+        },
+        {
+          "title": "pandas tutorial: calculate statistics",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-totals-mismatch",
+      "tool": "Data quality",
+      "level": 2,
+      "order": 76,
+      "category": "Data quality",
+      "title": "Why does my total not match the number in the source system?",
+      "body": "Compare step by step, from the raw rows to your result, and note what each step removes or adds. Usual causes: duplicated rows, a filter that treats the end date differently, cancelled or test records, missing values left out of a sum, and joins that multiply rows (see the merge entry).\n\nAgree on the definition of the number first: which rows count and for which period.",
+      "code": "import pandas as pd\n\norders = pd.DataFrame({\n    \"order_id\": [1, 2, 2, 3, 4],\n    \"amount\": [100, 50, 50, 30, 20],\n    \"status\": [\"paid\", \"paid\", \"paid\", \"cancelled\", \"paid\"],\n})\n\nprint(\"raw total:\", orders[\"amount\"].sum())\n\nunique = orders.drop_duplicates()\nprint(\"after removing duplicates:\", unique[\"amount\"].sum())\n\npaid = unique[unique[\"status\"] == \"paid\"]\nprint(\"paid only:\", paid[\"amount\"].sum())\n",
+      "output": "raw total: 250\nafter removing duplicates: 200\npaid only: 170\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "dbt Labs: 2026 State of Analytics Engineering",
+          "url": "https://www.getdbt.com/resources/state-of-analytics-engineering-2026"
+        },
+        {
+          "title": "KDnuggets: debugging common pandas errors",
+          "url": "https://www.kdnuggets.com/data-scientists-guide-debugging-common-pandas-errors"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-missing-bias",
+      "tool": "Data quality",
+      "level": 2,
+      "order": 77,
+      "category": "Data quality",
+      "title": "How do I handle missing values without distorting the result?",
+      "body": "Each choice changes the numbers. Dropping rows changes the group you describe; filling with 0 lowers an average because 0 is treated as a real value; filling with the mean hides variation. First ask why the value is missing: not recorded, not applicable, or zero?\n\nKeep a column that marks which values were filled, and state the rule you used.",
+      "code": "import pandas as pd\n\ns = pd.Series([10.0, None, 30.0, None, 20.0])\n\nprint(\"ignore missing:\", s.mean())\nprint(\"fill with 0:   \", s.fillna(0).mean())\nprint(\"fill with mean:\", s.fillna(s.mean()).mean())\nprint(\"spread (std) ignoring missing:\", round(s.std(), 2))\nprint(\"spread (std) after mean fill: \", round(s.fillna(s.mean()).std(), 2))\n\nflag = s.isna()\nprint(\"filled values:\", int(flag.sum()))\n",
+      "output": "ignore missing: 20.0\nfill with 0:    12.0\nfill with mean: 20.0\nspread (std) ignoring missing: 10.0\nspread (std) after mean fill:  7.07\nfilled values: 2\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: calculate statistics",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-outlier-or-error",
+      "tool": "Data quality",
+      "level": 2,
+      "order": 78,
+      "category": "Data quality",
+      "title": "How do I tell an outlier from an error?",
+      "body": "An **error** breaks a rule that is always true (age below 0, a date after today, a percentage above 100). An **outlier** is unusual but possible (a very large order). Check the rules first, then the statistical limits (see the quartile entry). Flag the rows in a new column instead of deleting them, and check the source when you can.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\"age\": [34, 29, -3, 41, 38, 140, 36, 95, 33, 31]})\n\ndf[\"impossible\"] = (df[\"age\"] < 0) | (df[\"age\"] > 120)\n\nvalid = df.loc[~df[\"impossible\"], \"age\"]\nq1, q3 = valid.quantile(0.25), valid.quantile(0.75)\niqr = q3 - q1\ndf[\"unusual\"] = ~df[\"impossible\"] & ((df[\"age\"] < q1 - 1.5 * iqr) | (df[\"age\"] > q3 + 1.5 * iqr))\n\nprint(df)\n",
+      "output": "   age  impossible  unusual\n0   34       False    False\n1   29       False    False\n2   -3        True    False\n3   41       False    False\n4   38       False    False\n5  140        True    False\n6   36       False    False\n7   95       False     True\n8   33       False    False\n9   31       False    False\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: calculate statistics",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-dates-wrong",
+      "tool": "Data quality",
+      "level": 2,
+      "order": 79,
+      "category": "Data quality",
+      "title": "Why are my dates read as text, or with day and month swapped?",
+      "body": "A date written as `03/04/2026` can mean 4 March or 3 April. Without help, pandas assumes month first. Tell it the format explicitly with `format=`, and let impossible dates become missing with `errors=\"coerce\"` so you can count them. A date column that stays text (`str` dtype) cannot be sorted or grouped by month correctly.",
+      "code": "import pandas as pd\n\nraw = pd.Series([\"03/04/2026\", \"25/12/2026\", \"31/02/2026\"])\n\nparsed = pd.to_datetime(raw, format=\"%d/%m/%Y\", errors=\"coerce\")\n\nprint(parsed)\nprint(parsed.isna().sum(), \"value(s) not valid dates\")\nprint(pd.to_datetime(\"03/04/2026\", format=\"%m/%d/%Y\").strftime(\"%d %B %Y\"))\n",
+      "output": "0   2026-04-03\n1   2026-12-25\n2          NaT\ndtype: datetime64[us]\n1 value(s) not valid dates\n04 March 2026\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: time series",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/09_timeseries.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-merge-rowcount",
+      "tool": "Combining data",
+      "level": 2,
+      "order": 80,
+      "category": "Combining data",
+      "title": "Why did the number of rows change after a merge?",
+      "body": "If the key is repeated in the right-hand table, each left row is repeated once per match, so the row count grows and totals are inflated. Check that the key is unique where you expect it to be, and ask pandas to check it for you with `validate=\"many_to_one\"`. Also compare row counts before and after every merge.",
+      "code": "import pandas as pd\nfrom pandas.errors import MergeError\n\norders = pd.DataFrame({\"order_id\": [1, 2], \"customer_id\": [10, 20], \"amount\": [100, 50]})\ncustomers = pd.DataFrame({\"customer_id\": [10, 20, 20], \"city\": [\"Cluj\", \"Iasi\", \"Iasi\"]})\n\njoined = orders.merge(customers, on=\"customer_id\", how=\"left\")\nprint(len(orders), \"->\", len(joined), \"rows; total\", joined[\"amount\"].sum())\n\ntry:\n    orders.merge(customers, on=\"customer_id\", validate=\"many_to_one\")\nexcept MergeError as e:\n    print(\"MergeError raised\")\n\nfixed = orders.merge(customers.drop_duplicates(\"customer_id\"), on=\"customer_id\", validate=\"many_to_one\")\nprint(len(fixed), \"rows; total\", fixed[\"amount\"].sum())\n",
+      "output": "2 -> 3 rows; total 200\nMergeError raised\n2 rows; total 150\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas user guide: merge, join, concatenate and compare",
+          "url": "https://pandas.pydata.org/docs/user_guide/merging.html"
+        },
+        {
+          "title": "KDnuggets: debugging common pandas errors",
+          "url": "https://www.kdnuggets.com/data-scientists-guide-debugging-common-pandas-errors"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-key-formats",
+      "tool": "Combining data",
+      "level": 2,
+      "order": 81,
+      "category": "Combining data",
+      "title": "How do I match records whose keys have different formats?",
+      "body": "The same code can be stored as `\"00123\"`, `\"123\"`, `\" 123 \"` or `\"abc-123\"` in two systems. Normalise both keys the same way before joining: strip spaces, set one letter case, and pad numbers with zeros. Then use `indicator=True` to count what still does not match.",
+      "code": "import pandas as pd\n\na = pd.DataFrame({\"code\": [\" 123\", \"0456\", \"789 \"], \"x\": [1, 2, 3]})\nb = pd.DataFrame({\"code\": [\"00123\", \"00456\", \"00999\"], \"y\": [10, 20, 30]})\n\nfor d in (a, b):\n    d[\"key\"] = d[\"code\"].str.strip().str.zfill(5)\n\nm = a.merge(b, on=\"key\", how=\"outer\", indicator=True)\nprint(m[[\"key\", \"x\", \"y\", \"_merge\"]])\n",
+      "output": "     key    x     y      _merge\n0  00123  1.0  10.0        both\n1  00456  2.0  20.0        both\n2  00789  3.0   NaN   left_only\n3  00999  NaN  30.0  right_only\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: textual data",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/10_text_data.html"
+        },
+        {
+          "title": "pandas user guide: merge, join, concatenate and compare",
+          "url": "https://pandas.pydata.org/docs/user_guide/merging.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-nan-after-align",
+      "tool": "Combining data",
+      "level": 2,
+      "order": 82,
+      "category": "Combining data",
+      "title": "Why do I get NaN after combining or aligning data?",
+      "body": "pandas matches values by **index label**, not by position. Two Series with different labels produce `NaN` where a label is missing on one side, and assigning a Series to a column fills by label too. Check the indexes first. Either align them on purpose (`reset_index(drop=True)`), or use a method that takes `fill_value`.",
+      "code": "import pandas as pd\n\na = pd.Series([1, 2, 3], index=[\"x\", \"y\", \"z\"])\nb = pd.Series([10, 20, 30], index=[\"y\", \"z\", \"w\"])\n\nprint(a + b)\nprint(a.add(b, fill_value=0))\n\ndf = pd.DataFrame({\"v\": [1, 2, 3]}, index=[0, 1, 2])\nother = pd.Series([100, 200, 300], index=[1, 2, 3])\ndf[\"w\"] = other\nprint(df)\n",
+      "output": "w     NaN\nx     NaN\ny    12.0\nz    23.0\ndtype: float64\nw    30.0\nx     1.0\ny    12.0\nz    23.0\ndtype: float64\n   v      w\n0  1    NaN\n1  2  100.0\n2  3  200.0\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "KDnuggets: debugging common pandas errors",
+          "url": "https://www.kdnuggets.com/data-scientists-guide-debugging-common-pandas-errors"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-check-ai-code",
+      "tool": "Trust in results",
+      "level": 2,
+      "order": 83,
+      "category": "Trust in results",
+      "title": "How do I check a result produced by AI-generated code?",
+      "body": "Treat generated code like code from a colleague you have not worked with yet. A short routine:\n\n- Run it on a tiny table whose answer you can calculate by hand.\n- Compare row counts and totals before and after each step.\n- Calculate the key number a second, independent way.\n- Read the code: look for hidden filters, joins and silent type changes.\n- Do not paste confidential or personal data into a tool you are not allowed to use for it.\n\nSurveys of developers report that trust in AI output is falling and that debugging generated code is a common frustration.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\"region\": [\"N\", \"N\", \"S\"], \"sales\": [10, 20, 5]})\n\n# the number to check, written the way a tool might write it\nby_region = df.groupby(\"region\")[\"sales\"].sum()\n\n# an independent way to get the same numbers\ncheck = {r: int(df.loc[df[\"region\"] == r, \"sales\"].sum()) for r in df[\"region\"].unique()}\n\nassert by_region.to_dict() == check\nassert by_region.sum() == df[\"sales\"].sum()\nprint(\"checks passed:\", by_region.to_dict())\n",
+      "output": "checks passed: {'N': 30, 'S': 5}\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "Stack Overflow 2025 Developer Survey (press release)",
+          "url": "https://stackoverflow.co/company/press/archive/stack-overflow-2025-developer-survey/"
+        },
+        {
+          "title": "dbt Labs: 2026 State of Analytics Engineering",
+          "url": "https://www.getdbt.com/resources/state-of-analytics-engineering-2026"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-reproducible",
+      "tool": "Trust in results",
+      "level": 2,
+      "order": 84,
+      "category": "Trust in results",
+      "title": "How do I make an analysis reproducible?",
+      "body": "Someone else (or you in six months) should get the same numbers from the same inputs. Keep the library versions in `requirements.txt`, set a seed wherever randomness is used, use relative file paths, keep the raw data unchanged, and run the notebook from a fresh kernel (restart, then run all cells) before sharing it. Write down where the data came from and when.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\"id\": range(10), \"value\": range(100, 110)})\n\nfirst = df.sample(3, random_state=7)[\"id\"].tolist()\nsecond = df.sample(3, random_state=7)[\"id\"].tolist()\n\nprint(first)\nprint(first == second)\n",
+      "output": "[8, 5, 0]\nTrue\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-validate-data",
+      "tool": "Trust in results",
+      "level": 3,
+      "order": 85,
+      "category": "Trust in results",
+      "title": "How do I validate data automatically?",
+      "body": "Write the rules the data must follow as checks, and run them every time the data is loaded. Each check is a condition that should be true for every row: unique ids, no missing key, values in an allowed range, only known categories. Collect all failures, then decide whether to stop or only to report. Libraries for this exist, but a short function with pandas is enough to start.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"order_id\": [1, 2, 2, 4],\n    \"amount\": [10.0, -5.0, 7.5, None],\n    \"status\": [\"paid\", \"paid\", \"refunded\", \"unknown\"],\n})\n\nfailures = []\nif not df[\"order_id\"].is_unique:\n    failures.append(\"order_id is not unique\")\nif df[\"amount\"].isna().any():\n    failures.append(\"amount has missing values\")\nif (df[\"amount\"] < 0).any():\n    failures.append(\"amount has negative values\")\nif not df[\"status\"].isin([\"paid\", \"refunded\"]).all():\n    failures.append(\"status has unknown values\")\n\nprint(len(failures), \"check(s) failed\")\nfor f in failures:\n    print(\"-\", f)\n",
+      "output": "4 check(s) failed\n- order_id is not unique\n- amount has missing values\n- amount has negative values\n- status has unknown values\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "dbt Labs: 2026 State of Analytics Engineering",
+          "url": "https://www.getdbt.com/resources/state-of-analytics-engineering-2026"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-metric-definition",
+      "tool": "Interpretation and communication",
+      "level": 2,
+      "order": 86,
+      "category": "Interpretation and communication",
+      "title": "How do I define a metric so everyone reads it the same way?",
+      "body": "The same word can name different numbers. A metric definition says what is counted (the **grain**: orders, customers, days), which rows are included, the time window, and who owns it. Write it next to the number in the report. Surveys of data teams list unclear ownership and stakeholders' understanding of data among the main obstacles.",
+      "code": "import pandas as pd\n\norders = pd.DataFrame({\n    \"order_id\": [1, 2, 3, 4, 5],\n    \"customer_id\": [10, 10, 20, 30, 40],\n    \"status\": [\"paid\", \"paid\", \"paid\", \"cancelled\", \"paid\"],\n})\n\nprint(\"orders:\", len(orders))\nprint(\"customers who ordered:\", orders[\"customer_id\"].nunique())\nprint(\"customers with a paid order:\", orders.loc[orders[\"status\"] == \"paid\", \"customer_id\"].nunique())\n",
+      "output": "orders: 5\ncustomers who ordered: 4\ncustomers with a paid order: 3\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "dbt Labs: 2026 State of Analytics Engineering",
+          "url": "https://www.getdbt.com/resources/state-of-analytics-engineering-2026"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-correlation-causation",
+      "tool": "Interpretation and communication",
+      "level": 3,
+      "order": 87,
+      "category": "Interpretation and communication",
+      "title": "How do I avoid confusing correlation with causation?",
+      "body": "Two columns can move together because a third factor drives both (a **confounder**), or because of how the groups are mixed. In the example, inside each group the relationship is positive, yet across all rows it looks negative: the groups differ in level (Simpson's paradox). Before reading a relationship as a cause, look at it within meaningful groups, and ask what else could explain it.",
+      "code": "import pandas as pd\n\ndf = pd.DataFrame({\n    \"group\": [\"A\"] * 4 + [\"B\"] * 4,\n    \"x\": [1, 2, 3, 4, 6, 7, 8, 9],\n    \"y\": [8, 9, 10, 11, 1, 2, 3, 4],\n})\n\nprint(\"all rows:\", round(df[\"x\"].corr(df[\"y\"]), 2))\nfor name, part in df.groupby(\"group\"):\n    print(\"group\", name, round(part[\"x\"].corr(part[\"y\"]), 2))\n",
+      "output": "all rows: -0.75\ngroup A 1.0\ngroup B 1.0\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [
+        {
+          "title": "pandas tutorial: calculate statistics",
+          "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-large-files",
+      "tool": "Size and speed",
+      "level": 2,
+      "order": 88,
+      "category": "Size and speed",
+      "title": "What do I do when a file does not fit in memory?",
+      "body": "Read less, or read in pieces. `usecols` loads only the columns you need, `dtype` stores columns in smaller types (`category` for repeated text), and `chunksize` returns the file in parts so you can combine partial results, for example a running total. If the work still does not fit, the data belongs in a database or a tool built for larger data.",
+      "code": "import io\nimport pandas as pd\n\ntext = \"id,city,amount\\n\" + \"\\n\".join(f\"{i},{'Cluj' if i % 2 else 'Iasi'},{i}\" for i in range(1, 9))\n\ntotal = 0\nfor chunk in pd.read_csv(io.StringIO(text), usecols=[\"city\", \"amount\"],\n                         dtype={\"city\": \"category\"}, chunksize=3):\n    total += chunk[\"amount\"].sum()\n    print(len(chunk), \"rows in this piece\")\n\nprint(\"total:\", total)\n",
+      "output": "3 rows in this piece\n3 rows in this piece\n2 rows in this piece\ntotal: 36\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0"
+      },
+      "sources": [],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "ch-slow-code",
+      "tool": "Size and speed",
+      "level": 2,
+      "order": 89,
+      "category": "Size and speed",
+      "title": "Why is my code slow?",
+      "body": "Row-by-row Python loops over a table are the usual cause. A vectorized expression does the same work inside optimised code and is typically many times faster on large tables. Measure before changing anything (`time.perf_counter` or `%timeit` in a notebook), and check that the faster version gives the same result.",
+      "code": "import time\nimport numpy as np\nimport pandas as pd\n\ndf = pd.DataFrame({\"price\": np.arange(1, 200_001, dtype=\"float64\")})\n\nt0 = time.perf_counter()\nslow = [p * 1.19 for p in df[\"price\"]]\nt_loop = time.perf_counter() - t0\n\nt0 = time.perf_counter()\nfast = df[\"price\"] * 1.19\nt_vec = time.perf_counter() - t0\n\nprint(\"same result:\", bool(np.allclose(slow, fast)))\nprint(\"vectorized is faster:\", t_vec < t_loop)\n",
+      "output": "same result: True\nvectorized is faster: True\n",
+      "tested_with": {
+        "python": "3.15.2",
+        "pandas": "3.1.0",
+        "numpy": "2.5.4"
+      },
+      "sources": [],
+      "added": "2026-10-29"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  blocks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+      - run: pip install -r requirements.txt
+      - name: Run every code block and compare outputs
+        run: python tools/run_blocks.py
+      - name: Check excluded terms
+        run: python tools/check_terms.py

@@ -1,0 +1,54 @@
+{
+  "pageTitle": "Python for Data Analysis",
+  "sections": [
+    {
+      "id": "about",
+      "title": "About",
+      "type": "about"
+    },
+    {
+      "id": "path",
+      "title": "Study path",
+      "type": "path",
+      "file": "path.json",
+      "intro": "The entries in a suggested order, from the first tools to the pitfalls of recent versions. Tick a step when you have worked through it."
+    },
+    {
+      "id": "essentials",
+      "title": "Reference by tool",
+      "type": "entries",
+      "file": "essentials.json",
+      "intro": "Every entry belongs to a tool and a group and has a level. Use the filters to narrow the list, or follow the study path."
+    },
+    {
+      "id": "errors",
+      "title": "Common errors",
+      "type": "entries",
+      "file": "errors.json",
+      "intro": "Changes in recent pandas and seaborn versions that break older code. Each entry shows the code, its real output on the pinned versions, and the fix."
+    },
+    {
+      "id": "challenges",
+      "title": "Common Challenges in Data Analysis",
+      "type": "entries",
+      "file": "challenges.json",
+      "intro": "Questions analysts run into in everyday work. Each entry gives a short answer, a runnable example and where it applies."
+    },
+    {
+      "id": "flashcards",
+      "title": "Flashcards",
+      "type": "flashcards",
+      "file": "flashcards.json"
+    },
+    {
+      "id": "sources",
+      "title": "Sources",
+      "type": "sources"
+    },
+    {
+      "id": "license",
+      "title": "License",
+      "type": "license"
+    }
+  ]
+}
