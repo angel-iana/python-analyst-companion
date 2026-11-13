@@ -16,5 +16,7 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Run every code block and compare outputs
         run: python tools/run_blocks.py
+      - name: Check the interactive visuals
+        run: python tools/check_visuals.py
       - name: Check excluded terms
         run: python tools/check_terms.py
