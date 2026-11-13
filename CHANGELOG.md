@@ -2,6 +2,14 @@
 
 All notable changes to the content and the page are listed here, newest first.
 
+## 2026-11-13 — Batch 10: Python basics I, and visual explanations
+
+- Added 7 entries for **Python basics I: values and text**: variables and names, arithmetic operators and their order, comparisons and `and` / `or` / `not`, string slicing, string methods, `print` and f-strings, and converting between text and numbers. Every code block was run on Python 3.15.2.
+- New **"Try it" boxes** on entries: an interactive text slicer, a step-by-step view of how variables change line by line, and a predict-then-check exercise with hidden results. The values they show come from real Python runs and are checked by the new `tools/check_visuals.py`.
+- The Study path now starts with a **map**: one tile per module, with a progress bar that fills as steps are ticked.
+- Explanations now render **bold** text; before, the double asterisks were shown as they were typed.
+- Added 20 flashcards. The new module sits before "Python basics II", which is the former "Python basics" module.
+
 ## 2026-10-29 — Batch 9: README, links, final checks
 
 - Added `README.md`, `tools/check_links.py` (checks every source link; needs internet) and a note about it in `CONTRIBUTING.md`.

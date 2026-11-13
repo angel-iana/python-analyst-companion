@@ -212,7 +212,7 @@
       "tool": "Python",
       "group": "How code runs",
       "level": 1,
-      "order": 11,
+      "order": 18,
       "category": "Language basics",
       "title": "Why does Python complain about indentation?",
       "body": "Python uses indentation to mark blocks: the lines under `if`, `for`, `def` or `while` must be indented, by the same amount, and the line ending with a colon opens the block. Without it, Python raises `IndentationError`. Use four spaces per level and do not mix tabs and spaces.",
@@ -234,7 +234,7 @@
       "tool": "Python",
       "group": "How code runs",
       "level": 1,
-      "order": 12,
+      "order": 19,
       "category": "Language basics",
       "title": "What does SyntaxError mean?",
       "body": "Python reads the whole file and checks the grammar before it runs anything. A `SyntaxError` means the text is not valid Python, for example a missing closing bracket or quote. The error reports the line where Python noticed the problem, which can be a line after the real mistake.\n\nNothing in the file runs when a syntax error exists, unlike a runtime error, which stops the program at the failing line.",
@@ -256,7 +256,7 @@
       "tool": "Python",
       "group": "How code runs",
       "level": 1,
-      "order": 13,
+      "order": 20,
       "category": "Language basics",
       "title": "Comments: is a triple-quoted text a comment?",
       "body": "A comment starts with `#` and is ignored by Python. Triple quotes create a **string**, not a comment. When the string is the first statement of a function, class or module, it becomes its docstring and is stored in `__doc__`. Elsewhere it is just a string expression that does nothing.\n\nUse `#` for notes to readers of the code and docstrings to describe what a function does.",
@@ -282,7 +282,7 @@
       "tool": "Python",
       "group": "How code runs",
       "level": 1,
-      "order": 10,
+      "order": 17,
       "category": "Language basics",
       "title": "Does the interpreter run code line by line?",
       "body": "Roughly, but it is more precise to say that CPython first compiles the source into bytecode and then executes that bytecode. A syntax error is found at compile time, before the first line runs. In a notebook each cell is compiled and executed on its own, which is why the order in which you run cells matters.\n\nThe example compiles a small statement and shows that the result is a code object, not output.",
@@ -304,7 +304,7 @@
       "tool": "Python",
       "group": "Data types",
       "level": 1,
-      "order": 14,
+      "order": 21,
       "category": "Language basics",
       "title": "Which basic types do I use, and how does division behave?",
       "body": "The types you meet first are `int`, `float`, `str`, `bool` and `None`. A variable has no fixed type; the value it points to does. `type()` shows it.\n\n`/` always returns a float, `//` is floor division and `%` is the remainder. Floats store binary approximations, so compare them with `math.isclose` instead of `==`.",
@@ -326,7 +326,7 @@
       "tool": "Python",
       "group": "Data types",
       "level": 1,
-      "order": 15,
+      "order": 22,
       "category": "Language basics",
       "title": "List, tuple, dict, set: which one do I use?",
       "body": "- **list**: ordered, changeable, allows duplicates. Like a column of values in Excel.\n- **tuple**: ordered, not changeable. Good for fixed records such as a coordinate pair.\n- **dict**: key to value lookup. Like a two-column lookup table (a `VLOOKUP` source) or the pairs of a SQL row.\n- **set**: unique values, unordered. Like `SELECT DISTINCT`.\n\nEach element is reached by position (list, tuple) or by key (dict).",
@@ -348,7 +348,7 @@
       "tool": "Python",
       "group": "Control flow and functions",
       "level": 1,
-      "order": 16,
+      "order": 23,
       "category": "Language basics",
       "title": "How do I loop over values and build a new list?",
       "body": "`for` repeats a block for each item. A list comprehension builds a new list in one line, and the optional `if` at the end works like a `WHERE` filter.\n\nOn tables, prefer pandas operations over Python loops: they are shorter and much faster on large data.",
@@ -370,7 +370,7 @@
       "tool": "Python",
       "group": "Control flow and functions",
       "level": 1,
-      "order": 17,
+      "order": 24,
       "category": "Language basics",
       "title": "How do I write a function, and why should I avoid a list as a default argument?",
       "body": "A function is defined with `def`, takes parameters and returns a value with `return`. Without `return` it returns `None`.\n\nA default value is created once, when the function is defined. A list or dict used as a default is therefore shared between calls and keeps growing. Use `None` as the default and create the list inside.",
@@ -392,7 +392,7 @@
       "tool": "Python",
       "group": "Control flow and functions",
       "level": 1,
-      "order": 18,
+      "order": 25,
       "category": "Language basics",
       "title": "How do I handle an error without stopping the program?",
       "body": "Put the risky line in `try` and name the error you expect in `except`. Catch the specific error (`ValueError`, `KeyError`), not every error, so real bugs are not hidden.\n\n`finally` runs either way, which is useful for cleanup. Read the last line of a traceback first: it names the error and the reason.",
@@ -414,7 +414,7 @@
       "tool": "pandas",
       "group": "Tables",
       "level": 1,
-      "order": 19,
+      "order": 26,
       "category": "pandas",
       "title": "What are a DataFrame and a Series?",
       "body": "A **DataFrame** is a table: rows and named columns, each column with its own type. A **Series** is one column. In SQL terms a DataFrame is a table or a query result, and a Series is one column of it. In Excel terms it is a sheet with a header row and one data type per column.\n\n`shape` gives (rows, columns), `dtypes` the type of each column and `head()` the first rows.",
@@ -437,7 +437,7 @@
       "tool": "pandas",
       "group": "Tables",
       "level": 1,
-      "order": 20,
+      "order": 27,
       "category": "pandas",
       "title": "How do I read a CSV file and control the column types?",
       "body": "`pd.read_csv` loads a file (or any file-like object) into a DataFrame. Useful arguments: `usecols` to keep only some columns, `dtype` to fix a type, `parse_dates` to read dates as dates, `na_values` to mark extra text as missing.\n\nThe example reads from a string so it runs anywhere; with a file you pass its path instead.",
@@ -460,7 +460,7 @@
       "tool": "pandas",
       "group": "Selecting",
       "level": 1,
-      "order": 21,
+      "order": 28,
       "category": "pandas",
       "title": "How do I select columns and filter rows (SELECT and WHERE)?",
       "body": "- `df[\"a\"]` returns one column as a Series; `df[[\"a\", \"b\"]]` returns a DataFrame with those columns (`SELECT a, b`).\n- `df[condition]` keeps the rows where the condition is True (`WHERE`).\n- Combine conditions with `&` (and), `|` (or), `~` (not), and put **each condition in parentheses**. Python's `and` / `or` do not work on columns and raise `ValueError`.\n- `isin([...])` is `IN (...)`.",
@@ -491,7 +491,7 @@
       "tool": "pandas",
       "group": "Selecting",
       "level": 1,
-      "order": 22,
+      "order": 29,
       "category": "pandas",
       "title": "What is the difference between loc and iloc?",
       "body": "`loc` selects by **label** (row index labels and column names) and includes the end of a slice. `iloc` selects by **position** (0, 1, 2, ...) and excludes the end, like normal Python slices.\n\nThe best habit for conditions is a single `loc` call with a row condition and a column name: `df.loc[df[\"b\"] > 15, \"a\"]`.",
@@ -518,7 +518,7 @@
       "tool": "pandas",
       "group": "Cleaning",
       "level": 2,
-      "order": 23,
+      "order": 30,
       "category": "pandas",
       "title": "How do I find and handle missing values?",
       "body": "Missing values appear as `NaN` (or `<NA>` / `NaT` for other types). `isna()` marks them (`IS NULL`), `notna()` is the opposite (`IS NOT NULL`). `dropna()` removes rows with missing values and `fillna(value)` replaces them. `ffill()` carries the last valid value forward.\n\nMost summary functions (`sum`, `mean`) skip missing values by default, so a mean is computed over the rows that have a value. Decide on purpose whether a missing value should become 0, be filled from a neighbour, or stay missing.",
@@ -541,7 +541,7 @@
       "tool": "pandas",
       "group": "Cleaning",
       "level": 2,
-      "order": 24,
+      "order": 31,
       "category": "pandas",
       "title": "How do I find and remove duplicate rows?",
       "body": "`duplicated()` marks repeated rows and `drop_duplicates()` removes them, like `SELECT DISTINCT`. By default two rows are duplicates only if every column matches. Use `subset=[...]` to compare chosen columns and `keep=\"first\"` or `keep=\"last\"` to choose which row survives.",
@@ -568,7 +568,7 @@
       "tool": "pandas",
       "group": "Transforming",
       "level": 2,
-      "order": 27,
+      "order": 34,
       "category": "pandas",
       "title": "How do I create a new column, including a CASE WHEN?",
       "body": "Assign to a new column name and calculate with whole columns at once (no loop needed). `assign` does the same and returns a new DataFrame, so steps can be chained.\n\nFor `CASE WHEN`, use `numpy.where(condition, value_if_true, value_if_false)`; for several branches use `numpy.select`.",
@@ -596,7 +596,7 @@
       "tool": "pandas",
       "group": "Cleaning",
       "level": 2,
-      "order": 25,
+      "order": 32,
       "category": "pandas",
       "title": "How do I convert a column to numbers or dates?",
       "body": "`pd.to_numeric(col, errors=\"coerce\")` turns text into numbers and replaces values it cannot read with `NaN`, so you can count and inspect the bad rows. `pd.to_datetime` does the same for dates. `astype(...)` converts when the values are already clean.\n\nAfter conversion, the `.dt` accessor gives parts of a date (`year`, `month`, `day_name()`).",
@@ -619,7 +619,7 @@
       "tool": "pandas",
       "group": "Cleaning",
       "level": 2,
-      "order": 26,
+      "order": 33,
       "category": "pandas",
       "title": "How do I clean text columns?",
       "body": "The `.str` accessor applies string operations to a whole column: `strip()`, `lower()`, `replace()`, `contains()`, `split()`. Cleaning spaces and letter case before grouping or merging avoids \"Cluj\" and \"cluj \" being treated as different values.",
@@ -642,7 +642,7 @@
       "tool": "pandas",
       "group": "Transforming",
       "level": 2,
-      "order": 28,
+      "order": 35,
       "category": "pandas",
       "title": "How do I sort and take the top rows (ORDER BY and LIMIT)?",
       "body": "`sort_values(by, ascending=...)` is `ORDER BY`; `head(n)` is `LIMIT n`. `nlargest(n, column)` does both for a numeric column. `value_counts()` counts how often each value appears.",
@@ -665,7 +665,7 @@
       "tool": "pandas",
       "group": "Summarizing",
       "level": 2,
-      "order": 30,
+      "order": 37,
       "category": "pandas",
       "title": "How does groupby work (GROUP BY)?",
       "body": "`df.groupby(\"column\")` splits the table into one group per value; an aggregation then collapses each group to one row. It is the same idea as `GROUP BY` with `SUM`, `COUNT`, `AVG`, and as a pivot table in Excel.\n\nNamed aggregation, `agg(new_name=(\"column\", \"function\"))`, gives readable column names. The group column becomes the index; `as_index=False` (or `reset_index()`) turns it back into a normal column. `size()` counts rows, `count()` counts non-missing values.",
@@ -696,7 +696,7 @@
       "tool": "pandas",
       "group": "Summarizing",
       "level": 2,
-      "order": 31,
+      "order": 38,
       "category": "pandas",
       "title": "How do I group by two columns or compute a share of the total?",
       "body": "Pass a list to `groupby` to group by several columns (`GROUP BY a, b`). `transform` returns a value for every original row, which is what you need to add a group total next to each row, like a window function (`SUM(...) OVER (PARTITION BY ...)`).",
@@ -723,7 +723,7 @@
       "tool": "pandas",
       "group": "Combining tables",
       "level": 2,
-      "order": 33,
+      "order": 40,
       "category": "pandas",
       "title": "How do I join two tables (JOIN)?",
       "body": "`left.merge(right, on=\"key\", how=...)` is a SQL `JOIN`. `how=\"inner\"` keeps matching keys only, `\"left\"` keeps every row of the left table (`LEFT JOIN`), `\"outer\"` keeps all rows of both.\n\nTwo arguments guard against silent mistakes: `validate=\"many_to_one\"` raises an error if the key is not unique in the right table, and `indicator=True` adds a column showing where each row came from. When key columns have different names, use `left_on` and `right_on`.",
@@ -754,7 +754,7 @@
       "tool": "pandas",
       "group": "Combining tables",
       "level": 2,
-      "order": 34,
+      "order": 41,
       "category": "pandas",
       "title": "How do I stack tables with the same columns (UNION ALL)?",
       "body": "`pd.concat([a, b], ignore_index=True)` places the rows of one table under the other, like `UNION ALL`. Columns are matched by name. Add `.drop_duplicates()` for the behaviour of `UNION`. With `axis=1` it places tables side by side instead.",
@@ -781,7 +781,7 @@
       "tool": "pandas",
       "group": "Summarizing",
       "level": 2,
-      "order": 32,
+      "order": 39,
       "category": "pandas",
       "title": "How do I build a pivot table?",
       "body": "`pivot_table` reshapes grouped values into a grid, as an Excel PivotTable does: `index` gives the rows, `columns` the columns, `values` the numbers and `aggfunc` how to combine them. Use `fill_value=0` for empty cells and `margins=True` for totals.\n\n`melt` does the opposite: it turns columns back into rows.",
@@ -804,7 +804,7 @@
       "tool": "pandas",
       "group": "Transforming",
       "level": 2,
-      "order": 29,
+      "order": 36,
       "category": "pandas",
       "title": "How do I total values by month?",
       "body": "Convert the column with `pd.to_datetime`, take the month with `dt.to_period(\"M\")`, then group by it. For a continuous time axis with an index of dates, `resample(\"MS\")` does the same grouping.",
@@ -827,7 +827,7 @@
       "tool": "pandas",
       "group": "pandas 3 behaviour",
       "level": 3,
-      "order": 64,
+      "order": 71,
       "category": "pandas",
       "title": "Does changing a DataFrame derived from another change the original?",
       "body": "In pandas 3 (Copy-on-Write), a DataFrame or Series derived from another one (a column selection, a filtered subset, a result of a method) behaves as an independent copy: changing it does not change the original, even without calling `copy()`. This is why chained assignment such as `df[\"a\"][mask] = 0` no longer updates `df` (see the Common errors section).\n\nA plain assignment `other = df` is different: it only gives the same object a second name, so a change through either name is visible through both. Use `df.copy()` when you want a separate table.\n\nTo change a DataFrame, write to that DataFrame with `loc` or by assigning the column.",
@@ -850,7 +850,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Foundations",
       "level": 1,
-      "order": 35,
+      "order": 42,
       "category": "Visualization",
       "title": "What is plt, and what are Figure and Axes?",
       "body": "`plt` is the usual alias of `matplotlib.pyplot`, the module you import to draw charts: `import matplotlib.pyplot as plt`.\n\nA **Figure** is the whole picture (the canvas). An **Axes** is one chart inside it, with its own x axis, y axis, title and data. The recommended way to work is explicit: `fig, ax = plt.subplots()` creates both, then you call methods on `ax` (`ax.plot`, `ax.set_title`, `ax.set_xlabel`). The shorter `plt.plot(...)` style also works, because pyplot keeps track of a current Axes, but with several charts the explicit style is clearer.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
@@ -877,7 +877,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Chart types",
       "level": 1,
-      "order": 37,
+      "order": 44,
       "category": "Visualization",
       "title": "How do I draw a line chart of a value over time?",
       "body": "Put the dates on the x axis and the values on the y axis. A DataFrame column can be drawn directly with `df.plot(x=..., y=...)`, which returns the Axes so you can set the labels afterwards. Sort by date first, otherwise the line jumps back and forth.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
@@ -903,7 +903,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Chart types",
       "level": 1,
-      "order": 38,
+      "order": 45,
       "category": "Visualization",
       "title": "How do I draw a bar chart of a total per category?",
       "body": "Aggregate first, then plot: `df.groupby(\"category\")[\"value\"].sum()` gives one number per category, and `.plot.bar()` (or `.plot.barh()` for long names) draws one bar each. Sort the totals so the bars are ordered; an unsorted bar chart is harder to read. The y axis of a bar chart should start at zero.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
@@ -929,7 +929,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Chart types",
       "level": 1,
-      "order": 39,
+      "order": 46,
       "category": "Visualization",
       "title": "How do I see the distribution of a numeric column?",
       "body": "A histogram counts how many values fall into each interval (bin). `ax.hist(values, bins=n)` draws it and also returns the counts, so you can read the result without looking at the picture. The number of bins changes the shape: try a few. A box plot (`sns.boxplot`) shows the same column as median, quartiles and outliers.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
@@ -956,7 +956,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Chart types",
       "level": 2,
-      "order": 41,
+      "order": 48,
       "category": "Visualization",
       "title": "How do I check the relationship between two numeric columns?",
       "body": "A scatter plot puts one column on x and another on y; each row is a point. With seaborn, pass the DataFrame as `data` and name the columns as strings: `sns.scatterplot(data=df, x=\"price\", y=\"units\", hue=\"channel\")`. `hue` colours the points by a third column. Remember that the arguments after `data` must be passed by keyword (see the Common errors section).\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
@@ -986,7 +986,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Chart types",
       "level": 2,
-      "order": 42,
+      "order": 49,
       "category": "Visualization",
       "title": "How do I compare a distribution across categories?",
       "body": "A box plot shows, for each category, the median (the line in the box), the middle half of the values (the box) and the points far from the rest (outliers). `sns.boxplot(data=df, x=\"category\", y=\"value\")` draws one box per category from the raw rows, with no prior `groupby`. The numbers behind the boxes can be read with `groupby(...).describe()`.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
@@ -1016,7 +1016,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Chart types",
       "level": 2,
-      "order": 43,
+      "order": 50,
       "category": "Visualization",
       "title": "How do I draw a correlation heatmap?",
       "body": "`df.corr(numeric_only=True)` computes the correlation between every pair of numeric columns (from -1 to 1). `sns.heatmap(corr, annot=True)` colours the matrix and writes the values in the cells. Correlation measures how two columns move together; it does not show that one causes the other.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
@@ -1042,7 +1042,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Foundations",
       "level": 2,
-      "order": 44,
+      "order": 51,
       "category": "Visualization",
       "title": "How do I draw several charts side by side?",
       "body": "`fig, axes = plt.subplots(nrows, ncols)` creates a grid of Axes. With more than one cell, `axes` is an array: pick a chart by position (`axes[0]`, or `axes[row, col]`) and draw into it. Pass `ax=axes[0]` to pandas and seaborn functions to draw there. `sharey=True` gives the charts the same y scale so they can be compared.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
@@ -1065,7 +1065,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Choosing a chart",
       "level": 1,
-      "order": 40,
+      "order": 47,
       "category": "Visualization",
       "title": "What makes a chart readable?",
       "body": "- Give the chart a title that states what it shows, and label both axes with the unit.\n- Rotate long category labels (`ax.tick_params(axis=\"x\", rotation=45)`) or switch to horizontal bars.\n- Sort categories by value unless they have a natural order (months, ages).\n- Start the y axis of bar charts at zero.\n- Use one colour unless colour carries meaning, and keep the same colour for the same category across charts.\n- Prefer a bar chart to a pie chart when there are more than a few categories.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
@@ -1088,7 +1088,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Choosing a chart",
       "level": 1,
-      "order": 36,
+      "order": 43,
       "category": "Visualization",
       "title": "Which chart type fits which question?",
       "body": "- Compare values between categories: **bar chart**.\n- Change over time: **line chart**.\n- Distribution of one numeric column: **histogram** or **box plot**.\n- Relationship between two numeric columns: **scatter plot**.\n- Correlation across many columns: **heatmap**.\n- Parts of a whole with few categories: a bar chart of shares, or a pie chart only when there are very few slices.\n\nStart from the question the chart must answer, then choose the type.",
@@ -1108,7 +1108,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Foundations",
       "level": 2,
-      "order": 45,
+      "order": 52,
       "category": "Visualization",
       "title": "How do I save a chart to a file?",
       "body": "`fig.savefig(\"chart.png\", dpi=150, bbox_inches=\"tight\")` writes the figure; the format follows the file extension (`.png`, `.svg`, `.pdf`). `bbox_inches=\"tight\"` removes extra white space and keeps long labels from being cut off. Call `plt.close(fig)` afterwards in scripts that draw many charts, to free the memory.\n\nThe pictures themselves are not shown on this page. The example prints facts about the finished chart so its result can be checked; in a notebook the chart appears below the cell.",
@@ -1131,7 +1131,7 @@
       "tool": "matplotlib & seaborn",
       "group": "Foundations",
       "level": 2,
-      "order": 46,
+      "order": 53,
       "category": "Visualization",
       "title": "Why does plt.show() do nothing, or why is there no window?",
       "body": "A **backend** is the part of matplotlib that draws and displays the figure. In a notebook, charts appear below the cell automatically. In a script on a computer with a screen, `plt.show()` opens a window and waits until it is closed. On a server or in an automated test there is no screen, so the non-interactive `Agg` backend is used: it draws into memory and can save files, but cannot show a window.",
@@ -1154,7 +1154,7 @@
       "tool": "NumPy",
       "group": "Arrays",
       "level": 1,
-      "order": 47,
+      "order": 54,
       "category": "NumPy",
       "title": "What is a NumPy array and how is it different from a list?",
       "body": "A NumPy array holds values of **one type** in a regular grid. It is the structure under pandas columns and most numeric libraries. An array has a `shape` (size along each dimension), `ndim` (number of dimensions) and a `dtype` (the type of every element).\n\nA list can mix types and has no shape. An array is faster for numeric work because the operations run on the whole array at once.",
@@ -1177,7 +1177,7 @@
       "tool": "NumPy",
       "group": "Arrays",
       "level": 1,
-      "order": 48,
+      "order": 55,
       "category": "NumPy",
       "title": "Why did my integers become floats or text?",
       "body": "All elements of an array share one dtype, so NumPy picks a type that fits every value. One float turns integers into floats; one text value turns everything into text. Check `dtype` after building an array, and convert on purpose with `astype`.",
@@ -1200,7 +1200,7 @@
       "tool": "NumPy",
       "group": "Calculation",
       "level": 1,
-      "order": 49,
+      "order": 56,
       "category": "NumPy",
       "title": "What does vectorized calculation mean?",
       "body": "Vectorized means one expression applied to every element, without writing a loop. `array * 2` doubles each element, while `list * 2` repeats the list. The same idea makes pandas columns work: `df[\"price\"] * df[\"qty\"]` multiplies row by row.\n\nPrefer vectorized expressions to Python loops on numeric data: they are shorter and much faster on large inputs.",
@@ -1223,7 +1223,7 @@
       "tool": "NumPy",
       "group": "Calculation",
       "level": 1,
-      "order": 50,
+      "order": 57,
       "category": "NumPy",
       "title": "How do I select values with a condition?",
       "body": "A comparison on an array returns an array of True/False, a **mask**. Using the mask as an index keeps the elements where it is True. Because True counts as 1, `mask.sum()` counts the matches and `mask.mean()` gives their share. pandas filtering with `df[df[\"a\"] > 5]` works the same way.",
@@ -1246,7 +1246,7 @@
       "tool": "NumPy",
       "group": "Calculation",
       "level": 2,
-      "order": 51,
+      "order": 58,
       "category": "NumPy",
       "title": "What does axis mean in sum or mean?",
       "body": "`axis` is the direction along which the values are combined. In a 2D array, `axis=0` goes down the rows and gives **one result per column**; `axis=1` goes across the columns and gives **one result per row**. pandas uses the same numbering (`df.sum(axis=0)` totals each column).",
@@ -1269,7 +1269,7 @@
       "tool": "NumPy",
       "group": "Calculation",
       "level": 2,
-      "order": 52,
+      "order": 59,
       "category": "NumPy",
       "title": "What is broadcasting?",
       "body": "Broadcasting lets NumPy combine arrays of different shapes. A scalar is applied to every element. Two arrays are compatible when, comparing their shapes from the last dimension backwards, each pair of sizes is equal or one of them is 1; the size-1 dimension is stretched to match.\n\nIncompatible shapes raise `ValueError`. The error message shows both shapes, which is the first thing to read.",
@@ -1292,7 +1292,7 @@
       "tool": "NumPy",
       "group": "Missing numbers and randomness",
       "level": 2,
-      "order": 53,
+      "order": 60,
       "category": "NumPy",
       "title": "How does NumPy handle missing numbers (NaN)?",
       "body": "`np.nan` is a floating-point value that means \"not a number\". Any calculation that includes it returns `nan`, and `nan == nan` is `False`, so test with `np.isnan`. The functions with an `nan` prefix (`nansum`, `nanmean`) skip missing values. pandas skips them by default, NumPy does not.",
@@ -1315,7 +1315,7 @@
       "tool": "NumPy",
       "group": "Missing numbers and randomness",
       "level": 2,
-      "order": 54,
+      "order": 61,
       "category": "NumPy",
       "title": "How do I generate random numbers that I can reproduce?",
       "body": "Create a generator with a seed: `rng = np.random.default_rng(42)`. The same seed gives the same sequence, so an analysis with random samples can be repeated. Keep the generator in a variable and call its methods (`integers`, `random`, `choice`, `normal`) instead of the older `np.random.seed` functions.\n\nThe sequence is guaranteed for a given NumPy version; the numbers shown come from the version on this page.",
@@ -1338,7 +1338,7 @@
       "tool": "NumPy",
       "group": "Connection to pandas",
       "level": 2,
-      "order": 55,
+      "order": 62,
       "category": "NumPy",
       "title": "How are NumPy and pandas connected?",
       "body": "A pandas column is built on a NumPy array. `df[\"a\"].to_numpy()` gives the array, and `pd.Series(array)` or `pd.DataFrame(array, columns=[...])` goes the other way. NumPy functions accept pandas columns, and pandas methods give results that are often NumPy-compatible. A DataFrame can hold different types per column; a plain array cannot.",
@@ -1362,7 +1362,7 @@
       "tool": "Statistics & scipy",
       "group": "Describing data",
       "level": 1,
-      "order": 56,
+      "order": 63,
       "category": "Statistics & scipy",
       "title": "How do I get a quick statistical summary of a table?",
       "body": "`df.describe()` reports, for each numeric column, the count of non-missing values, the mean, the standard deviation, the minimum, the quartiles (25%, 50%, 75%) and the maximum. The 50% row is the median. Read `count` first: if it is smaller than the number of rows, the column has missing values.\n\nFor text columns, `value_counts()` counts each value, and `value_counts(normalize=True)` gives the shares.",
@@ -1385,7 +1385,7 @@
       "tool": "Statistics & scipy",
       "group": "Describing data",
       "level": 1,
-      "order": 57,
+      "order": 64,
       "category": "Statistics & scipy",
       "title": "Mean or median: which one describes my data?",
       "body": "The **mean** is the sum divided by the count. The **median** is the middle value after sorting. A few extreme values pull the mean toward them but barely move the median, so for data with outliers (salaries, order values) the median is usually the better description of a typical value. When the two differ a lot, look at the distribution.",
@@ -1408,7 +1408,7 @@
       "tool": "Statistics & scipy",
       "group": "Describing data",
       "level": 2,
-      "order": 58,
+      "order": 65,
       "category": "Statistics & scipy",
       "title": "Why do pandas and NumPy give different standard deviations?",
       "body": "The standard deviation measures how far values typically are from the mean. pandas divides by n-1 (`ddof=1`, the **sample** standard deviation), while NumPy divides by n (`ddof=0`, the **population** value) by default. For the same numbers the results differ, most visibly on small samples.\n\nChoose on purpose: use `ddof=1` when the data is a sample of a larger group, and state which one you used.",
@@ -1432,7 +1432,7 @@
       "tool": "Statistics & scipy",
       "group": "Describing data",
       "level": 2,
-      "order": 59,
+      "order": 66,
       "category": "Statistics & scipy",
       "title": "How do I find outliers?",
       "body": "Quartiles split sorted data into four parts. `quantile(0.25)` and `quantile(0.75)` give Q1 and Q3, and the **interquartile range** is IQR = Q3 - Q1. A common rule flags values below Q1 - 1.5 x IQR or above Q3 + 1.5 x IQR; box plots draw the same limits.\n\nA flagged value is a question, not a verdict: check whether it is an error, a different kind of case, or a real extreme before removing it.",
@@ -1455,7 +1455,7 @@
       "tool": "Statistics & scipy",
       "group": "Describing data",
       "level": 2,
-      "order": 60,
+      "order": 67,
       "category": "Statistics & scipy",
       "title": "What is a z-score and how do I compute it?",
       "body": "A z-score says how many standard deviations a value is from the mean: `(x - mean) / std`. It puts columns with different units on one scale and is sometimes used to flag extreme values.\n\n`scipy.stats.zscore` uses `ddof=0` by default, while the pandas `std()` used by hand uses `ddof=1`, so the two results differ slightly unless you set `ddof` the same way.",
@@ -1480,7 +1480,7 @@
       "tool": "Statistics & scipy",
       "group": "Relationships and tests",
       "level": 2,
-      "order": 61,
+      "order": 68,
       "category": "Statistics & scipy",
       "title": "How strongly are two columns related (correlation)?",
       "body": "The Pearson correlation coefficient runs from -1 (one rises as the other falls) to +1 (they rise together); 0 means no straight-line relationship. In pandas, `df.corr(numeric_only=True)` gives a matrix and `a.corr(b)` one pair. `scipy.stats.pearsonr(a, b)` also returns a p-value.\n\nCorrelation shows that two columns move together, not that one causes the other. It also misses curved relationships, so look at a scatter plot as well.\n\nThe samples in the example are tiny so the numbers can be followed by hand; real conclusions need real sample sizes.",
@@ -1509,7 +1509,7 @@
       "tool": "Statistics & scipy",
       "group": "Relationships and tests",
       "level": 2,
-      "order": 62,
+      "order": 69,
       "category": "Statistics & scipy",
       "title": "What does a p-value mean?",
       "body": "A hypothesis test starts from a **null hypothesis** (for example \"the two groups have the same mean\"). The **p-value** is the probability of seeing a result at least as extreme as the observed one if the null hypothesis were true. A small p-value (below a limit chosen in advance, often 0.05) means the data would be unusual under the null hypothesis.\n\nIt is not the probability that the null hypothesis is true, and it says nothing about how large or how important the difference is. Report the size of the difference next to it.",
@@ -1529,7 +1529,7 @@
       "tool": "Statistics & scipy",
       "group": "Relationships and tests",
       "level": 3,
-      "order": 63,
+      "order": 70,
       "category": "Statistics & scipy",
       "title": "How do I test whether two groups have different means?",
       "body": "`scipy.stats.ttest_ind(a, b, equal_var=False)` compares the means of two independent groups (Welch's version, which does not assume equal variances) and returns a test statistic and a p-value. Check the group sizes and the means first; the test answers only whether the observed difference is unusual if the true means were equal.\n\nThe samples in the example are tiny so the numbers can be followed by hand; real conclusions need real sample sizes.",
@@ -1545,6 +1545,578 @@
         {
           "title": "scipy.stats.ttest_ind",
           "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "python-variables",
+      "tool": "Python",
+      "group": "Variables and numbers",
+      "level": 1,
+      "order": 10,
+      "category": "Language basics",
+      "title": "What is a variable, and which names can I use?",
+      "body": "A variable is a **name attached to a value**. `price = 10` creates the name `price` and attaches the value 10 to it. `total = price * qty` calculates a value once and attaches the result to `total`.\n\nThat is different from an Excel formula. `=A1*B1` is a live link that recalculates when A1 changes; `total = price * qty` is not. If `price` gets a new value later, `total` keeps the old result until you run the calculation again.\n\n**Names**: letters, digits and underscores; they cannot start with a digit; capital and small letters are different (`Price` is not `price`); a reserved word such as `class`, `for` or `if` cannot be used. The usual style is `snake_case` (`total_price`).\n\nDo not reuse the name of a built-in function such as `sum`, `max`, `list` or `type`. Python allows it, and from that line on the name means your value, not the function.",
+      "visual": {
+        "type": "trace",
+        "title": "Watch the names change",
+        "note": "Press **Next step** and watch the boxes. The highlighted line has not run yet. Notice that `total` does not follow `price`.",
+        "code": "price = 10\nqty = 3\ntotal = price * qty\nprice = 20\n",
+        "frames": [
+          {
+            "line": 1,
+            "vars": {},
+            "out": ""
+          },
+          {
+            "line": 2,
+            "vars": {
+              "price": [
+                "10",
+                "int"
+              ]
+            },
+            "out": ""
+          },
+          {
+            "line": 3,
+            "vars": {
+              "price": [
+                "10",
+                "int"
+              ],
+              "qty": [
+                "3",
+                "int"
+              ]
+            },
+            "out": ""
+          },
+          {
+            "line": 4,
+            "vars": {
+              "price": [
+                "10",
+                "int"
+              ],
+              "qty": [
+                "3",
+                "int"
+              ],
+              "total": [
+                "30",
+                "int"
+              ]
+            },
+            "out": ""
+          },
+          {
+            "line": null,
+            "vars": {
+              "price": [
+                "20",
+                "int"
+              ],
+              "qty": [
+                "3",
+                "int"
+              ],
+              "total": [
+                "30",
+                "int"
+              ]
+            },
+            "out": ""
+          }
+        ]
+      },
+      "code": "price = 10\nqty = 3\ntotal = price * qty\nprice = 20\nprint(total)\n\nimport keyword\nprint(keyword.iskeyword(\"class\"), keyword.iskeyword(\"Class\"))\n\nnumbers = [3, 1, 2]\nprint(sum(numbers))\nsum = 100\ntry:\n    print(sum(numbers))\nexcept TypeError as e:\n    print(\"TypeError:\", e)\n",
+      "output": "30\nTrue False\n6\nTypeError: 'int' object is not callable\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python language reference: identifiers and keywords",
+          "url": "https://docs.python.org/3/reference/lexical_analysis.html#identifiers"
+        },
+        {
+          "title": "Python tutorial: an informal introduction",
+          "url": "https://docs.python.org/3/tutorial/introduction.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "python-operators",
+      "tool": "Python",
+      "group": "Variables and numbers",
+      "level": 1,
+      "order": 11,
+      "category": "Language basics",
+      "title": "Which arithmetic operators exist, and in what order are they applied?",
+      "body": "`+ - * /` work as in a spreadsheet. `//` is floor division (the quotient rounded down), `%` is the remainder (Excel `MOD`, SQL `%` or `MOD`), `**` is the power.\n\n**Order**: `**` first, then `*` `/` `//` `%`, then `+` `-`. Use parentheses whenever the order is not obvious. Two traps:\n\n- `4 ** 1/2` is `(4 ** 1) / 2`, not a square root. The square root is `4 ** (1/2)`.\n- `-2 ** 2` is `-(2 ** 2)`, so it is -4.\n\n`//` rounds toward minus infinity, so `-7 // 2` is -4, and `%` takes the sign of the right-hand number, so `-7 % 2` is 1. Decimal numbers are stored in binary, so `0.1 + 0.2` is not exactly 0.3: round for display, and compare with `math.isclose`.",
+      "visual": {
+        "type": "predict",
+        "title": "Predict, then check",
+        "prompt": "Decide the result in your head first, then click.",
+        "items": [
+          {
+            "expr": "2 + 3 * 4",
+            "result": "14",
+            "type": "int"
+          },
+          {
+            "expr": "(2 + 3) * 4",
+            "result": "20",
+            "type": "int"
+          },
+          {
+            "expr": "4 ** 1 / 2",
+            "result": "2.0",
+            "type": "float",
+            "note": "Looks like a square root; it is not."
+          },
+          {
+            "expr": "4 ** (1 / 2)",
+            "result": "2.0",
+            "type": "float"
+          },
+          {
+            "expr": "-2 ** 2",
+            "result": "-4",
+            "type": "int"
+          },
+          {
+            "expr": "-7 // 2",
+            "result": "-4",
+            "type": "int",
+            "note": "Rounded down, not toward zero."
+          },
+          {
+            "expr": "-7 % 2",
+            "result": "1",
+            "type": "int"
+          },
+          {
+            "expr": "0.1 + 0.2",
+            "result": "0.30000000000000004",
+            "type": "float"
+          }
+        ]
+      },
+      "code": "print(2 + 3 * 4)\nprint((2 + 3) * 4)\nprint(4 ** 1 / 2)\nprint(4 ** (1 / 2))\nprint(-2 ** 2)\nprint(7 // 2, 7 % 2)\nprint(-7 // 2, -7 % 2)\nprint(0.1 + 0.2)\nprint(round(0.1 + 0.2, 2))\n",
+      "output": "14\n20\n2.0\n2.0\n-4\n3 1\n-4 1\n0.30000000000000004\n0.3\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python language reference: operator precedence",
+          "url": "https://docs.python.org/3/reference/expressions.html#operator-precedence"
+        },
+        {
+          "title": "Python library reference: numeric types",
+          "url": "https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "python-comparison-logic",
+      "tool": "Python",
+      "group": "Decisions",
+      "level": 1,
+      "order": 13,
+      "category": "Language basics",
+      "title": "How do comparisons and `and` / `or` / `not` work?",
+      "body": "A comparison (`==` `!=` `<` `<=` `>` `>=`) gives `True` or `False`. Remember: `=` stores a value, `==` compares two values.\n\nCombine conditions with `and`, `or` and `not`. `and` is applied before `or`, so use parentheses when you mix them. A chained comparison such as `0 < x < 10` is allowed and reads like the math. In pandas filters you cannot use these words: use `&`, `|` and `~` (see the entry on selecting and filtering rows).\n\n**Truthiness**: `0`, `0.0`, empty text, an empty list and `None` count as false in a condition; everything else counts as true. So `bool(\"False\")` is `True`: the text is not empty.\n\nText is compared character by character, not as numbers: `\"10\" < \"9\"` is `True`, and capital letters come before small ones.",
+      "visual": {
+        "type": "predict",
+        "title": "Predict, then check",
+        "prompt": "Decide the result in your head first, then click.",
+        "items": [
+          {
+            "expr": "5 == 5.0",
+            "result": "True",
+            "type": "bool"
+          },
+          {
+            "expr": "\"a\" < \"B\"",
+            "result": "False",
+            "type": "bool"
+          },
+          {
+            "expr": "\"10\" < \"9\"",
+            "result": "True",
+            "type": "bool"
+          },
+          {
+            "expr": "0 < 7 < 10",
+            "result": "True",
+            "type": "bool"
+          },
+          {
+            "expr": "True or False and False",
+            "result": "True",
+            "type": "bool"
+          },
+          {
+            "expr": "(True or False) and False",
+            "result": "False",
+            "type": "bool"
+          },
+          {
+            "expr": "not 0",
+            "result": "True",
+            "type": "bool"
+          },
+          {
+            "expr": "bool(\"False\")",
+            "result": "True",
+            "type": "bool"
+          },
+          {
+            "expr": "\"\" or \"default\"",
+            "result": "'default'",
+            "type": "str",
+            "note": "`or` returns the first true operand, not just True or False."
+          }
+        ]
+      },
+      "code": "print(5 > 3, 5 == 5.0, 5 != 5)\nprint(\"a\" < \"B\", \"A\" < \"a\")\nprint(\"10\" < \"9\", 10 < 9)\n\nx = 7\nprint(0 < x < 10)\nprint(x > 10 or x < 8 and x != 7)\nprint((x > 10 or x < 8) and x != 7)\nprint(not 0, bool([]), bool(\"False\"))\nprint(\"\" or \"default\")\n",
+      "output": "True True False\nFalse True\nTrue False\nTrue\nFalse\nFalse\nTrue False True\ndefault\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python language reference: comparisons",
+          "url": "https://docs.python.org/3/reference/expressions.html#comparisons"
+        },
+        {
+          "title": "Python language reference: boolean operations",
+          "url": "https://docs.python.org/3/reference/expressions.html#boolean-operations"
+        },
+        {
+          "title": "Python library reference: truth value testing",
+          "url": "https://docs.python.org/3/library/stdtypes.html#truth-value-testing"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "python-string-slicing",
+      "tool": "Python",
+      "group": "Working with text",
+      "level": 1,
+      "order": 14,
+      "category": "Language basics",
+      "title": "How does slicing work on text, and why is the end position not included?",
+      "body": "Every character has a position that starts at **0**. A negative position counts from the end: `-1` is the last character. Think of a position as the number of characters you skip from the start.\n\n`text[start:stop:step]` takes the characters from `start` up to, but **not including**, `stop`. With step 1 the result has `stop - start` characters, so `text[1:4]` has 3.\n\n- an empty `start` means from the beginning, an empty `stop` means to the end\n- a negative `step` walks backwards, so `[::-1]` reverses the text\n- a slice that goes past the end just stops there; a single position that does not exist raises `IndexError`\n\nThe same rules apply to lists and tuples. Compare Excel: `MID(text, 2, 3)` counts from 1 and takes a length; `text[1:4]` counts from 0 and takes an end position.",
+      "visual": {
+        "type": "slice",
+        "title": "Try it: move the slice",
+        "text": "PYTHON",
+        "start": 1,
+        "stop": 4,
+        "step": null,
+        "note": "The numbers above the letters are positions from the start; the orange numbers below count from the end. Change the boxes, or press a ready-made slice.",
+        "presets": [
+          [
+            "1",
+            "4"
+          ],
+          [
+            "",
+            "2"
+          ],
+          [
+            "2",
+            ""
+          ],
+          [
+            "-3",
+            ""
+          ],
+          [
+            "",
+            "",
+            "2"
+          ],
+          [
+            "",
+            "",
+            "-1"
+          ],
+          [
+            "4",
+            "1",
+            "-1"
+          ]
+        ]
+      },
+      "code": "text = \"PYTHON\"\nprint(text[0], text[-1])\nprint(text[1:4])\nprint(text[:2], text[2:])\nprint(text[-3:])\nprint(text[::2])\nprint(text[::-1])\nprint(repr(text[10:20]))\ntry:\n    print(text[10])\nexcept IndexError as e:\n    print(\"IndexError:\", e)\n",
+      "output": "P N\nYTH\nPY THON\nHON\nPTO\nNOHTYP\n''\nIndexError: string index out of range\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python tutorial: an informal introduction",
+          "url": "https://docs.python.org/3/tutorial/introduction.html"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "python-string-methods",
+      "tool": "Python",
+      "group": "Working with text",
+      "level": 1,
+      "order": 15,
+      "category": "Language basics",
+      "title": "Which string methods clean text, and why does `upper()` seem to do nothing?",
+      "body": "Text is **immutable**: a method never changes the original, it returns a new string. `name.upper()` on its own calculates the capital letters and throws them away. Keep the result: `name = name.upper()`.\n\nUseful methods (Excel / SQL equivalent): `strip()` removes spaces at both ends (`TRIM`), `lower()` and `upper()` (`LOWER`, `UPPER`), `replace(old, new)` (`SUBSTITUTE`, `REPLACE`), `split(sep)` makes a list, `\"-\".join(list)` does the opposite (`TEXTJOIN`), `find(part)` gives a position or -1, `startswith` and `endswith` give True or False, `zfill(n)` pads with zeros.\n\n`capitalize()` changes only the first letter of the whole text; `title()` changes each word. Methods can be chained left to right: `text.strip().lower()`. On a pandas column the same methods live under `.str`.",
+      "visual": {
+        "type": "trace",
+        "title": "Immutable text, step by step",
+        "note": "Watch what happens on line 2: the new text is created and lost. Only an assignment keeps it.",
+        "code": "name = \"  Ana Pop  \"\nname.upper()\nclean = name.strip()\nname = clean.upper()\n",
+        "frames": [
+          {
+            "line": 1,
+            "vars": {},
+            "out": ""
+          },
+          {
+            "line": 2,
+            "vars": {
+              "name": [
+                "'  Ana Pop  '",
+                "str"
+              ]
+            },
+            "out": ""
+          },
+          {
+            "line": 3,
+            "vars": {
+              "name": [
+                "'  Ana Pop  '",
+                "str"
+              ]
+            },
+            "out": ""
+          },
+          {
+            "line": 4,
+            "vars": {
+              "name": [
+                "'  Ana Pop  '",
+                "str"
+              ],
+              "clean": [
+                "'Ana Pop'",
+                "str"
+              ]
+            },
+            "out": ""
+          },
+          {
+            "line": null,
+            "vars": {
+              "name": [
+                "'ANA POP'",
+                "str"
+              ],
+              "clean": [
+                "'Ana Pop'",
+                "str"
+              ]
+            },
+            "out": ""
+          }
+        ]
+      },
+      "code": "name = \"  Ana Pop  \"\nname.upper()\nprint(repr(name))\n\nclean = name.strip().lower()\nprint(repr(clean))\nprint(clean.replace(\"a\", \"@\"))\nprint(clean.split(\" \"))\nprint(\"-\".join([\"2026\", \"11\", \"13\"]))\nprint(\"data\".find(\"t\"), \"data\".find(\"z\"))\nprint(\"report.csv\".startswith(\"report\"), \"report.csv\".endswith(\".csv\"))\nprint(\"7\".zfill(3))\nprint(\"ana pop\".capitalize(), \"|\", \"ana pop\".title())\nprint(\"123\".isdigit(), \"12a\".isdigit())\n",
+      "output": "'  Ana Pop  '\n'ana pop'\n@n@ pop\n['ana', 'pop']\n2026-11-13\n2 -1\nTrue True\n007\nAna pop | Ana Pop\nTrue False\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python library reference: string methods",
+          "url": "https://docs.python.org/3/library/stdtypes.html#string-methods"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "python-print-fstrings",
+      "tool": "Python",
+      "group": "Working with text",
+      "level": 1,
+      "order": 16,
+      "category": "Language basics",
+      "title": "How do I print values and build text with f-strings?",
+      "body": "`print(a, b)` writes the values separated by a space. `sep=` changes the separator and `end=` what comes after (a new line by default).\n\nSpecial characters inside quotes: `\\n` new line, `\\t` tab, `\\\\` one backslash. A raw string, `r\"C:\\new\\table\"`, keeps backslashes as they are, which helps with Windows paths.\n\nAn **f-string** starts with `f` and evaluates what is between braces: `f\"{price} lei\"`. After a colon you describe the format: `:.2f` two decimals, `:,` thousands separator, `:.1%` percent, `:>8` right-aligned in 8 characters. Write `{{` and `}}` for literal braces.\n\nA frequent slip: without braces the name is just text. `f\"total_price\"` prints the words `total_price`, not the value.",
+      "visual": {
+        "type": "predict",
+        "title": "Predict, then check",
+        "prompt": "Decide the result in your head first, then click.",
+        "items": [
+          {
+            "expr": "f\"{3.14159:.2f}\"",
+            "result": "'3.14'",
+            "type": "str"
+          },
+          {
+            "expr": "f\"{1234567:,}\"",
+            "result": "'1,234,567'",
+            "type": "str"
+          },
+          {
+            "expr": "f\"{0.256:.1%}\"",
+            "result": "'25.6%'",
+            "type": "str"
+          },
+          {
+            "expr": "f\"{7:03d}\"",
+            "result": "'007'",
+            "type": "str"
+          },
+          {
+            "expr": "\"ab\" * 3",
+            "result": "'ababab'",
+            "type": "str"
+          },
+          {
+            "expr": "len(\"a\\nb\")",
+            "result": "3",
+            "type": "int",
+            "note": "`\\n` is one character."
+          },
+          {
+            "expr": "f\"{1 + 1} items\"",
+            "result": "'2 items'",
+            "type": "str"
+          },
+          {
+            "expr": "f\"price\"",
+            "result": "'price'",
+            "type": "str",
+            "note": "No braces, so it is just text."
+          }
+        ]
+      },
+      "code": "product = \"Desk\"\nprice = 1234.5\nqty = 3\n\nprint(\"Product:\", product, \"Qty:\", qty)\nprint(\"a\", \"b\", sep=\"-\", end=\"!\\n\")\nprint(f\"{product} costs {price:,.2f}\")\nprint(f\"Total: {price * qty:,.2f}\")\nprint(f\"Share: {0.256:.1%}\")\nprint(f\"[{product:>8}] [{product:<8}]\")\nprint(\"Line one\\nLine two\\tTabbed\")\nprint(r\"C:\\new\\table\")\nprint(f\"{{price}} = {price}\")\nprint(f\"price\")\n",
+      "output": "Product: Desk Qty: 3\na-b!\nDesk costs 1,234.50\nTotal: 3,703.50\nShare: 25.6%\n[    Desk] [Desk    ]\nLine one\nLine two\tTabbed\nC:\\new\\table\n{price} = 1234.5\nprice\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python tutorial: formatted string literals",
+          "url": "https://docs.python.org/3/tutorial/inputoutput.html#formatted-string-literals"
+        },
+        {
+          "title": "Python library reference: format specification mini-language",
+          "url": "https://docs.python.org/3/library/string.html#format-specification-mini-language"
+        }
+      ],
+      "added": "2026-10-29"
+    },
+    {
+      "id": "python-casting",
+      "tool": "Python",
+      "group": "Variables and numbers",
+      "level": 1,
+      "order": 12,
+      "category": "Language basics",
+      "title": "How do I convert between text and numbers (casting)?",
+      "body": "`int()`, `float()`, `str()` and `bool()` convert a value to another type. Text that looks like a number is still text until you convert it: `\"5\" * 3` is `\"555\"`, and `\"5\" + 5` raises `TypeError`. The function `input()` always returns text, so wrap it: `float(input(\"Length: \"))`.\n\n- `int(3.9)` cuts off the decimals (toward zero): 3, and `int(-3.9)` is -3. To round, use `round()`; it rounds exact halves to the nearest even number, so `round(2.5)` is 2.\n- `int(\"4.5\")` fails with `ValueError`: go through `float` first.\n- A decimal comma is not valid: `float(\"3,5\")` fails. Replace the comma first, or read the file with `decimal=\",\"` in pandas.\n- `bool(\"False\")` is `True`, because the text is not empty.\n\nFor whole pandas columns use `pd.to_numeric` or `astype` (see the entry on converting a column to numbers or dates).",
+      "visual": {
+        "type": "predict",
+        "title": "Predict, then check",
+        "prompt": "Decide the result in your head first, then click.",
+        "items": [
+          {
+            "expr": "int(\"42\")",
+            "result": "42",
+            "type": "int"
+          },
+          {
+            "expr": "int(3.9)",
+            "result": "3",
+            "type": "int"
+          },
+          {
+            "expr": "int(-3.9)",
+            "result": "-3",
+            "type": "int"
+          },
+          {
+            "expr": "round(2.5)",
+            "result": "2",
+            "type": "int",
+            "note": "Exact halves go to the nearest even number."
+          },
+          {
+            "expr": "round(3.5)",
+            "result": "4",
+            "type": "int"
+          },
+          {
+            "expr": "float(\"3.5\")",
+            "result": "3.5",
+            "type": "float"
+          },
+          {
+            "expr": "\"5\" * 3",
+            "result": "'555'",
+            "type": "str"
+          },
+          {
+            "expr": "bool(\"False\")",
+            "result": "True",
+            "type": "bool"
+          },
+          {
+            "expr": "int(\"4.5\")",
+            "result": "ValueError",
+            "type": "error",
+            "note": "The result is the name of the error."
+          },
+          {
+            "expr": "\"5\" + 5",
+            "result": "TypeError",
+            "type": "error"
+          }
+        ]
+      },
+      "code": "print(int(\"42\") + 1)\nprint(float(\"3.5\") * 2)\nprint(int(3.9), int(-3.9), round(3.9))\nprint(round(2.5), round(3.5))\nprint(str(10) + \"%\")\nprint(float(\"3,5\".replace(\",\", \".\")))\nprint(bool(\"\"), bool(\"False\"), bool(0), bool(7))\n\nfor text in [\"12\", \"4.5\", \"12,5\", \"\"]:\n    try:\n        print(repr(text), \"->\", int(text))\n    except ValueError as e:\n        print(repr(text), \"-> ValueError:\", e)\n",
+      "output": "43\n7.0\n3 -3 4\n2 4\n10%\n3.5\nFalse True False True\n'12' -> 12\n'4.5' -> ValueError: invalid literal for int() with base 10: '4.5'\n'12,5' -> ValueError: invalid literal for int() with base 10: '12,5'\n'' -> ValueError: invalid literal for int() with base 10: ''\n",
+      "tested_with": {
+        "python": "3.15.2"
+      },
+      "sources": [
+        {
+          "title": "Python library reference: int()",
+          "url": "https://docs.python.org/3/library/functions.html#int"
+        },
+        {
+          "title": "Python library reference: float()",
+          "url": "https://docs.python.org/3/library/functions.html#float"
+        },
+        {
+          "title": "Python library reference: round()",
+          "url": "https://docs.python.org/3/library/functions.html#round"
+        },
+        {
+          "title": "Python library reference: input()",
+          "url": "https://docs.python.org/3/library/functions.html#input"
         }
       ],
       "added": "2026-10-29"

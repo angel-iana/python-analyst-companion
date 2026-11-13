@@ -20,7 +20,23 @@
     },
     {
       "id": "m2",
-      "title": "Python basics",
+      "title": "Python basics I: values and text",
+      "level": 1,
+      "goal": "Store values in variables, calculate, compare, work with text and convert between types.",
+      "status": "ready",
+      "steps": [
+        "python-variables",
+        "python-operators",
+        "python-casting",
+        "python-comparison-logic",
+        "python-string-slicing",
+        "python-string-methods",
+        "python-print-fstrings"
+      ]
+    },
+    {
+      "id": "m3",
+      "title": "Python basics II: code, collections and functions",
       "level": 1,
       "goal": "Read and write simple Python: how code runs, the basic types, loops, functions and errors.",
       "status": "ready",
@@ -37,7 +53,7 @@
       ]
     },
     {
-      "id": "m3",
+      "id": "m4",
       "title": "pandas: your first tables",
       "level": 1,
       "goal": "Create a table, read a file, pick columns and filter rows.",
@@ -50,7 +66,7 @@
       ]
     },
     {
-      "id": "m4",
+      "id": "m5",
       "title": "pandas: cleaning data",
       "level": 2,
       "goal": "Find and fix missing values, duplicates, wrong types and messy text.",
@@ -63,7 +79,7 @@
       ]
     },
     {
-      "id": "m5",
+      "id": "m6",
       "title": "pandas: transforming and summarizing",
       "level": 2,
       "goal": "Add columns, sort, group and summarize, build pivot tables and monthly totals.",
@@ -78,7 +94,7 @@
       ]
     },
     {
-      "id": "m6",
+      "id": "m7",
       "title": "pandas: combining tables",
       "level": 2,
       "goal": "Join tables with merge and stack them with concat.",
@@ -89,7 +105,7 @@
       ]
     },
     {
-      "id": "m7",
+      "id": "m8",
       "title": "Charts: first plots",
       "level": 1,
       "goal": "Draw and read the most common charts with matplotlib.",
@@ -104,7 +120,7 @@
       ]
     },
     {
-      "id": "m8",
+      "id": "m9",
       "title": "Charts: seaborn and finishing",
       "level": 2,
       "goal": "Compare distributions and relationships with seaborn, lay out several charts, save the result.",
@@ -119,7 +135,7 @@
       ]
     },
     {
-      "id": "m9",
+      "id": "m10",
       "title": "NumPy: arrays and calculation",
       "level": 2,
       "goal": "Understand arrays, vectorized calculation, broadcasting and missing numbers: the engine under pandas.",
@@ -137,7 +153,7 @@
       ]
     },
     {
-      "id": "m10",
+      "id": "m11",
       "title": "Statistics and scipy",
       "level": 2,
       "goal": "Summarize data, spot outliers, measure relationships and run a first hypothesis test.",
@@ -154,7 +170,7 @@
       ]
     },
     {
-      "id": "m11",
+      "id": "m12",
       "title": "Pitfalls after version changes",
       "level": 3,
       "goal": "Recognize errors and silent changes that come from recent pandas and seaborn versions.",
@@ -174,7 +190,7 @@
       ]
     },
     {
-      "id": "m12",
+      "id": "m13",
       "title": "Challenges: data quality",
       "level": 2,
       "goal": "Questions about trusting, reconciling and cleaning data.",
@@ -188,7 +204,7 @@
       ]
     },
     {
-      "id": "m13",
+      "id": "m14",
       "title": "Challenges: combining data",
       "level": 2,
       "goal": "Questions about joins, keys and alignment.",
@@ -200,7 +216,7 @@
       ]
     },
     {
-      "id": "m14",
+      "id": "m15",
       "title": "Challenges: trust in results",
       "level": 3,
       "goal": "Questions about checking, reproducing and validating results.",
@@ -212,7 +228,7 @@
       ]
     },
     {
-      "id": "m15",
+      "id": "m16",
       "title": "Challenges: interpretation and communication",
       "level": 2,
       "goal": "Questions about definitions and reading relationships correctly.",
@@ -223,7 +239,7 @@
       ]
     },
     {
-      "id": "m16",
+      "id": "m17",
       "title": "Challenges: size and speed",
       "level": 2,
       "goal": "Questions about large files and slow code.",
@@ -234,7 +250,7 @@
       ]
     },
     {
-      "id": "m17",
+      "id": "m18",
       "title": "scikit-learn",
       "level": 3,
       "goal": "A first model: split, fit, evaluate.",
@@ -246,7 +262,7 @@
       ]
     },
     {
-      "id": "m18",
+      "id": "m19",
       "title": "A complete small project",
       "level": 3,
       "goal": "Load, clean, analyze and chart a dataset in one reproducible notebook.",

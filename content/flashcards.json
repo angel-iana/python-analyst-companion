@@ -90,6 +90,166 @@
       "back": "Not for pandas. Only PySpark needs a Java runtime (the PySpark installation page lists Java 17 or later)."
     },
     {
+      "id": "python-variables",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What is a variable, and which names can I use?",
+      "back": "A name attached to a value. total = price * qty calculates once; it is not a live link like an Excel formula, so a later change to price does not change total. Names: letters, digits, underscores, not starting with a digit, case-sensitive, not a reserved word."
+    },
+    {
+      "id": "python-variables-q1",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "Can a variable name start with a digit?",
+      "back": "No. Letters, digits and underscores are allowed, but not as the first character."
+    },
+    {
+      "id": "python-variables-q2",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "Why should you not name a variable sum or list?",
+      "back": "The name then replaces the built-in function in your program; sum(numbers) raises TypeError: 'int' object is not callable."
+    },
+    {
+      "id": "python-operators",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "Which arithmetic operators exist, and in what order are they applied?",
+      "back": "Order: ** first, then * / // %, then + -. 4 ** 1/2 is (4 ** 1)/2 = 2.0, not a square root; use 4 ** (1/2). // rounds down (-7 // 2 = -4) and % takes the sign of the right-hand number (-7 % 2 = 1)."
+    },
+    {
+      "id": "python-operators-q1",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What are 7 // 2 and -7 // 2?",
+      "back": "3 and -4: floor division rounds down."
+    },
+    {
+      "id": "python-operators-q2",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "Why is 0.1 + 0.2 not exactly 0.3?",
+      "back": "Decimals are stored in binary, so the result is 0.30000000000000004. Round for display or compare with math.isclose."
+    },
+    {
+      "id": "python-casting",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "How do I convert between text and numbers (casting)?",
+      "back": "int(), float(), str(), bool(). int(3.9) cuts to 3 and round(3.9) gives 4; int(\"4.5\") raises ValueError (use int(float(...))); a decimal comma must be replaced first; input() returns text; bool(\"False\") is True."
+    },
+    {
+      "id": "python-casting-q1",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What does input() return?",
+      "back": "Always text. Convert it with int() or float()."
+    },
+    {
+      "id": "python-casting-q2",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What are int(-3.9) and round(2.5)?",
+      "back": "-3 and 2: int() cuts toward zero, round() sends exact halves to the nearest even number."
+    },
+    {
+      "id": "python-comparison-logic",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "How do comparisons and `and` / `or` / `not` work?",
+      "back": "== compares, = assigns. and is applied before or; use parentheses. 0 < x < 10 is allowed. 0, empty text, an empty list and None count as false, so bool(\"False\") is True. Text compares character by character: \"10\" < \"9\"."
+    },
+    {
+      "id": "python-comparison-logic-q1",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What does \"\" or \"default\" return?",
+      "back": "\"default\": or returns the first true operand."
+    },
+    {
+      "id": "python-string-slicing",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "How does slicing work on text, and why is the end position not included?",
+      "back": "Positions start at 0; negative positions count from the end. text[start:stop:step] excludes stop. Empty start or stop means the edge, a negative step goes backwards ([::-1] reverses). A slice past the end is fine; a single missing position raises IndexError."
+    },
+    {
+      "id": "python-string-slicing-q1",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What does text[::-1] do?",
+      "back": "It returns the text reversed."
+    },
+    {
+      "id": "python-string-slicing-q2",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "How many characters does text[1:4] return?",
+      "back": "Three (positions 1, 2 and 3); the end position is not included."
+    },
+    {
+      "id": "python-string-methods",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "Which string methods clean text, and why does `upper()` seem to do nothing?",
+      "back": "Text is immutable: a method returns a new string, so keep it (name = name.upper()). strip, lower, upper, replace, split, join, find, startswith, zfill; chain them left to right. On a pandas column use .str."
+    },
+    {
+      "id": "python-string-methods-q1",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What does name.upper() do if you do not assign the result?",
+      "back": "Nothing visible: the new string is thrown away and name is unchanged."
+    },
+    {
+      "id": "python-string-methods-q2",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What is the difference between capitalize() and title()?",
+      "back": "capitalize() changes only the first letter of the whole text; title() changes the first letter of every word."
+    },
+    {
+      "id": "python-print-fstrings",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "How do I print values and build text with f-strings?",
+      "back": "print(a, b, sep=, end=). \\n new line, \\t tab, \\\\ backslash, r\"...\" keeps backslashes. f\"{value:.2f}\": expressions in braces, format after the colon (:.2f, :, :.1% :>8). Without braces the name is just text."
+    },
+    {
+      "id": "python-print-fstrings-q1",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "What does print(\"a\", \"b\", sep=\"-\") show?",
+      "back": "a-b"
+    },
+    {
+      "id": "python-print-fstrings-q2",
+      "tool": "Python",
+      "level": 1,
+      "category": "Python",
+      "front": "How do you show two decimals and a thousands separator in an f-string?",
+      "back": "{value:,.2f}"
+    },
+    {
       "id": "interpreter-bytecode",
       "tool": "Python",
       "level": 1,

@@ -12,8 +12,8 @@ It is a static web page (`index.html`) that loads its content from `content/*.js
 
 | Section | What it holds |
 |---|---|
-| Study path | The entries in a suggested order, in modules from the first tools to the pitfalls of recent versions. A checklist is saved in your browser. |
-| Reference by tool | Every entry, grouped by tool and group, with filters for tool and level. |
+| Study path | A map of modules with progress bars, then the entries in a suggested order, from the first tools to the pitfalls of recent versions. A checklist is saved in your browser. |
+| Reference by tool | Every entry, grouped by tool and group, with filters for tool and level. Many entries have a "Try it" box: an interactive text slicer, a line-by-line view of how variables change, or a predict-then-check exercise. |
 | Common errors | Changes in recent pandas and seaborn versions that break older code. |
 | Common Challenges in Data Analysis | Questions analysts run into in everyday work, grouped in five themes. |
 | Flashcards | One card per entry plus cards for single facts. Progress is saved in your browser only. |

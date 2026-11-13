@@ -11,14 +11,14 @@
       "title": "Study path",
       "type": "path",
       "file": "path.json",
-      "intro": "The entries in a suggested order, from the first tools to the pitfalls of recent versions. Tick a step when you have worked through it."
+      "intro": "Start from the map: each tile is a module, and its bar fills as you tick steps. The steps follow a suggested order, from the first tools to the pitfalls of recent versions."
     },
     {
       "id": "essentials",
       "title": "Reference by tool",
       "type": "entries",
       "file": "essentials.json",
-      "intro": "Every entry belongs to a tool and a group and has a level. Use the filters to narrow the list, or follow the study path."
+      "intro": "Every entry belongs to a tool and a group and has a level. Many entries have a \"Try it\" box: slice a text, step through code line by line, or predict a result before you see it. Use the filters to narrow the list, or follow the study path."
     },
     {
       "id": "errors",
@@ -32,7 +32,7 @@
       "title": "Common Challenges in Data Analysis",
       "type": "entries",
       "file": "challenges.json",
-      "intro": "Questions analysts run into in everyday work. Each entry gives a short answer, a runnable example and where it applies."
+      "intro": "Questions analysts run into in everyday work, grouped by theme. The selection is editorial, drawn from industry surveys and common pandas problems listed in the sources of each entry; it is not a ranked list."
     },
     {
       "id": "flashcards",

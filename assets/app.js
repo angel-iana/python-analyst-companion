@@ -26,12 +26,20 @@
     return n;
   }
 
-  // Text with `inline code` between backticks. Uses textContent only.
+  // Text with `inline code` between backticks and **bold** between double asterisks.
+  // Backtick spans are read first, so `**` inside them stays literal. Uses textContent only.
   function inline(parent, str) {
+    var bold = false;
+    function put(node) {
+      if (bold) { var b = el('strong'); b.appendChild(node); parent.appendChild(b); }
+      else parent.appendChild(node);
+    }
     String(str).split('`').forEach(function (part, i) {
-      if (!part) return;
-      if (i % 2 === 1) parent.appendChild(el('code', { text: part }));
-      else parent.appendChild(document.createTextNode(part));
+      if (i % 2 === 1) { if (part) put(el('code', { text: part })); return; }
+      part.split('**').forEach(function (seg, j) {
+        if (j > 0) bold = !bold;
+        if (seg) put(document.createTextNode(seg));
+      });
     });
   }
 
@@ -64,6 +72,168 @@
       var t = a[i]; a[i] = a[j]; a[j] = t;
     }
     return a;
+  }
+
+  /* ---------- visual explanations ---------- */
+
+  // Python slice semantics (start, stop, step may be null).
+  function pySlice(text, start, stop, step) {
+    var chars = Array.from(text), n = chars.length;
+    if (step === null) step = 1;
+    if (step === 0) return { error: 'The step cannot be zero.' };
+    function norm(v, isStart) {
+      if (v === null) return step > 0 ? (isStart ? 0 : n) : (isStart ? n - 1 : -1);
+      if (v < 0) { v += n; if (v < 0) v = step < 0 ? -1 : 0; }
+      else if (v >= n) v = step < 0 ? n - 1 : n;
+      return v;
+    }
+    var a = norm(start, true), b = norm(stop, false), idx = [];
+    if (step > 0) { for (var i = a; i < b; i += step) idx.push(i); }
+    else { for (var j = a; j > b; j += step) idx.push(j); }
+    return { indices: idx, result: idx.map(function (k) { return chars[k]; }).join('') };
+  }
+
+  function visualSlice(v) {
+    var text = v.text, chars = Array.from(text), n = chars.length;
+    var box = el('div', { class: 'viz viz-slice' });
+    var row = el('div', { class: 'cells', role: 'img', 'aria-label': 'The characters of ' + text + ' with their positions' });
+    var cells = chars.map(function (c, i) {
+      var cell = el('div', { class: 'cell' }, [
+        el('span', { class: 'pos', text: String(i) }),
+        el('span', { class: 'ch', text: c === ' ' ? '␣' : c }),
+        el('span', { class: 'neg', text: String(i - n) })
+      ]);
+      row.appendChild(cell);
+      return cell;
+    });
+    function field(label, val) {
+      var inp = el('input', { type: 'text', inputmode: 'numeric', size: '4', autocomplete: 'off', 'aria-label': label });
+      inp.value = val === null || val === undefined ? '' : String(val);
+      return inp;
+    }
+    var f = v.start === undefined ? { s: 1, e: 4, t: null } : { s: v.start, e: v.stop, t: v.step };
+    var iStart = field('start', f.s), iStop = field('stop', f.e), iStep = field('step', f.t);
+    var expr = el('p', { class: 'viz-expr' });
+    var msg = el('p', { class: 'viz-msg', 'aria-live': 'polite' });
+    function parse(inp) {
+      var t = inp.value.trim();
+      if (t === '') return null;
+      return /^-?\d+$/.test(t) ? parseInt(t, 10) : NaN;
+    }
+    function update() {
+      var a = parse(iStart), b = parse(iStop), c = parse(iStep);
+      cells.forEach(function (x) { x.classList.remove('sel'); });
+      if (isNaN(a) || isNaN(b) || isNaN(c)) { msg.textContent = 'Use whole numbers, or leave a box empty.'; expr.textContent = ''; return; }
+      var r = pySlice(text, a, b, c);
+      if (r.error) { msg.textContent = r.error; expr.textContent = ''; return; }
+      r.indices.forEach(function (k) { cells[k].classList.add('sel'); });
+      var parts = (a === null ? '' : a) + ':' + (b === null ? '' : b) + (c === null ? '' : ':' + c);
+      expr.textContent = JSON.stringify(text) + '[' + parts + ']  →  ' + JSON.stringify(r.result);
+      msg.textContent = r.indices.length + (r.indices.length === 1 ? ' character selected.' : ' characters selected.');
+    }
+    var inputs = el('div', { class: 'viz-inputs' }, [
+      el('label', null, [document.createTextNode('start '), iStart]),
+      el('label', null, [document.createTextNode('stop '), iStop]),
+      el('label', null, [document.createTextNode('step '), iStep])
+    ]);
+    [iStart, iStop, iStep].forEach(function (i) { i.addEventListener('input', update); });
+    var presets = el('div', { class: 'viz-presets' });
+    (v.presets || []).forEach(function (p) {
+      var b = el('button', { type: 'button', class: 'chip', text: '[' + p.join(':') + ']' });
+      b.addEventListener('click', function () {
+        iStart.value = p[0]; iStop.value = p[1]; iStep.value = p.length > 2 ? p[2] : '';
+        update();
+      });
+      presets.appendChild(b);
+    });
+    [row, inputs, presets, expr, msg].forEach(function (x) { box.appendChild(x); });
+    update();
+    return box;
+  }
+
+  function visualTrace(v) {
+    var frames = v.frames, lines = String(v.code).replace(/\n$/, '').split('\n');
+    var box = el('div', { class: 'viz viz-trace' });
+    var codeBox = el('div', { class: 'trace-code', role: 'group', 'aria-label': 'Code' });
+    var lineEls = lines.map(function (t, i) {
+      var l = el('div', { class: 'tline' }, [el('span', { class: 'tno', text: String(i + 1) }), el('span', { class: 'ttxt', text: t })]);
+      codeBox.appendChild(l);
+      return l;
+    });
+    var state = el('div', { class: 'trace-state', 'aria-live': 'polite' });
+    var out = el('pre', { class: 'trace-out' });
+    var status = el('p', { class: 'viz-msg' });
+    var back = el('button', { type: 'button', class: 'btn', text: '← Back' });
+    var next = el('button', { type: 'button', class: 'btn', text: 'Next step →' });
+    var reset = el('button', { type: 'button', class: 'btn', text: 'Restart' });
+    var pos = 0;
+    function draw() {
+      var fr = frames[pos], prev = pos > 0 ? frames[pos - 1].vars : {};
+      lineEls.forEach(function (l, i) { l.classList.toggle('on', fr.line === i + 1); });
+      state.textContent = '';
+      var names = Object.keys(fr.vars);
+      if (!names.length) state.appendChild(el('p', { class: 'viz-msg', text: 'No variables yet.' }));
+      names.forEach(function (k) {
+        var cur = fr.vars[k], was = prev[k];
+        var changed = !was || was[0] !== cur[0] || was[1] !== cur[1];
+        state.appendChild(el('div', { class: 'vbox' + (changed && pos > 0 ? ' changed' : '') }, [
+          el('span', { class: 'vname', text: k }),
+          el('span', { class: 'vval', text: cur[0] }),
+          el('span', { class: 'vtype', text: cur[1] })
+        ]));
+      });
+      out.textContent = fr.out || '';
+      out.hidden = !fr.out;
+      status.textContent = fr.line ? ('Step ' + (pos + 1) + ' of ' + frames.length + '. The highlighted line runs next.') : ('Step ' + (pos + 1) + ' of ' + frames.length + '. The program has finished.');
+      back.disabled = pos === 0;
+      next.disabled = pos === frames.length - 1;
+    }
+    back.addEventListener('click', function () { if (pos > 0) { pos--; draw(); } });
+    next.addEventListener('click', function () { if (pos < frames.length - 1) { pos++; draw(); } });
+    reset.addEventListener('click', function () { pos = 0; draw(); });
+    [codeBox, el('div', { class: 'viz-actions' }, [back, next, reset]), status, state, out].forEach(function (x) { box.appendChild(x); });
+    draw();
+    return box;
+  }
+
+  function visualPredict(v) {
+    var box = el('div', { class: 'viz viz-predict' });
+    box.appendChild(el('p', { class: 'viz-msg', text: v.prompt || 'Decide the result first, then click.' }));
+    var shows = [];
+    (v.items || []).forEach(function (it) {
+      var res = el('span', { class: 'pred-res', hidden: 'hidden' });
+      res.appendChild(document.createTextNode('→ '));
+      res.appendChild(el('code', { text: it.result }));
+      res.appendChild(el('span', { class: 'vtype', text: it.type }));
+      var btn = el('button', { type: 'button', class: 'btn', text: 'Show result', 'aria-expanded': 'false' });
+      function show(on) {
+        if (on) res.removeAttribute('hidden'); else res.setAttribute('hidden', 'hidden');
+        btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+        btn.textContent = on ? 'Hide' : 'Show result';
+      }
+      btn.addEventListener('click', function () { show(res.hasAttribute('hidden')); });
+      shows.push(show);
+      var line = el('div', { class: 'pred' }, [el('code', { class: 'pred-expr', text: it.expr }), btn, res]);
+      if (it.note) line.appendChild(el('span', { class: 'pred-note', text: it.note }));
+      box.appendChild(line);
+    });
+    var all = el('button', { type: 'button', class: 'btn', text: 'Show all results' });
+    all.addEventListener('click', function () { shows.forEach(function (f) { f(true); }); });
+    box.appendChild(el('div', { class: 'viz-actions' }, [all]));
+    return box;
+  }
+
+  function buildVisual(v) {
+    var builder = { slice: visualSlice, trace: visualTrace, predict: visualPredict }[v.type];
+    if (!builder) return null;
+    var wrap = el('div', { class: 'visual' }, [el('div', { class: 'label', text: v.title || 'Try it' })]);
+    if (v.note) {
+      var p = el('p', { class: 'viz-note' });
+      inline(p, v.note);
+      wrap.appendChild(p);
+    }
+    wrap.appendChild(builder(v));
+    return wrap;
   }
 
   /* ---------- sections ---------- */
@@ -106,6 +276,7 @@
     var d = el('details', { class: 'entry', id: sectionId + '-' + e.id }, [summary]);
     var body = el('div', { class: 'entry-body' });
     if (e.body) paragraphs(body, e.body);
+    if (e.visual) { var vis = buildVisual(e.visual); if (vis) body.appendChild(vis); }
 
     if (e.code) {
       body.appendChild(el('div', { class: 'label', text: 'Code' }));
@@ -271,11 +442,16 @@
         var n = 0;
         c.ids.forEach(function (id) { if (done[id]) n++; });
         c.el.textContent = n + ' of ' + c.ids.length + ' done';
+        c.bar.style.width = (c.ids.length ? Math.round(100 * n / c.ids.length) : 0) + '%';
+        c.label.textContent = n + '/' + c.ids.length;
         all += c.ids.length; got += n;
       });
       total.textContent = got + ' of ' + all + ' steps done. Progress is saved in this browser only.';
     }
     s.appendChild(total);
+
+    var mapEl = el('div', { class: 'map', role: 'list', 'aria-label': 'Map of the study path' });
+    s.appendChild(mapEl);
 
     var list = el('ol', { class: 'path' });
     mods.forEach(function (m, i) {
@@ -283,6 +459,12 @@
       head.appendChild(document.createTextNode((i + 1) + '. ' + m.title));
       head.appendChild(el('span', { class: 'tag', text: m.status === 'planned' ? 'Planned' : (LEVELS[m.level] || '') }));
       var li = el('li', { class: 'module', id: 'path-' + m.id }, [head]);
+      var tileBar = el('i'), tileLabel = el('span', { class: 'tile-n', text: m.status === 'planned' ? 'planned' : '' });
+      mapEl.appendChild(el('a', { class: 'tile lv' + (m.level || 1) + (m.status === 'planned' ? ' planned' : ''), href: '#path-' + m.id, role: 'listitem' }, [
+        el('span', { class: 'tile-t', text: (i + 1) + '. ' + m.title }),
+        el('span', { class: 'bar' }, [tileBar]),
+        tileLabel
+      ]));
       if (m.goal) li.appendChild(el('p', { text: m.goal }));
       if (m.status === 'planned') {
         var tl = el('ul', { class: 'plain' });
@@ -292,7 +474,7 @@
       } else {
         var ids = (m.steps || []).filter(function (id) { return entryIndex[id]; });
         var cnt = el('p', { class: 'count' });
-        counters.push({ ids: ids, el: cnt });
+        counters.push({ ids: ids, el: cnt, bar: tileBar, label: tileLabel });
         li.appendChild(cnt);
         var ul = el('ul', { class: 'steps' });
         ids.forEach(function (id) {

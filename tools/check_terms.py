@@ -15,8 +15,6 @@ EXCLUDED = [
     r"netflix",
     r"wawiwa",
     r"class\s+practice",
-    r"\bstudy\b(?!\s+guide)",
-    r"\bstudying\b",
     r"my\s+learning",
     r"\bi\s+learn(ed|t)\b",
 ]
